@@ -1,0 +1,256 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <!-- Reservation Section -->
+  <section
+    id="reservar"
+    class="py-20 bg-linear-to-br from-orange-100 to-red-100"
+  >
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h3 class="text-4xl font-bold text-gray-800 mb-4">
+            📅 Reserva tu Mesa
+          </h3>
+          <p class="text-gray-600 text-lg">
+            Asegura tu espacio para una noche inolvidable
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Benefits -->
+            <div>
+              <h4 class="text-2xl font-bold mb-6 text-gray-800">
+                ¿Por qué Reservar?
+              </h4>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <div
+                    class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-white font-bold">✓</span>
+                  </div>
+                  <div>
+                    <div class="font-semibold text-gray-800">
+                      Mesa Garantizada
+                    </div>
+                    <div class="text-gray-600 text-sm">
+                      Tu espacio te espera al llegar
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div
+                    class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-white font-bold">✓</span>
+                  </div>
+                  <div>
+                    <div class="font-semibold text-gray-800">
+                      Descuento en Cover
+                    </div>
+                    <div class="text-gray-600 text-sm">
+                      Reservando pagas menos
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div
+                    class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-white font-bold">✓</span>
+                  </div>
+                  <div>
+                    <div class="font-semibold text-gray-800">
+                      Atención Prioritaria
+                    </div>
+                    <div class="text-gray-600 text-sm">
+                      Servicio dedicado a tu mesa
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <div
+                    class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-white font-bold">✓</span>
+                  </div>
+                  <div>
+                    <div class="font-semibold text-gray-800">
+                      Celebraciones Especiales
+                    </div>
+                    <div class="text-gray-600 text-sm">
+                      Sorpresas para cumpleañeros
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing -->
+            <div>
+              <h4 class="text-2xl font-bold mb-6 text-gray-800">Precios</h4>
+              <div class="space-y-4">
+                <div class="bg-gray-50 rounded-xl p-4">
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold text-gray-800"
+                      >Cover Viernes</span
+                    >
+                    <span class="text-2xl font-bold text-sc-orange"
+                      >$25.000</span
+                    >
+                  </div>
+                  <div class="text-sm text-gray-600">Con reserva: $20.000</div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-4">
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold text-gray-800">Cover Sábado</span
+                    >
+                    <span class="text-2xl font-bold text-sc-orange"
+                      >$30.000</span
+                    >
+                  </div>
+                  <div class="text-sm text-gray-600">Con reserva: $25.000</div>
+                </div>
+
+                <div
+                  class="bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl p-4 border-2 border-pink-300"
+                >
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold text-gray-800"
+                      >Ladies Night (Viernes)</span
+                    >
+                    <span class="text-2xl font-bold text-pink-600">GRATIS</span>
+                  </div>
+                  <div class="text-sm text-gray-700">
+                    Entrada gratis para ellas antes de 11 PM
+                  </div>
+                </div>
+
+                <div
+                  class="bg-yellow-50 rounded-xl p-4 border-2 border-yellow-300"
+                >
+                  <div class="font-bold text-yellow-800 mb-2">
+                    🎂 Cumpleaños
+                  </div>
+                  <div class="text-sm text-yellow-700">
+                    Entrada gratis para el cumpleañero con reserva de 6+
+                    personas
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200 pt-8 text-center">
+            <p class="text-gray-600 mb-6">
+              Reserva fácil y rápido por WhatsApp. Te confirmamos en minutos.
+            </p>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20reservar%20mesa%20para%20el%20fin%20de%20semana"
+              target="_blank"
+              class="inline-block gradient-bg text-white px-12 py-4 rounded-full font-bold text-xl hover:shadow-lg transition pulse-glow"
+            >
+              📲 Reservar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dress Code & Rules -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h3 class="text-4xl font-bold text-center mb-12 text-gray-800">
+          📋 Información Importante
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Dress Code -->
+          <div class="bg-gray-50 rounded-2xl p-8">
+            <div class="text-4xl mb-4">👔</div>
+            <h4 class="text-2xl font-bold mb-4 text-gray-800">
+              Código de Vestimenta
+            </h4>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Casual elegante</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Zapatos cerrados recomendados</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-red-500 text-xl">✗</span>
+                <span class="text-gray-700">No bermudas</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-red-500 text-xl">✗</span>
+                <span class="text-gray-700">No chancletas</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-red-500 text-xl">✗</span>
+                <span class="text-gray-700">No camisetas sin mangas</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rules -->
+          <div class="bg-gray-50 rounded-2xl p-8">
+            <div class="text-4xl mb-4">ℹ️</div>
+            <h4 class="text-2xl font-bold mb-4 text-gray-800">Políticas</h4>
+            <div class="space-y-3 text-gray-700">
+              <p>📅 <strong>Edad mínima:</strong> 18 años</p>
+              <p>
+                🆔 <strong>Documento:</strong> Cédula o pasaporte obligatorio
+              </p>
+              <p>
+                🎫 <strong>Reservas:</strong> Válidas hasta 30 minutos después de
+                la hora acordada
+              </p>
+              <p>🚗 <strong>Parqueadero:</strong> Sujeto a disponibilidad</p>
+              <p>📵 <strong>Fotos/Videos:</strong> Permitidos con respeto</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-20 gradient-bg text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl md:text-5xl font-bold mb-6">
+        ¿Listo para la Mejor Noche?
+      </h3>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Baila, come, disfruta. Social Club te espera este fin de semana.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20reservar%20mesa"
+          target="_blank"
+          class="inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
+        >
+          🎉 Reservar Mesa Ahora
+        </a>
+        <a
+          href="eventos.html"
+          class="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sc-orange transition"
+        >
+          📅 Ver Próximos Eventos
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

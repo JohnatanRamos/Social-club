@@ -1,11 +1,510 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <!-- Hero Section -->
+  <section
+    id="inicio"
+    class="gradient-bg text-white py-20 relative overflow-hidden"
+  >
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"
+      >
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          ¡El Mejor Parche de <span class="text-yellow-300">Medellín!</span>
+        </h2>
+        <p class="text-xl md:text-2xl mb-8 text-white/90">
+          Baila • Come • Rumba • Trabaja
+        </p>
+        <p class="text-lg mb-10 max-w-2xl mx-auto text-white/80">
+          Academia de baile entre semana, discoteca y restaurante los fines de
+          semana. Dos sedes para que vivas la mejor experiencia.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/horarios.html"
+            class="bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
+          >
+            Ver Horarios de Clases
+          </a>
+          <a
+            href="eventos.html"
+            class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sc-orange transition"
+          >
+            Próximos Eventos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h3 class="text-4xl font-bold text-center mb-4 text-gray-800">
+        Nuestros Servicios
+      </h3>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Más que una academia, somos una experiencia completa
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Service 1 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center">
+          <div
+            class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <span class="text-4xl">💃</span>
+          </div>
+          <h4 class="text-xl font-bold mb-3 text-gray-800">Clases de Baile</h4>
+          <p class="text-gray-600 mb-4">
+            Salsa, Bachata, Merengue y más. Todos los niveles.
+          </p>
+          <a
+            href="horarios.html"
+            class="text-sc-orange font-semibold hover:underline"
+            >Ver horarios →</a
+          >
+        </div>
+
+        <!-- Service 2 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center">
+          <div
+            class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <span class="text-4xl">🎉</span>
+          </div>
+          <h4 class="text-xl font-bold mb-3 text-gray-800">Discoteca</h4>
+          <p class="text-gray-600 mb-4">
+            Los mejores DJs y ambiente cada fin de semana.
+          </p>
+          <a
+            href="#eventos"
+            class="text-sc-orange font-semibold hover:underline"
+            >Ver eventos →</a
+          >
+        </div>
+
+        <!-- Service 3 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center">
+          <div
+            class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <span class="text-4xl">🍽️</span>
+          </div>
+          <h4 class="text-xl font-bold mb-3 text-gray-800">Restaurante</h4>
+          <p class="text-gray-600 mb-4">
+            Deliciosa comida para disfrutar antes de bailar.
+          </p>
+          <a href="#" class="text-sc-orange font-semibold hover:underline"
+            >Ver menú →</a
+          >
+        </div>
+
+        <!-- Service 4 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center">
+          <div
+            class="w-20 h-20 gradient-rv rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <span class="text-4xl">💻</span>
+          </div>
+          <h4 class="text-xl font-bold mb-3 text-gray-800">Coworking</h4>
+          <p class="text-gray-600 mb-4">
+            Espacio de trabajo en Ritmo Vivo. WiFi de alta velocidad.
+          </p>
+          <span class="text-rv-aqua font-semibold">Solo Ritmo Vivo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events Section -->
+  <section id="eventos" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <h3 class="text-4xl font-bold text-gray-800">🔥 Próximos Eventos</h3>
+          <p class="text-gray-600 mt-2">¡No te los pierdas!</p>
+        </div>
+        <a
+          href="/eventos"
+          class="hidden md:block text-sc-orange font-semibold hover:underline"
+        >
+          Ver todos los eventos →
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Event Card 1 -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift border border-gray-100"
+        >
+          <div class="relative">
+            <img
+              src="timba.jpg"
+              alt="Noche de Salsa"
+              class="w-full h-56 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-sc-orange text-white px-4 py-2 rounded-full font-bold text-sm"
+            >
+              🔥 DESTACADO
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+              <span>📅 Viernes 15 Nov</span>
+              <span>•</span>
+              <span>⏰ 9:00 PM</span>
+            </div>
+            <h4 class="text-2xl font-bold mb-3 text-gray-800">
+              Noche de Salsa y Timba
+            </h4>
+            <p class="text-gray-600 mb-4">
+              DJ invitado especial. La mejor música tropical para bailar toda la
+              noche.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600">
+                <span class="font-semibold">📍 Social Club</span>
+              </div>
+              <div class="text-sc-orange font-bold text-lg">$25.000</div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-100 flex gap-2">
+              <a
+                href="#"
+                class="flex-1 gradient-bg text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
+              >
+                Reservar
+              </a>
+              <button
+                class="px-4 py-3 border-2 border-gray-200 rounded-xl hover:border-sc-orange transition"
+              >
+                ❤️
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 2 -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift border border-gray-100"
+        >
+          <div class="relative">
+            <img
+              src="bachata.jpg"
+              alt="Workshop Bachata"
+              class="w-full h-56 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full font-bold text-sm"
+            >
+              🎓 WORKSHOP
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+              <span>📅 Sábado 16 Nov</span>
+              <span>•</span>
+              <span>⏰ 4:00 PM</span>
+            </div>
+            <h4 class="text-2xl font-bold mb-3 text-gray-800">
+              Workshop de Bachata Sensual
+            </h4>
+            <p class="text-gray-600 mb-4">
+              Aprende técnicas avanzadas con instructores profesionales.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600">
+                <span class="font-semibold">📍 Ritmo Vivo</span>
+              </div>
+              <div class="text-rv-aqua font-bold text-lg">$40.000</div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-100 flex gap-2">
+              <a
+                href="#"
+                class="flex-1 gradient-rv text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
+              >
+                Inscribirme
+              </a>
+              <button
+                class="px-4 py-3 border-2 border-gray-200 rounded-xl hover:border-rv-aqua transition"
+              >
+                ❤️
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 3 -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift border border-gray-100"
+        >
+          <div class="relative">
+            <img
+              src="salsa-tropical.jpg"
+              alt="Fiesta Tropical"
+              class="w-full h-56 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-full font-bold text-sm"
+            >
+              🌴 TEMÁTICA
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+              <span>📅 Viernes 22 Nov</span>
+              <span>•</span>
+              <span>⏰ 8:00 PM</span>
+            </div>
+            <h4 class="text-2xl font-bold mb-3 text-gray-800">
+              Fiesta Tropical
+            </h4>
+            <p class="text-gray-600 mb-4">
+              Ven vestido temático. Premios para los mejores outfits.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600">
+                <span class="font-semibold">📍 Social Club</span>
+              </div>
+              <div class="text-sc-orange font-bold text-lg">$30.000</div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-100 flex gap-2">
+              <a
+                href="#"
+                class="flex-1 gradient-bg text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
+              >
+                Reservar
+              </a>
+              <button
+                class="px-4 py-3 border-2 border-gray-200 rounded-xl hover:border-sc-orange transition"
+              >
+                ❤️
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View All Events Button Mobile -->
+      <div class="mt-8 text-center md:hidden">
+        <a
+          href="/eventos"
+          class="inline-block gradient-bg text-white px-8 py-3 rounded-full font-semibold"
+        >
+          Ver todos los eventos →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations Section -->
+  <section id="ubicaciones" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h3 class="text-4xl font-bold text-center mb-4 text-gray-800">
+        📍 Nuestras Ubicaciones
+      </h3>
+      <p class="text-center text-gray-600 mb-12">
+        Dos sedes para que elijas la más cerca de ti
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <!-- Social Club Location -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-xl">
+          <div class="h-64 bg-gray-300">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0!2d-75.5636!3d6.2084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzAuMiJOIDc1wrAzMyc0OS4wIlc!5e0!3m2!1ses!2sco!4v1234567890"
+              class="w-full h-full border-0"
+              loading="lazy"
+            >
+            </iframe>
+          </div>
+          <div class="p-8">
+            <div class="flex items-start gap-4 mb-4">
+              <img
+                src="logo-social.png"
+                alt="Social Club"
+                class="h-16 w-16 rounded-full"
+              />
+              <div>
+                <h4 class="text-2xl font-bold text-gray-800">Social Club</h4>
+                <p class="text-sc-orange font-semibold">Aguacatala</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
+                <span class="text-sc-orange text-xl">📍</span>
+                <div>
+                  <p class="font-semibold text-gray-800">Dirección</p>
+                  <p class="text-gray-600">Calle 12 sur # 48-01, Local 102</p>
+                  <p class="text-gray-600">Rotonda Interna Aguacatala</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-sc-orange text-xl">⏰</span>
+                <div>
+                  <p class="font-semibold text-gray-800">Horarios</p>
+                  <p class="text-gray-600">
+                    Clases: Lun-Vie 6:00 PM - 10:00 PM
+                  </p>
+                  <p class="text-gray-600">
+                    Discoteca: Vie-Sáb 8:00 PM - 3:00 AM
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-sc-orange text-xl">📲</span>
+                <div>
+                  <p class="font-semibold text-gray-800">WhatsApp</p>
+                  <a
+                    href="https://wa.me/573XXXXXXXXX"
+                    class="text-sc-orange hover:underline">+57 XXX XXX XXXX</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <a
+                href="https://maps.google.com"
+                target="_blank"
+                class="flex-1 gradient-bg text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
+              >
+                Cómo llegar
+              </a>
+              <a
+                href="https://wa.me/573XXXXXXXXX"
+                target="_blank"
+                class="flex-1 border-2 border-sc-orange text-sc-orange text-center py-3 rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
+              >
+                Contactar
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ritmo Vivo Location -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-xl">
+          <div class="h-64 bg-gray-300">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0!2d-75.5636!3d6.2084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzAuMiJOIDc1wrAzMyc0OS4wIlc!5e0!3m2!1ses!2sco!4v1234567890"
+              class="w-full h-full border-0"
+              loading="lazy"
+            >
+            </iframe>
+          </div>
+          <div class="p-8">
+            <div class="flex items-start gap-4 mb-4">
+              <img
+                src="logo-ritmo.png"
+                alt="Ritmo Vivo"
+                class="h-16 w-16 rounded-full"
+              />
+              <div>
+                <h4 class="text-2xl font-bold text-gray-800">Ritmo Vivo</h4>
+                <p class="text-rv-aqua font-semibold">Envigado</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
+                <span class="text-rv-aqua text-xl">📍</span>
+                <div>
+                  <p class="font-semibold text-gray-800">Dirección</p>
+                  <p class="text-gray-600">[Dirección de Ritmo Vivo]</p>
+                  <p class="text-gray-600">[Barrio, Medellín]</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-rv-aqua text-xl">⏰</span>
+                <div>
+                  <p class="font-semibold text-gray-800">Horarios</p>
+                  <p class="text-gray-600">
+                    Coworking: Lun-Vie 8:00 AM - 6:00 PM
+                  </p>
+                  <p class="text-gray-600">
+                    Clases: Lun-Vie 6:00 PM - 10:00 PM
+                  </p>
+                  <p class="text-gray-600">
+                    Discoteca: Vie-Sáb 8:00 PM - 3:00 AM
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-rv-aqua text-xl">📲</span>
+                <div>
+                  <p class="font-semibold text-gray-800">WhatsApp</p>
+                  <a
+                    href="https://wa.me/573XXXXXXXXX"
+                    class="text-rv-aqua hover:underline">+57 XXX XXX XXXX</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <a
+                href="https://maps.google.com"
+                target="_blank"
+                class="flex-1 gradient-rv text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
+              >
+                Cómo llegar
+              </a>
+              <a
+                href="https://wa.me/573XXXXXXXXX"
+                target="_blank"
+                class="flex-1 border-2 border-rv-aqua text-rv-aqua text-center py-3 rounded-xl font-semibold hover:bg-rv-aqua hover:text-white transition"
+              >
+                Contactar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 gradient-bg text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl md:text-5xl font-bold mb-6">¿Listo para bailar?</h3>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Únete a nuestra comunidad y vive la mejor experiencia de baile en
+        Medellín
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="horarios.html"
+          class="bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
+        >
+          Ver Clases Disponibles
+        </a>
+        <a
+          href="https://wa.me/573XXXXXXXXX"
+          target="_blank"
+          class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sc-orange transition"
+        >
+          Hablar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
 </Layout>

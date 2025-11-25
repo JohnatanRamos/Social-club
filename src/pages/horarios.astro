@@ -1,0 +1,947 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<style>
+  .gradient-bg { background: linear-gradient(135deg, #F05123 0%, #FF6B3D 100%); }
+        .gradient-rv { background: linear-gradient(135deg, #4ECDC4 0%, #44A8A0 100%); }
+        
+        .class-cell {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .class-cell:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+</style>
+
+<Layout>
+  <!-- Page Hero -->
+  <section class="gradient-bg text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-5xl font-bold mb-4">Disfruta de nuestras clases</h2>
+      <p class="text-xl max-w-2xl mx-auto">
+        Aprende a bailar con los mejores profesores en Social Club & Ritmo Vivo,
+        en la sede que quieras, en el ritmo que quieras.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-0">
+        <h3 class="text-4xl font-bold text-gray-800 mb-4">
+          📅 Horarios de Clases
+        </h3>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Encuentra la clase perfecta para ti. Todos los niveles, todos los
+          ritmos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section
+    class="py-8 pt-2 bg-white shadow-sm z-40 w-[97%]"
+    style="margin: 0 auto;"
+  >
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-5 gap-4">
+        <!-- Sede Filter -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >📍 Sede</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todas las sedes</option>
+            <option>Social Club</option>
+            <option>Ritmo Vivo</option>
+          </select>
+        </div>
+
+        <!-- Genre Filter -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >🎵 Género</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todos los géneros</option>
+            <option>Salsa</option>
+            <option>Bachata</option>
+            <option>Merengue</option>
+            <option>Kizomba</option>
+            <option>Tango</option>
+          </select>
+        </div>
+
+        <!-- Level Filter -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >📊 Nivel</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todos los niveles</option>
+            <option>Principiante</option>
+            <option>Básico</option>
+            <option>Intermedio</option>
+            <option>Avanzado</option>
+          </select>
+        </div>
+
+        <!-- Day Filter -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >📆 Día</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todos los días</option>
+            <option>Lunes</option>
+            <option>Martes</option>
+            <option>Miércoles</option>
+            <option>Jueves</option>
+            <option>Viernes</option>
+            <option>Sábado</option>
+          </select>
+        </div>
+
+        <!-- Professor Filter -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >👨‍🏫 Profesor</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todos los profesores</option>
+            <option>Juan Pérez</option>
+            <option>María González</option>
+            <option>Carlos Rodríguez</option>
+            <option>Ana Martínez</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule Section - Social Club -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <!-- Desktop Schedule Table -->
+      <div
+        class="hidden md:block overflow-x-auto bg-white rounded-2xl shadow-lg"
+      >
+        <table class="w-full">
+          <thead class="gradient-bg text-white">
+            <tr>
+              <th class="py-4 px-6 text-left">HORARIO</th>
+              <th class="py-4 px-6 text-center">LUNES</th>
+              <th class="py-4 px-6 text-center">MARTES</th>
+              <th class="py-4 px-6 text-center">MIÉRCOLES</th>
+              <th class="py-4 px-6 text-center">JUEVES</th>
+              <th class="py-4 px-6 text-center">VIERNES</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 6:00 PM -->
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-6 font-bold text-gray-700">6:00 PM</td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-red-700">🎵 Salsa Básica</div>
+                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-purple-700">
+                    💃 Bachata Sensual
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    👩‍🏫 María González
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-orange-50 border-2 border-orange-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-orange-700">🔥 Merengue</div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    👨‍🏫 Carlos Rodríguez
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-orange-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-red-700">🎵 Salsa Intermedia</div>
+                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-purple-700">💃 Bachata Básica</div>
+                  <div class="text-sm text-gray-600 mt-1">👩‍🏫 Ana Martínez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 7:00 PM -->
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-6 font-bold text-gray-700">7:00 PM</td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-green-50 border-2 border-green-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-green-700">💚 Kizomba</div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    👨‍🏫 Carlos Rodríguez
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-green-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-green-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-red-700">🎵 Salsa Avanzada</div>
+                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-blue-50 border-2 border-blue-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-blue-700">🎭 Tango</div>
+                  <div class="text-sm text-gray-600 mt-1">👩‍🏫 Ana Martínez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-blue-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-blue-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-purple-700">
+                    💃 Bachata Intermedia
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    👩‍🏫 María González
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-red-700">🎵 Salsa Casino</div>
+                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 8:00 PM -->
+            <tr>
+              <td class="py-4 px-6 font-bold text-gray-700">8:00 PM</td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-purple-700">
+                    💃 Bachata Avanzada
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    👩‍🏫 María González
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-orange-50 border-2 border-orange-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-orange-700">
+                    🔥 Merengue Avanzado
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    👨‍🏫 Carlos Rodríguez
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-orange-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-red-700">🎵 Salsa en Línea</div>
+                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-green-50 border-2 border-green-200 rounded-xl p-4"
+                >
+                  <div class="font-bold text-green-700">
+                    💚 Kizomba Avanzado
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">👩‍🏫 Ana Martínez</div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
+                  <button
+                    class="mt-2 w-full bg-green-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-green-600 transition"
+                  >
+                    Reservar
+                  </button>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div
+                  class="class-cell bg-gradient-to-br from-red-100 to-purple-100 border-2 border-red-300 rounded-xl p-4"
+                >
+                  <div class="font-bold text-red-700">🔥 Clase Libre</div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    👥 Todos los profesores
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">⏱️ 120 min</div>
+                  <button
+                    class="mt-2 w-full bg-gradient-to-r from-red-500 to-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:shadow-lg transition"
+                  >
+                    ¡Únete!
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Schedule Cards -->
+      <div class="md:hidden space-y-4">
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="font-bold text-lg">Lunes 6:00 PM</h4>
+            <span
+              class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-semibold"
+              >Salsa</span
+            >
+          </div>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>📊</span>
+              <span>Nivel: Básico</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>👨‍🏫</span>
+              <span>Prof. Juan Pérez</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>⏱️</span>
+              <span>Duración: 60 minutos</span>
+            </div>
+          </div>
+          <button
+            class="w-full gradient-bg text-white py-3 rounded-xl font-semibold"
+          >
+            Reservar Clase
+          </button>
+        </div>
+        <!-- More mobile cards would go here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Info Banner -->
+  <section class="py-6 bg-linear-to-r from-orange-100 to-red-100">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap justify-center gap-6 text-center">
+        <div class="flex items-center gap-2">
+          <span class="text-3xl">🎓</span>
+          <div class="text-left">
+            <div class="font-bold text-gray-800">Primera Clase</div>
+            <div class="text-sm text-gray-600">GRATIS</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-3xl">💳</span>
+          <div class="text-left">
+            <div class="font-bold text-gray-800">Métodos de Pago</div>
+            <div class="text-sm text-gray-600">Efectivo, Tarjeta, Nequi</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-3xl">🎁</span>
+          <div class="text-left">
+            <div class="font-bold text-gray-800">Descuentos</div>
+            <div class="text-sm text-gray-600">
+              Estudiantes, Grupos, Parejas
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Pricing Section - Clases -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h3 class="text-4xl font-bold text-gray-800 mb-4">
+          💃 Planes de Clases
+        </h3>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Todos los planes incluyen acceso a todas las clases grupales de
+          cualquier género musical
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <!-- Plan 1: Clase Individual -->
+        <div
+          class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden"
+        >
+          <div class="bg-gray-100 p-6 text-center">
+            <div class="text-4xl mb-3">🎯</div>
+            <h4 class="text-2xl font-bold text-gray-800 mb-2">
+              Clase Individual
+            </h4>
+            <p class="text-sm text-gray-600">Perfecta para probar</p>
+          </div>
+          <div class="p-8">
+            <div class="text-center mb-6">
+              <div class="price-tag text-gray-800">
+                $20<span class="text-2xl">.000</span>
+              </div>
+              <div class="text-gray-600 text-sm">por clase</div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">1 clase de 60 minutos</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Cualquier género musical</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Válida 30 días</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-gray-300 text-xl">✗</span>
+                <span class="text-gray-400">Sin descuentos</span>
+              </li>
+            </ul>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20comprar%20una%20clase%20individual"
+              class="block w-full text-center py-3 border-2 border-sc-orange text-sc-orange rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
+            >
+              Comprar
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan 2: Mensualidad -->
+        <div
+          class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-sc-orange"
+        >
+          <div class="gradient-bg p-6 text-center text-white">
+            <div class="text-4xl mb-3">⭐</div>
+            <h4 class="text-2xl font-bold mb-2">Mensualidad</h4>
+            <p class="text-sm">Más popular</p>
+          </div>
+          <div class="p-8">
+            <div class="text-center mb-6">
+              <div class="price-tag text-sc-orange">
+                $140<span class="text-2xl">.000</span>
+              </div>
+              <div class="text-gray-600 text-sm">8 clases al mes</div>
+              <div
+                class="mt-2 inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold"
+              >
+                Ahorras $20.000
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">8 clases de 60 min c/u</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Todos los géneros</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Válidas 30 días</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Puedes congelar 1 semana</span>
+              </li>
+            </ul>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20comprar%20la%20mensualidad"
+              class="block w-full text-center py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition"
+            >
+              Comprar Ahora
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan 3: Trimestre -->
+        <div
+          class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden"
+        >
+          <div class="bg-purple-600 p-6 text-center text-white">
+            <div class="text-4xl mb-3">🎓</div>
+            <h4 class="text-2xl font-bold mb-2">Trimestre</h4>
+            <p class="text-sm">Mejor inversión</p>
+          </div>
+          <div class="p-8">
+            <div class="text-center mb-6">
+              <div class="price-tag text-purple-600">
+                $360<span class="text-2xl">.000</span>
+              </div>
+              <div class="text-gray-600 text-sm">24 clases (3 meses)</div>
+              <div
+                class="mt-2 inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold"
+              >
+                Ahorras $120.000
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">24 clases de 60 min</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Todos los géneros</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Válidas 90 días</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Puedes congelar 2 semanas</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Certificado al finalizar</span>
+              </li>
+            </ul>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20comprar%20el%20plan%20trimestral"
+              class="block w-full text-center py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition"
+            >
+              Comprar
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan 4: Ilimitado -->
+        <div
+          class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden"
+        >
+          <div
+            class="bg-gradient-to-r from-yellow-500 to-orange-500 p-6 text-center text-white"
+          >
+            <div class="text-4xl mb-3">👑</div>
+            <h4 class="text-2xl font-bold mb-2">Ilimitado</h4>
+            <p class="text-sm">Para dedicados</p>
+          </div>
+          <div class="p-8">
+            <div class="text-center mb-6">
+              <div class="price-tag text-orange-500">
+                $200<span class="text-2xl">.000</span>
+              </div>
+              <div class="text-gray-600 text-sm">Clases ilimitadas/mes</div>
+              <div
+                class="mt-2 inline-block bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold"
+              >
+                Mejor valor
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700"
+                  ><strong>Ilimitadas</strong> al mes</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Todos los géneros</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Válidas 30 días</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Acceso a eventos VIP</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Descuento 10% en eventos</span>
+              </li>
+            </ul>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20el%20plan%20ilimitado"
+              class="block w-full text-center py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl font-semibold hover:shadow-lg transition"
+            >
+              Comprar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clases Privadas -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h3 class="text-4xl font-bold text-gray-800 mb-4">
+            👥 Clases Privadas
+          </h3>
+          <p class="text-gray-600">
+            Atención personalizada, horarios flexibles, progreso acelerado
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Individual -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <div class="text-5xl mb-4">👤</div>
+            <h4 class="text-2xl font-bold mb-3 text-gray-800">Individual</h4>
+            <div class="text-4xl font-bold text-sc-orange mb-2">$60.000</div>
+            <div class="text-gray-600 text-sm mb-6">por hora</div>
+            <ul class="text-left space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>1 persona</span>
+              </li>
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>Horario flexible</span>
+              </li>
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>Atención 100% personalizada</span>
+              </li>
+            </ul>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20clases%20privadas%20individuales"
+              class="block w-full text-center py-3 border-2 border-sc-orange text-sc-orange rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
+            >
+              Agendar
+            </a>
+          </div>
+
+          <!-- Pareja -->
+          <div
+            class="bg-white rounded-2xl shadow-lg p-8 text-center border-2 border-sc-orange"
+          >
+            <div class="text-5xl mb-4">💑</div>
+            <h4 class="text-2xl font-bold mb-3 text-gray-800">Pareja</h4>
+            <div class="text-4xl font-bold text-sc-orange mb-2">$80.000</div>
+            <div class="text-gray-600 text-sm mb-6">por hora</div>
+            <ul class="text-left space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>2 personas</span>
+              </li>
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>Horario flexible</span>
+              </li>
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>Enfoque en conexión</span>
+              </li>
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span class="font-semibold text-sc-orange"
+                  >Más económico por persona</span
+                >
+              </li>
+            </ul>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20clases%20privadas%20en%20pareja"
+              class="block w-full text-center py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition"
+            >
+              Agendar
+            </a>
+          </div>
+
+          <!-- Grupo -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <div class="text-5xl mb-4">👨‍👩‍👧‍👦</div>
+            <h4 class="text-2xl font-bold mb-3 text-gray-800">Grupo Privado</h4>
+            <div class="text-4xl font-bold text-sc-orange mb-2">$120.000</div>
+            <div class="text-gray-600 text-sm mb-6">
+              por hora (3-6 personas)
+            </div>
+            <ul class="text-left space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>3 a 6 personas</span>
+              </li>
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>Horario flexible</span>
+              </li>
+              <li class="flex items-center gap-2 text-gray-700">
+                <span class="text-green-500">✓</span>
+                <span>Perfecto para amigos/familia</span>
+              </li>
+            </ul>
+            <a
+              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20clases%20privadas%20grupales"
+              class="block w-full text-center py-3 border-2 border-sc-orange text-sc-orange rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
+            >
+              Agendar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Descuentos Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h3 class="text-4xl font-bold text-gray-800 mb-4">
+          🎁 Descuentos Especiales
+        </h3>
+        <p class="text-gray-600">Aprovecha nuestras promociones y ahorra más</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div
+          class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center"
+        >
+          <div class="text-6xl mb-4">🎓</div>
+          <h4 class="text-2xl font-bold mb-3 text-gray-800">Estudiantes</h4>
+          <div class="text-5xl font-bold text-blue-600 mb-4">10%</div>
+          <p class="text-gray-700 mb-4">
+            En cualquier plan mensual o trimestral
+          </p>
+          <p class="text-sm text-gray-600">*Presentando carnet vigente</p>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8 text-center"
+        >
+          <div class="text-6xl mb-4">👥</div>
+          <h4 class="text-2xl font-bold mb-3 text-gray-800">Grupos</h4>
+          <div class="text-5xl font-bold text-pink-600 mb-4">15%</div>
+          <p class="text-gray-700 mb-4">Para grupos de 3 o más personas</p>
+          <p class="text-sm text-gray-600">*Deben inscribirse juntos</p>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 text-center"
+        >
+          <div class="text-6xl mb-4">💑</div>
+          <h4 class="text-2xl font-bold mb-3 text-gray-800">Parejas</h4>
+          <div class="text-5xl font-bold text-purple-600 mb-4">12%</div>
+          <p class="text-gray-700 mb-4">Paquete especial para dos</p>
+          <p class="text-sm text-gray-600">
+            *Aplica en plan mensual y trimestral
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment Methods -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-3xl font-bold text-gray-800 mb-8">
+          💳 Métodos de Pago
+        </h3>
+        <div class="grid md:grid-cols-4 gap-6">
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="text-4xl mb-3">💵</div>
+            <div class="font-bold text-gray-800">Efectivo</div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="text-4xl mb-3">💳</div>
+            <div class="font-bold text-gray-800">Tarjeta</div>
+            <div class="text-xs text-gray-600 mt-1">Débito/Crédito</div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="text-4xl mb-3">📱</div>
+            <div class="font-bold text-gray-800">Nequi</div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="text-4xl mb-3">🏦</div>
+            <div class="font-bold text-gray-800">Transferencia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-gradient-to-br from-orange-50 to-red-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+          ❓ Preguntas Frecuentes sobre Precios
+        </h3>
+
+        <div class="space-y-4">
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h4 class="font-bold text-gray-800 mb-2">
+              ¿Puedo recuperar clases si falto?
+            </h4>
+            <p class="text-gray-600">
+              Sí, puedes recuperar clases dentro del período de vigencia de tu
+              plan.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h4 class="font-bold text-gray-800 mb-2">
+              ¿Puedo congelar mi mensualidad?
+            </h4>
+            <p class="text-gray-600">
+              Sí, puedes congelar tu plan hasta por 2 semanas previa
+              notificación.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h4 class="font-bold text-gray-800 mb-2">
+              ¿Hay matrícula o costos adicionales?
+            </h4>
+            <p class="text-gray-600">
+              No, no cobramos matrícula. El precio que ves es el precio final.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h4 class="font-bold text-gray-800 mb-2">
+              ¿Los precios son los mismos en ambas sedes?
+            </h4>
+            <p class="text-gray-600">
+              Sí, tanto Social Club como Ritmo Vivo manejan los mismos precios
+              para las clases.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 gradient-bg text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl font-bold mb-6">¿Listo para tu primera clase?</h3>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Únete a nuestra comunidad de bailarines. ¡La primera clase es gratis!
+      </p>
+      <a
+        href="https://wa.me/573XXXXXXXXX"
+        target="_blank"
+        class="inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
+      >
+        📲 Agendar Clase de Prueba
+      </a>
+    </div>
+  </section>
+</Layout>
+

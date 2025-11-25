@@ -1,0 +1,405 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <!-- Page Hero -->
+  <section class="gradient-bg text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-5xl font-bold mb-4">🎉 Próximos Eventos</h2>
+      <p class="text-xl max-w-2xl mx-auto">
+        Fiestas, workshops, shows en vivo y mucho más. ¡No te los pierdas!
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section
+    class="py-8 mt-8 bg-white shadow-sm z-40 w-[97%]"
+    style="margin: 10px auto;"
+  >
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >📍 Sede</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todas las sedes</option>
+            <option>Social Club</option>
+            <option>Ritmo Vivo</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >🎭 Tipo de Evento</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todos los tipos</option>
+            <option>Fiestas Temáticas</option>
+            <option>Workshops</option>
+            <option>Shows en Vivo</option>
+            <option>Competencias</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2"
+            >📅 Mes</label
+          >
+          <select
+            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
+          >
+            <option>Todos los meses</option>
+            <option>Noviembre 2025</option>
+            <option>Diciembre 2025</option>
+            <option>Enero 2026</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Events Section -->
+  <section class="py-12 bg-gradient-to-br from-orange-50 to-red-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-4xl">🔥</span>
+        <h3 class="text-3xl font-bold text-gray-800">Eventos Destacados</h3>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Featured Event 1 -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift">
+          <div class="relative">
+            <img
+              src="timba.jpg"
+              alt="Evento destacado"
+              class="w-full h-64 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-sc-orange text-white px-4 py-2 rounded-full font-bold"
+            >
+              🔥 ESTE FIN DE SEMANA
+            </div>
+            <div
+              class="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-sm"
+            >
+              ⏰ Faltan 2 días
+            </div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+              <span>📅 Viernes 15 Noviembre 2025</span>
+              <span>•</span>
+              <span>🕐 9:00 PM - 3:00 AM</span>
+            </div>
+            <h4 class="text-3xl font-bold mb-3 text-gray-800">
+              Noche de Salsa y Timba 🎵
+            </h4>
+            <p class="text-gray-600 mb-4 leading-relaxed">
+              La mejor noche de salsa del mes con DJ invitado especial desde
+              Cali. Música en vivo, shows de baile profesional y mucho más.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="bg-orange-50 rounded-xl p-4">
+                <div class="text-sm text-gray-600 mb-1">Ubicación</div>
+                <div class="font-bold text-gray-800">📍 Social Club</div>
+              </div>
+              <div class="bg-orange-50 rounded-xl p-4">
+                <div class="text-sm text-gray-600 mb-1">Cover</div>
+                <div class="font-bold text-sc-orange text-xl">$25.000</div>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-sm text-gray-600">Confirmados</span>
+                <span class="text-sm font-semibold text-gray-800"
+                  >185/200 personas</span
+                >
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-sc-orange h-2 rounded-full" style="width: 92%">
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-3 mb-3">
+              <a
+                href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20reservar%20para%20Noche%20de%20Salsa%20el%2015%20de%20Nov"
+                class="flex-1 gradient-bg text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
+              >
+                Reservar Mesa
+              </a>
+            </div>
+            <a
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Noche+de+Salsa+y+Timba&dates=20251115T210000/20251116T030000&details=La+mejor+noche+de+salsa+del+mes+con+DJ+invitado+especial+desde+Cali.+Música+en+vivo,+shows+de+baile+profesional.+Cover:+$25.000&location=Social+Club,+Calle+12+sur+48-01,+Aguacatala,+Medellín&sf=true&output=xml"
+              target="_blank"
+              class="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
+            >
+              📅 Agregar a Google Calendar
+            </a>
+          </div>
+        </div>
+
+        <!-- Featured Event 2 -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift">
+          <div class="relative">
+            <img
+              src="bachata.jpg"
+              alt="Workshop"
+              class="w-full h-64 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full font-bold"
+            >
+              🎓 CUPOS LIMITADOS
+            </div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+              <span>📅 Sábado 16 Noviembre 2025</span>
+              <span>•</span>
+              <span>🕐 4:00 PM - 7:00 PM</span>
+            </div>
+            <h4 class="text-3xl font-bold mb-3 text-gray-800">
+              Workshop de Bachata Sensual 💃
+            </h4>
+            <p class="text-gray-600 mb-4 leading-relaxed">
+              Taller intensivo de 3 horas con instructores internacionales.
+              Aprende técnicas avanzadas y mejora tu estilo.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="bg-purple-50 rounded-xl p-4">
+                <div class="text-sm text-gray-600 mb-1">Ubicación</div>
+                <div class="font-bold text-gray-800">📍 Ritmo Vivo</div>
+              </div>
+              <div class="bg-purple-50 rounded-xl p-4">
+                <div class="text-sm text-gray-600 mb-1">Inversión</div>
+                <div class="font-bold text-purple-600 text-xl">$40.000</div>
+              </div>
+            </div>
+
+            <div
+              class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 mb-6"
+            >
+              <div class="flex items-start gap-3">
+                <span class="text-2xl">⚡</span>
+                <div>
+                  <div class="font-bold text-yellow-800 mb-1">
+                    ¡Solo 8 cupos disponibles!
+                  </div>
+                  <div class="text-sm text-yellow-700">
+                    Incluye: Material didáctico + Certificado
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-3 mb-3">
+              <a
+                href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20inscribirme%20al%20Workshop%20de%20Bachata"
+                class="flex-1 bg-purple-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-purple-700 transition"
+              >
+                Inscribirme Ahora
+              </a>
+            </div>
+            <a
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Workshop+de+Bachata+Sensual&dates=20251116T160000/20251116T190000&details=Taller+intensivo+de+3+horas+con+instructores+internacionales.+Aprende+técnicas+avanzadas+y+mejora+tu+estilo.+Incluye:+Material+didáctico+y+Certificado.+Inversión:+$40.000&location=Ritmo+Vivo,+Medellín&sf=true&output=xml"
+              target="_blank"
+              class="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
+            >
+              📅 Agregar a Google Calendar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Events Section -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-bold text-gray-800 mb-8">Todos los Eventos</h3>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Event Cards -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100"
+        >
+          <div class="relative">
+            <img
+              src="salsa-tropical.jpg"
+              alt="Fiesta Tropical"
+              class="w-full h-48 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full font-bold text-sm"
+            >
+              🌴 TEMÁTICA
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm text-gray-600 mb-2">
+              Viernes 22 Nov • 8:00 PM
+            </div>
+            <h4 class="text-xl font-bold mb-2 text-gray-800">
+              Fiesta Tropical 🌴
+            </h4>
+            <p class="text-gray-600 text-sm mb-4">
+              Ven vestido temático. Premios para los mejores outfits tropicales.
+            </p>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-sm font-semibold text-gray-700"
+                >📍 Social Club</span
+              >
+              <span class="text-sc-orange font-bold">$30.000</span>
+            </div>
+            <div class="flex gap-2 mb-2">
+              <a
+                href="https://wa.me/573XXXXXXXXX"
+                class="flex-1 gradient-bg text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition"
+              >
+                Reservar
+              </a>
+            </div>
+            <a
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Fiesta+Tropical&dates=20251122T200000/20251123T030000&details=Ven+vestido+temático.+Premios+para+los+mejores+outfits+tropicales.+Cover:+$30.000&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml"
+              target="_blank"
+              class="block w-full text-center py-2 border border-blue-500 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-50 transition"
+            >
+              📅 Agregar
+            </a>
+          </div>
+        </div>
+
+        <!-- More event cards... -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100"
+        >
+          <div class="relative">
+            <img
+              src="musica-vivo.jpg"
+              alt="Show en vivo"
+              class="w-full h-48 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full font-bold text-sm"
+            >
+              🎤 MÚSICA EN VIVO
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm text-gray-600 mb-2">
+              Viernes 29 Nov • 9:00 PM
+            </div>
+            <h4 class="text-xl font-bold mb-2 text-gray-800">
+              Orquesta en Vivo 🎺
+            </h4>
+            <p class="text-gray-600 text-sm mb-4">
+              Banda en vivo tocando los mejores clásicos de la salsa.
+            </p>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-sm font-semibold text-gray-700"
+                >📍 Ritmo Vivo</span
+              >
+              <span class="text-rv-aqua font-bold">$35.000</span>
+            </div>
+            <div class="flex gap-2 mb-2">
+              <a
+                href="https://wa.me/573XXXXXXXXX"
+                class="flex-1 bg-rv-aqua text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition"
+              >
+                Reservar
+              </a>
+            </div>
+            <a
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Orquesta+en+Vivo&dates=20251129T210000/20251130T030000&details=Banda+en+vivo+tocando+los+mejores+clásicos+de+la+salsa.+Cover:+$35.000&location=Ritmo+Vivo,+Medellín&sf=true&output=xml"
+              target="_blank"
+              class="block w-full text-center py-2 border border-blue-500 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-50 transition"
+            >
+              📅 Agregar
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100"
+        >
+          <div class="relative">
+            <img
+              src="ellas.jpg"
+              alt="Ladies Night"
+              class="w-full h-48 object-cover"
+            />
+            <div
+              class="absolute top-4 right-4 bg-pink-600 text-white px-3 py-1 rounded-full font-bold text-sm"
+            >
+              👠 LADIES NIGHT
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm text-gray-600 mb-2">
+              Viernes 6 Dic • 9:00 PM
+            </div>
+            <h4 class="text-xl font-bold mb-2 text-gray-800">
+              Noche de Ellas 💃
+            </h4>
+            <p class="text-gray-600 text-sm mb-4">
+              Entrada gratis para ellas antes de las 11 PM. ¡Tragos especiales!
+            </p>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-sm font-semibold text-gray-700"
+                >📍 Social Club</span
+              >
+              <span class="text-pink-600 font-bold">GRATIS 👩</span>
+            </div>
+            <div class="flex gap-2 mb-2">
+              <a
+                href="https://wa.me/573XXXXXXXXX"
+                class="flex-1 bg-pink-600 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition"
+              >
+                Reservar
+              </a>
+            </div>
+            <a
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Noche+de+Ellas+-+Ladies+Night&dates=20251206T210000/20251207T030000&details=Entrada+gratis+para+ellas+antes+de+las+11+PM.+Tragos+especiales.&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml"
+              target="_blank"
+              class="block w-full text-center py-2 border border-blue-500 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-50 transition"
+            >
+              📅 Agregar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 gradient-bg text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-4xl font-bold mb-6">
+        ¿Quieres organizar un evento privado?
+      </h3>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Alquila nuestro espacio para cumpleaños, despedidas, eventos
+        corporativos y más
+      </p>
+      <a
+        href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20eventos%20privados"
+        target="_blank"
+        class="inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
+      >
+        📞 Cotizar Evento Privado
+      </a>
+    </div>
+  </section>
+</Layout>

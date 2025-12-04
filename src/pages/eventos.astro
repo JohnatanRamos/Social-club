@@ -1,5 +1,53 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Card from "../components/UI/Card.astro";
+
+const events = [
+  {
+    image: "images/salsa-tropical.jpg",
+    badge: { text: "🌴 TEMÁTICA", colorClass: "bg-green-600" },
+    date: "Viernes 22 Nov • 8:00 PM",
+    title: "Fiesta Tropical 🌴",
+    description:
+      "Ven vestido temático. Premios para los mejores outfits tropicales.",
+    location: "Social Club",
+    price: "$30.000",
+    priceClass: "text-sc-orange",
+    buttonClass: "gradient-bg",
+    reserveLink: "https://wa.me/573XXXXXXXXX",
+    calendarLink:
+      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Fiesta+Tropical&dates=20251122T200000/20251123T030000&details=Ven+vestido+temático.+Premios+para+los+mejores+outfits+tropicales.+Cover:+$30.000&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml",
+  },
+  {
+    image: "musica-vivo.jpg",
+    badge: { text: "🎤 MÚSICA EN VIVO", colorClass: "bg-red-600" },
+    date: "Viernes 29 Nov • 9:00 PM",
+    title: "Orquesta en Vivo 🎺",
+    description: "Banda en vivo tocando los mejores clásicos de la salsa.",
+    location: "Ritmo Vivo",
+    price: "$35.000",
+    priceClass: "text-rv-aqua",
+    buttonClass: "bg-rv-aqua",
+    reserveLink: "https://wa.me/573XXXXXXXXX",
+    calendarLink:
+      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Orquesta+en+Vivo&dates=20251129T210000/20251130T030000&details=Banda+en+vivo+tocando+los+mejores+clásicos+de+la+salsa.+Cover:+$35.000&location=Ritmo+Vivo,+Medellín&sf=true&output=xml",
+  },
+  {
+    image: "ellas.jpg",
+    badge: { text: "👠 LADIES NIGHT", colorClass: "bg-pink-600" },
+    date: "Viernes 6 Dic • 9:00 PM",
+    title: "Noche de Ellas 💃",
+    description:
+      "Entrada gratis para ellas antes de las 11 PM. ¡Tragos especiales!",
+    location: "Social Club",
+    price: "GRATIS 👩",
+    priceClass: "text-pink-600",
+    buttonClass: "bg-pink-600",
+    reserveLink: "https://wa.me/573XXXXXXXXX",
+    calendarLink:
+      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Noche+de+Ellas+-+Ladies+Night&dates=20251206T210000/20251207T030000&details=Entrada+gratis+para+ellas+antes+de+las+11+PM.+Tragos+especiales.&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml",
+  },
+];
 ---
 
 <Layout>
@@ -66,7 +114,7 @@ import Layout from "../layouts/Layout.astro";
   </section>
 
   <!-- Featured Events Section -->
-  <section class="py-12 bg-gradient-to-br from-orange-50 to-red-50">
+  <section class="py-12 bg-linear-to-br from-orange-50 to-red-50">
     <div class="container mx-auto px-4">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-4xl">🔥</span>
@@ -232,153 +280,7 @@ import Layout from "../layouts/Layout.astro";
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Event Cards -->
-        <div
-          class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100"
-        >
-          <div class="relative">
-            <img
-              src="salsa-tropical.jpg"
-              alt="Fiesta Tropical"
-              class="w-full h-48 object-cover"
-            />
-            <div
-              class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full font-bold text-sm"
-            >
-              🌴 TEMÁTICA
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="text-sm text-gray-600 mb-2">
-              Viernes 22 Nov • 8:00 PM
-            </div>
-            <h4 class="text-xl font-bold mb-2 text-gray-800">
-              Fiesta Tropical 🌴
-            </h4>
-            <p class="text-gray-600 text-sm mb-4">
-              Ven vestido temático. Premios para los mejores outfits tropicales.
-            </p>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-sm font-semibold text-gray-700"
-                >📍 Social Club</span
-              >
-              <span class="text-sc-orange font-bold">$30.000</span>
-            </div>
-            <div class="flex gap-2 mb-2">
-              <a
-                href="https://wa.me/573XXXXXXXXX"
-                class="flex-1 gradient-bg text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition"
-              >
-                Reservar
-              </a>
-            </div>
-            <a
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Fiesta+Tropical&dates=20251122T200000/20251123T030000&details=Ven+vestido+temático.+Premios+para+los+mejores+outfits+tropicales.+Cover:+$30.000&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml"
-              target="_blank"
-              class="block w-full text-center py-2 border border-blue-500 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-50 transition"
-            >
-              📅 Agregar
-            </a>
-          </div>
-        </div>
-
-        <!-- More event cards... -->
-        <div
-          class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100"
-        >
-          <div class="relative">
-            <img
-              src="musica-vivo.jpg"
-              alt="Show en vivo"
-              class="w-full h-48 object-cover"
-            />
-            <div
-              class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full font-bold text-sm"
-            >
-              🎤 MÚSICA EN VIVO
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="text-sm text-gray-600 mb-2">
-              Viernes 29 Nov • 9:00 PM
-            </div>
-            <h4 class="text-xl font-bold mb-2 text-gray-800">
-              Orquesta en Vivo 🎺
-            </h4>
-            <p class="text-gray-600 text-sm mb-4">
-              Banda en vivo tocando los mejores clásicos de la salsa.
-            </p>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-sm font-semibold text-gray-700"
-                >📍 Ritmo Vivo</span
-              >
-              <span class="text-rv-aqua font-bold">$35.000</span>
-            </div>
-            <div class="flex gap-2 mb-2">
-              <a
-                href="https://wa.me/573XXXXXXXXX"
-                class="flex-1 bg-rv-aqua text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition"
-              >
-                Reservar
-              </a>
-            </div>
-            <a
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Orquesta+en+Vivo&dates=20251129T210000/20251130T030000&details=Banda+en+vivo+tocando+los+mejores+clásicos+de+la+salsa.+Cover:+$35.000&location=Ritmo+Vivo,+Medellín&sf=true&output=xml"
-              target="_blank"
-              class="block w-full text-center py-2 border border-blue-500 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-50 transition"
-            >
-              📅 Agregar
-            </a>
-          </div>
-        </div>
-
-        <div
-          class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100"
-        >
-          <div class="relative">
-            <img
-              src="ellas.jpg"
-              alt="Ladies Night"
-              class="w-full h-48 object-cover"
-            />
-            <div
-              class="absolute top-4 right-4 bg-pink-600 text-white px-3 py-1 rounded-full font-bold text-sm"
-            >
-              👠 LADIES NIGHT
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="text-sm text-gray-600 mb-2">
-              Viernes 6 Dic • 9:00 PM
-            </div>
-            <h4 class="text-xl font-bold mb-2 text-gray-800">
-              Noche de Ellas 💃
-            </h4>
-            <p class="text-gray-600 text-sm mb-4">
-              Entrada gratis para ellas antes de las 11 PM. ¡Tragos especiales!
-            </p>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-sm font-semibold text-gray-700"
-                >📍 Social Club</span
-              >
-              <span class="text-pink-600 font-bold">GRATIS 👩</span>
-            </div>
-            <div class="flex gap-2 mb-2">
-              <a
-                href="https://wa.me/573XXXXXXXXX"
-                class="flex-1 bg-pink-600 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition"
-              >
-                Reservar
-              </a>
-            </div>
-            <a
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Noche+de+Ellas+-+Ladies+Night&dates=20251206T210000/20251207T030000&details=Entrada+gratis+para+ellas+antes+de+las+11+PM.+Tragos+especiales.&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml"
-              target="_blank"
-              class="block w-full text-center py-2 border border-blue-500 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-50 transition"
-            >
-              📅 Agregar
-            </a>
-          </div>
-        </div>
+        {events.map((event) => <Card {...event} />)}
       </div>
     </div>
   </section>

@@ -1,53 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/UI/Card.astro";
-
-const events = [
-  {
-    image: "images/salsa-tropical.jpg",
-    badge: { text: "🌴 TEMÁTICA", colorClass: "bg-green-600" },
-    date: "Viernes 22 Nov • 8:00 PM",
-    title: "Fiesta Tropical 🌴",
-    description:
-      "Ven vestido temático. Premios para los mejores outfits tropicales.",
-    location: "Social Club",
-    price: "$30.000",
-    priceClass: "text-sc-orange",
-    buttonClass: "gradient-bg",
-    reserveLink: "https://wa.me/573XXXXXXXXX",
-    calendarLink:
-      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Fiesta+Tropical&dates=20251122T200000/20251123T030000&details=Ven+vestido+temático.+Premios+para+los+mejores+outfits+tropicales.+Cover:+$30.000&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml",
-  },
-  {
-    image: "musica-vivo.jpg",
-    badge: { text: "🎤 MÚSICA EN VIVO", colorClass: "bg-red-600" },
-    date: "Viernes 29 Nov • 9:00 PM",
-    title: "Orquesta en Vivo 🎺",
-    description: "Banda en vivo tocando los mejores clásicos de la salsa.",
-    location: "Ritmo Vivo",
-    price: "$35.000",
-    priceClass: "text-rv-aqua",
-    buttonClass: "bg-rv-aqua",
-    reserveLink: "https://wa.me/573XXXXXXXXX",
-    calendarLink:
-      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Orquesta+en+Vivo&dates=20251129T210000/20251130T030000&details=Banda+en+vivo+tocando+los+mejores+clásicos+de+la+salsa.+Cover:+$35.000&location=Ritmo+Vivo,+Medellín&sf=true&output=xml",
-  },
-  {
-    image: "ellas.jpg",
-    badge: { text: "👠 LADIES NIGHT", colorClass: "bg-pink-600" },
-    date: "Viernes 6 Dic • 9:00 PM",
-    title: "Noche de Ellas 💃",
-    description:
-      "Entrada gratis para ellas antes de las 11 PM. ¡Tragos especiales!",
-    location: "Social Club",
-    price: "GRATIS 👩",
-    priceClass: "text-pink-600",
-    buttonClass: "bg-pink-600",
-    reserveLink: "https://wa.me/573XXXXXXXXX",
-    calendarLink:
-      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Noche+de+Ellas+-+Ladies+Night&dates=20251206T210000/20251207T030000&details=Entrada+gratis+para+ellas+antes+de+las+11+PM.+Tragos+especiales.&location=Social+Club,+Aguacatala,+Medellín&sf=true&output=xml",
-  },
-];
+import EventList from "../components/Events/EventList";
 ---
 
 <Layout>
@@ -278,10 +231,7 @@ const events = [
     <div class="container mx-auto px-4">
       <h3 class="text-3xl font-bold text-gray-800 mb-8">Todos los Eventos</h3>
 
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Event Cards -->
-        {events.map((event) => <Card {...event} />)}
-      </div>
+      <EventList client:load />
     </div>
   </section>
 

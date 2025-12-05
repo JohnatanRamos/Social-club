@@ -1,19 +1,13 @@
----
-interface Props {
+import React from 'react';
+
+interface ClassCardProps {
     title: string;
     instructor: string;
     duration: string;
     color?: "red" | "purple" | "orange" | "green" | "blue" | "special";
     buttonText?: string;
+    onClick?: () => void;
 }
-
-const {
-    title,
-    instructor,
-    duration,
-    color = "red",
-    buttonText = "Inscribirme",
-} = Astro.props;
 
 const colorMap = {
     red: {
@@ -60,37 +54,29 @@ const colorMap = {
     },
 };
 
-const styles = colorMap[color];
----
+export const ClassCard: React.FC<ClassCardProps> = ({
+    title,
+    instructor,
+    duration,
+    color = "red",
+    buttonText = "Inscribirme",
+    onClick
+}) => {
+    const styles = colorMap[color];
 
-<div
-    class:list={[
-        "class-cell border-2 rounded-xl p-4",
-        styles.bg,
-        styles.border,
-    ]}
->
-    <div class:list={["font-bold", styles.text]}>{title}</div>
-    <div class="text-sm text-gray-600 mt-1">{instructor}</div>
-    <div class="text-xs text-gray-500 mt-1">{duration}</div>
-    <button
-        class:list={[
-            "mt-2 w-full text-white py-1 px-3 rounded-lg text-sm font-semibold transition",
-            styles.btn,
-            styles.btnHover,
-        ]}
-    >
-        {buttonText}
-    </button>
-</div>
-
-<style>
-    .class-cell {
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-    .class-cell:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    }
-</style>
+    return (
+        <div
+            className={`class-cell border-2 rounded-xl p-4 ${styles.bg} ${styles.border} transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:shadow-xl`}
+            onClick={onClick}
+        >
+            <div className={`font-bold ${styles.text}`}>{title}</div>
+            <div className="text-sm text-gray-600 mt-1">{instructor}</div>
+            <div className="text-xs text-gray-500 mt-1">{duration}</div>
+            <button
+                className={`mt-2 w-full text-white py-1 px-3 rounded-lg text-sm font-semibold transition ${styles.btn} ${styles.btnHover}`}
+            >
+                {buttonText}
+            </button>
+        </div>
+    );
+};

@@ -1,21 +1,7 @@
 import React from "react";
+import type { Event } from "../../types/Event";
 
-interface CardProps {
-    image: string;
-    title: string;
-    date: string;
-    description: string;
-    location: string;
-    price: string;
-    badge?: {
-        text: string;
-        colorClass: string;
-    };
-    reserveLink: string;
-    calendarLink: string;
-    priceClass?: string;
-    buttonClass?: string;
-}
+interface CardProps extends Event { }
 
 const Card: React.FC<CardProps> = ({
     image,

@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CheckoutForm from "../components/checkout/Checkout";
+---
+
+<Layout
+    title="Checkout | Social Club"
+    description="Finaliza tu compra en Social Club"
+>
+    <main class="min-h-screen bg-gray-50">
+        <CheckoutForm client:load />
+    </main>
+</Layout>

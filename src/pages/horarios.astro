@@ -1,14 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Schedule } from "../components/Schedule/Schedule";
+import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
 ---
 
 <style>
   .gradient-bg {
     background: linear-gradient(135deg, #f05123 0%, #ff6b3d 100%);
-  }
-  .gradient-rv {
-    background: linear-gradient(135deg, #4ecdc4 0%, #44a8a0 100%);
   }
 </style>
 
@@ -39,95 +37,7 @@ import { Schedule } from "../components/Schedule/Schedule";
   </section>
 
   <!-- Filters Section -->
-  <section
-    class="py-8 pt-2 bg-white shadow-sm z-40 w-[97%]"
-    style="margin: 0 auto;"
-  >
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-5 gap-4">
-        <!-- Sede Filter -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2"
-            >📍 Sede</label
-          >
-          <select
-            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
-          >
-            <option>Todas las sedes</option>
-            <option>Social Club</option>
-            <option>Ritmo Vivo</option>
-          </select>
-        </div>
-
-        <!-- Genre Filter -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2"
-            >🎵 Género</label
-          >
-          <select
-            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
-          >
-            <option>Todos los géneros</option>
-            <option>Salsa</option>
-            <option>Bachata</option>
-            <option>Merengue</option>
-            <option>Kizomba</option>
-            <option>Tango</option>
-          </select>
-        </div>
-
-        <!-- Level Filter -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2"
-            >📊 Nivel</label
-          >
-          <select
-            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
-          >
-            <option>Todos los niveles</option>
-            <option>Principiante</option>
-            <option>Básico</option>
-            <option>Intermedio</option>
-            <option>Avanzado</option>
-          </select>
-        </div>
-
-        <!-- Day Filter -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2"
-            >📆 Día</label
-          >
-          <select
-            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
-          >
-            <option>Todos los días</option>
-            <option>Lunes</option>
-            <option>Martes</option>
-            <option>Miércoles</option>
-            <option>Jueves</option>
-            <option>Viernes</option>
-            <option>Sábado</option>
-          </select>
-        </div>
-
-        <!-- Professor Filter -->
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2"
-            >👨‍🏫 Profesor</label
-          >
-          <select
-            class="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
-          >
-            <option>Todos los profesores</option>
-            <option>Juan Pérez</option>
-            <option>María González</option>
-            <option>Carlos Rodríguez</option>
-            <option>Ana Martínez</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </section>
+  <ScheduleFilters client:load />
 
   <!-- Schedule Section - Social Club -->
   <section class="py-12">

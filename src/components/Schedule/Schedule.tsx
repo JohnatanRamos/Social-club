@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { classesStore, isLoading, errorStore, fetchClasses } from '../../stores/classesStore';
+import { filtersStore } from '../../stores/scheduleFiltersStore';
 import { ClassCard } from '../UI/ClassCard';
 
 const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
@@ -10,6 +11,7 @@ export const Schedule: React.FC = () => {
     const classes = useStore(classesStore);
     const loading = useStore(isLoading);
     const error = useStore(errorStore);
+    const filters = useStore(filtersStore);
 
     useEffect(() => {
         fetchClasses();
@@ -37,8 +39,17 @@ export const Schedule: React.FC = () => {
         );
     }
 
+    const filteredClasses = classes.filter(c => {
+        if (filters.location !== "Todas las sedes" && c.location !== filters.location) return false;
+        if (filters.genre !== "Todos los géneros" && c.genre !== filters.genre) return false;
+        if (filters.level !== "Todos los niveles" && c.level !== filters.level && c.level !== "Todos") return false;
+        if (filters.day !== "Todos los días" && c.day !== filters.day) return false;
+        if (filters.instructor !== "Todos los profesores" && !c.instructor.includes(filters.instructor)) return false;
+        return true;
+    });
+
     const getClassForSlot = (day: string, time: string) => {
-        return classes.find(c => c.day === day && c.time === time);
+        return filteredClasses.find(c => c.day === day && c.time === time);
     };
 
     return (
@@ -86,35 +97,45 @@ export const Schedule: React.FC = () => {
 
             {/* Mobile Schedule Cards */}
             <div className="md:hidden space-y-4">
-                {classes.map((classSession) => (
-                    <div key={classSession.id} className="bg-white rounded-2xl shadow-lg p-6">
-                        <div className="flex items-center justify-between mb-4">
-                            <h4 className="font-bold text-lg">{classSession.day} {classSession.time}</h4>
-                            <span className={`px-3 py-1 rounded-full text-sm font-semibold ${classSession.color === 'red' ? 'bg-red-100 text-red-700' :
-                                classSession.color === 'purple' ? 'bg-purple-100 text-purple-700' :
-                                    classSession.color === 'orange' ? 'bg-orange-100 text-orange-700' :
-                                        classSession.color === 'green' ? 'bg-green-100 text-green-700' :
-                                            classSession.color === 'blue' ? 'bg-blue-100 text-blue-700' :
-                                                'bg-linear-to-r from-red-100 to-purple-100 text-purple-700'
-                                }`}>
-                                {classSession.title.split(' ')[1] || 'Clase'}
-                            </span>
-                        </div>
-                        <div className="space-y-2 mb-4">
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                <span>👨‍🏫</span>
-                                <span>{classSession.instructor}</span>
+                {filteredClasses.length > 0 ? (
+                    filteredClasses.map((classSession) => (
+                        <div key={classSession.id} className="bg-white rounded-2xl shadow-lg p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <h4 className="font-bold text-lg">{classSession.day} {classSession.time}</h4>
+                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${classSession.color === 'red' ? 'bg-red-100 text-red-700' :
+                                    classSession.color === 'purple' ? 'bg-purple-100 text-purple-700' :
+                                        classSession.color === 'orange' ? 'bg-orange-100 text-orange-700' :
+                                            classSession.color === 'green' ? 'bg-green-100 text-green-700' :
+                                                classSession.color === 'blue' ? 'bg-blue-100 text-blue-700' :
+                                                    'bg-linear-to-r from-red-100 to-purple-100 text-purple-700'
+                                    }`}>
+                                    {classSession.title.split(' ')[1] || 'Clase'}
+                                </span>
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                <span>⏱️</span>
-                                <span>{classSession.duration}</span>
+                            <div className="space-y-2 mb-4">
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <span>👨‍🏫</span>
+                                    <span>{classSession.instructor}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <span>⏱️</span>
+                                    <span>{classSession.duration}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <span>📍</span>
+                                    <span>{classSession.location}</span>
+                                </div>
                             </div>
+                            <button className="w-full gradient-bg text-white py-3 rounded-xl font-semibold hover:shadow-lg transition">
+                                {classSession.buttonText || "Reservar Clase"}
+                            </button>
                         </div>
-                        <button className="w-full gradient-bg text-white py-3 rounded-xl font-semibold hover:shadow-lg transition">
-                            {classSession.buttonText || "Reservar Clase"}
-                        </button>
+                    ))
+                ) : (
+                    <div className="text-center py-10 text-gray-500">
+                        No se encontraron clases con los filtros seleccionados.
                     </div>
-                ))}
+                )}
             </div>
         </div>
     );

@@ -1,19 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ClassCard from "../components/UI/ClassCard.astro";
 ---
 
 <style>
-  .gradient-bg { background: linear-gradient(135deg, #F05123 0%, #FF6B3D 100%); }
-        .gradient-rv { background: linear-gradient(135deg, #4ECDC4 0%, #44A8A0 100%); }
-        
-        .class-cell {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .class-cell:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
+  .gradient-bg {
+    background: linear-gradient(135deg, #f05123 0%, #ff6b3d 100%);
+  }
+  .gradient-rv {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a8a0 100%);
+  }
 </style>
 
 <Layout>
@@ -156,80 +152,44 @@ import Layout from "../layouts/Layout.astro";
             <tr class="border-b border-gray-100">
               <td class="py-4 px-6 font-bold text-gray-700">6:00 PM</td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-red-700">🎵 Salsa Básica</div>
-                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🎵 Salsa Básica"
+                  instructor="👨‍🏫 Juan Pérez"
+                  duration="⏱️ 60 min"
+                  color="red"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-purple-700">
-                    💃 Bachata Sensual
-                  </div>
-                  <div class="text-sm text-gray-600 mt-1">
-                    👩‍🏫 María González
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="💃 Bachata Sensual"
+                  instructor="👩‍🏫 María González"
+                  duration="⏱️ 60 min"
+                  color="purple"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-orange-50 border-2 border-orange-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-orange-700">🔥 Merengue</div>
-                  <div class="text-sm text-gray-600 mt-1">
-                    👨‍🏫 Carlos Rodríguez
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-orange-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🔥 Merengue"
+                  instructor="👨‍🏫 Carlos Rodríguez"
+                  duration="⏱️ 60 min"
+                  color="orange"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-red-700">🎵 Salsa Intermedia</div>
-                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🎵 Salsa Intermedia"
+                  instructor="👨‍🏫 Juan Pérez"
+                  duration="⏱️ 60 min"
+                  color="red"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-purple-700">💃 Bachata Básica</div>
-                  <div class="text-sm text-gray-600 mt-1">👩‍🏫 Ana Martínez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="💃 Bachata Básica"
+                  instructor="👩‍🏫 Ana Martínez"
+                  duration="⏱️ 60 min"
+                  color="purple"
+                />
               </td>
             </tr>
 
@@ -237,80 +197,44 @@ import Layout from "../layouts/Layout.astro";
             <tr class="border-b border-gray-100">
               <td class="py-4 px-6 font-bold text-gray-700">7:00 PM</td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-green-50 border-2 border-green-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-green-700">💚 Kizomba</div>
-                  <div class="text-sm text-gray-600 mt-1">
-                    👨‍🏫 Carlos Rodríguez
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-green-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-green-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="💚 Kizomba"
+                  instructor="👨‍🏫 Carlos Rodríguez"
+                  duration="⏱️ 60 min"
+                  color="green"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-red-700">🎵 Salsa Avanzada</div>
-                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🎵 Salsa Avanzada"
+                  instructor="👨‍🏫 Juan Pérez"
+                  duration="⏱️ 60 min"
+                  color="red"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-blue-50 border-2 border-blue-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-blue-700">🎭 Tango</div>
-                  <div class="text-sm text-gray-600 mt-1">👩‍🏫 Ana Martínez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-blue-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-blue-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🎭 Tango"
+                  instructor="👩‍🏫 Ana Martínez"
+                  duration="⏱️ 60 min"
+                  color="blue"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-purple-700">
-                    💃 Bachata Intermedia
-                  </div>
-                  <div class="text-sm text-gray-600 mt-1">
-                    👩‍🏫 María González
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="💃 Bachata Intermedia"
+                  instructor="👩‍🏫 María González"
+                  duration="⏱️ 60 min"
+                  color="purple"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-red-700">🎵 Salsa Casino</div>
-                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🎵 Salsa Casino"
+                  instructor="👨‍🏫 Juan Pérez"
+                  duration="⏱️ 60 min"
+                  color="red"
+                />
               </td>
             </tr>
 
@@ -318,86 +242,45 @@ import Layout from "../layouts/Layout.astro";
             <tr>
               <td class="py-4 px-6 font-bold text-gray-700">8:00 PM</td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-purple-50 border-2 border-purple-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-purple-700">
-                    💃 Bachata Avanzada
-                  </div>
-                  <div class="text-sm text-gray-600 mt-1">
-                    👩‍🏫 María González
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-purple-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="💃 Bachata Avanzada"
+                  instructor="👩‍🏫 María González"
+                  duration="⏱️ 60 min"
+                  color="purple"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-orange-50 border-2 border-orange-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-orange-700">
-                    🔥 Merengue Avanzado
-                  </div>
-                  <div class="text-sm text-gray-600 mt-1">
-                    👨‍🏫 Carlos Rodríguez
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-orange-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🔥 Merengue Avanzado"
+                  instructor="👨‍🏫 Carlos Rodríguez"
+                  duration="⏱️ 60 min"
+                  color="orange"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-red-50 border-2 border-red-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-red-700">🎵 Salsa en Línea</div>
-                  <div class="text-sm text-gray-600 mt-1">👨‍🏫 Juan Pérez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-red-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-red-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="🎵 Salsa en Línea"
+                  instructor="👨‍🏫 Juan Pérez"
+                  duration="⏱️ 60 min"
+                  color="red"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-green-50 border-2 border-green-200 rounded-xl p-4"
-                >
-                  <div class="font-bold text-green-700">
-                    💚 Kizomba Avanzado
-                  </div>
-                  <div class="text-sm text-gray-600 mt-1">👩‍🏫 Ana Martínez</div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 60 min</div>
-                  <button
-                    class="mt-2 w-full bg-green-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:bg-green-600 transition"
-                  >
-                    Reservar
-                  </button>
-                </div>
+                <ClassCard
+                  title="💚 Kizomba Avanzado"
+                  instructor="👩‍🏫 Ana Martínez"
+                  duration="⏱️ 60 min"
+                  color="green"
+                />
               </td>
               <td class="py-4 px-6">
-                <div
-                  class="class-cell bg-gradient-to-br from-red-100 to-purple-100 border-2 border-red-300 rounded-xl p-4"
-                >
-                  <div class="font-bold text-red-700">🔥 Clase Libre</div>
-                  <div class="text-sm text-gray-600 mt-1">
-                    👥 Todos los profesores
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">⏱️ 120 min</div>
-                  <button
-                    class="mt-2 w-full bg-gradient-to-r from-red-500 to-purple-500 text-white py-1 px-3 rounded-lg text-sm font-semibold hover:shadow-lg transition"
-                  >
-                    ¡Únete!
-                  </button>
-                </div>
+                <ClassCard
+                  title="🔥 Clase Libre"
+                  instructor="👥 Todos los profesores"
+                  duration="⏱️ 120 min"
+                  color="special"
+                  buttonText="¡Únete!"
+                />
               </td>
             </tr>
           </tbody>
@@ -944,4 +827,3 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </section>
 </Layout>
-

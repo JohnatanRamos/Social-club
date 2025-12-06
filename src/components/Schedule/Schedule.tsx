@@ -3,6 +3,8 @@ import { useStore } from '@nanostores/react';
 import { classesStore, isLoading, errorStore, fetchClasses } from '../../stores/classesStore';
 import { filtersStore } from '../../stores/scheduleFiltersStore';
 import { CourseCard } from '../UI/CourseCard';
+import { addToCart } from '../../stores/cartStore';
+import { FloatingCartButton } from '../UI/FloatingCartButton';
 
 const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 const TIME_SLOTS = ["6:00 PM", "7:00 PM", "8:00 PM"];
@@ -82,7 +84,7 @@ export const Schedule: React.FC = () => {
                                                     color={classSession.color}
                                                     buttonText={classSession.buttonText}
                                                     id={classSession.id}
-
+                                                    onAdd={() => addToCart(classSession)}
                                                 />
                                             ) : (
                                                 <div className="h-full min-h-[140px] flex items-center justify-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm">
@@ -129,7 +131,10 @@ export const Schedule: React.FC = () => {
                                     <span>{classSession.location}</span>
                                 </div>
                             </div>
-                            <button className="w-full gradient-bg text-white py-3 rounded-xl font-semibold hover:shadow-lg transition">
+                            <button
+                                onClick={() => addToCart(classSession)}
+                                className="w-full gradient-bg text-white py-3 rounded-xl font-semibold hover:shadow-lg transition"
+                            >
                                 {classSession.buttonText || "Reservar Clase"}
                             </button>
                         </div>
@@ -140,6 +145,7 @@ export const Schedule: React.FC = () => {
                     </div>
                 )}
             </div>
+            <FloatingCartButton />
         </div>
     );
 };

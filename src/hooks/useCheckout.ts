@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { type CartCourseItem, type User, type CheckoutCourse, type CourseMode, type Partner } from '../types/Checkout';
+import { useStore } from '@nanostores/react';
+import { cartStore } from '../stores/cartStore';
+import { type User, type CourseMode, type Partner } from '../types/Checkout';
 
 export const useCheckout = () => {
   const [mainUser, setMainUser] = useState<User>({
@@ -10,18 +12,7 @@ export const useCheckout = () => {
     dob: ''
   });
 
-  const [cart, setCart] = useState<CartCourseItem[]>([
-    {
-      uniqueId: Date.now(),
-      mode: 'individual',
-      partner: { fullName: '', cedula: '', whatsapp: '', email: '' },
-      id: '',
-      name: '',
-      instructor: '',
-      duration: '',
-      price: 0
-    }
-  ]);
+  const cart = useStore(cartStore);
 
   const handleMainUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMainUser({ ...mainUser, [e.target.name]: e.target.value });
@@ -29,14 +20,17 @@ export const useCheckout = () => {
 
   const toggleCourseMode = (index: number, mode: CourseMode) => {
     const newCart = [...cart];
-    newCart[index].mode = mode;
-    setCart(newCart);
+    newCart[index] = { ...newCart[index], mode };
+    cartStore.set(newCart);
   };
 
   const handlePartnerChange = (index: number, field: keyof Partner, value: string) => {
     const newCart = [...cart];
-    newCart[index].partner[field] = value;
-    setCart(newCart);
+    newCart[index] = { 
+      ...newCart[index], 
+      partner: { ...newCart[index].partner, [field]: value } 
+    };
+    cartStore.set(newCart);
   };
 
   const autofillPartner = (targetIndex: number) => {
@@ -44,8 +38,8 @@ export const useCheckout = () => {
 
     if (sourceCourse) {
       const newCart = [...cart];
-      newCart[targetIndex].partner = { ...sourceCourse.partner };
-      setCart(newCart);
+      newCart[targetIndex] = { ...newCart[targetIndex], partner: { ...sourceCourse.partner } };
+      cartStore.set(newCart);
     } else {
       alert("No hay datos de pareja previos para copiar.");
     }
@@ -53,16 +47,7 @@ export const useCheckout = () => {
 
   const removeCourse = (index: number) => {
     const newCart = cart.filter((_, i) => i !== index);
-    setCart(newCart);
-  };
-
-  const addCourseToCart = (course: CheckoutCourse) => {
-    setCart([...cart, {
-      ...course,
-      uniqueId: Date.now(),
-      mode: 'individual',
-      partner: { fullName: '', cedula: '', whatsapp: '', email: '' }
-    }]);
+    cartStore.set(newCart);
   };
 
   const subtotal = cart.reduce((acc, item) => {
@@ -78,7 +63,6 @@ export const useCheckout = () => {
     handlePartnerChange,
     autofillPartner,
     removeCourse,
-    addCourseToCart,
     subtotal
   };
 };

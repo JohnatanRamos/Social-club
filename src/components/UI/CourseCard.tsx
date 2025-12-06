@@ -52,6 +52,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     duration,
     color = "red",
     buttonText = "Inscribirme",
+    onAdd
 }) => {
     const styles = colorMap[color];
 
@@ -63,6 +64,10 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <div className="text-sm text-gray-600 mt-1">{instructor}</div>
             <div className="text-xs text-gray-500 mt-1">{duration}</div>
             <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onAdd?.();
+                }}
                 className={`mt-2 w-full text-white py-1 px-3 rounded-lg text-sm font-semibold transition ${styles.btn} ${styles.btnHover}`}
             >
                 {buttonText}

@@ -1,20 +1,7 @@
 import { atom } from 'nanostores';
+import type { CourseCardProps } from '../types/Course';
 
-export interface ClassSession {
-  id: string;
-  title: string;
-  instructor: string;
-  duration: string;
-  color: "red" | "purple" | "orange" | "green" | "blue" | "special";
-  day: "Lunes" | "Martes" | "Miércoles" | "Jueves" | "Viernes" | "Sábado" | "Domingo";
-  time: string; // e.g., "6:00 PM"
-  buttonText?: string;
-  location: "Social Club" | "Ritmo Vivo";
-  genre: "Salsa" | "Bachata" | "Merengue" | "Kizomba" | "Tango" | "Mix";
-  level: "Principiante" | "Básico" | "Intermedio" | "Avanzado" | "Todos";
-}
-
-export const classesStore = atom<ClassSession[]>([]);
+export const classesStore = atom<CourseCardProps[]>([]);
 export const isLoading = atom<boolean>(false);
 export const errorStore = atom<string | null>(null);
 
@@ -30,11 +17,11 @@ export const fetchClasses = async () => {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    const mockClasses: ClassSession[] = [
+    const mockClasses: CourseCardProps[] = [
       // 6:00 PM Row
       {
         id: '1',
-        title: "🎵 Salsa Básica",
+        name: "🎵 Salsa Básica",
         instructor: "Juan Pérez",
         duration: "⏱️ 60 min",
         color: "red",
@@ -42,11 +29,12 @@ export const fetchClasses = async () => {
         time: "6:00 PM",
         location: "Social Club",
         genre: "Salsa",
-        level: "Básico"
+        level: "Básico",
+        price: 10,
       },
       {
         id: '2',
-        title: "💃 Bachata Sensual",
+        name: "💃 Bachata Sensual",
         instructor: "María González",
         duration: "⏱️ 60 min",
         color: "purple",
@@ -54,11 +42,12 @@ export const fetchClasses = async () => {
         time: "6:00 PM",
         location: "Ritmo Vivo",
         genre: "Bachata",
-        level: "Básico"
+        level: "Básico",
+        price: 10,
       },
       {
         id: '3',
-        title: "🔥 Merengue",
+        name: "🔥 Merengue",
         instructor: "Carlos Rodríguez",
         duration: "⏱️ 60 min",
         color: "orange",
@@ -66,11 +55,12 @@ export const fetchClasses = async () => {
         time: "6:00 PM",
         location: "Social Club",
         genre: "Merengue",
-        level: "Básico"
+        level: "Básico",
+        price: 10,
       },
       {
         id: '4',
-        title: "🎵 Salsa Intermedia",
+        name: "🎵 Salsa Intermedia",
         instructor: "Juan Pérez",
         duration: "⏱️ 60 min",
         color: "red",
@@ -78,11 +68,12 @@ export const fetchClasses = async () => {
         time: "6:00 PM",
         location: "Ritmo Vivo",
         genre: "Salsa",
-        level: "Intermedio"
+        level: "Intermedio",
+        price: 10,
       },
       {
         id: '5',
-        title: "💃 Bachata Básica",
+        name: "💃 Bachata Básica",
         instructor: "Ana Martínez",
         duration: "⏱️ 60 min",
         color: "purple",
@@ -90,13 +81,14 @@ export const fetchClasses = async () => {
         time: "6:00 PM",
         location: "Social Club",
         genre: "Bachata",
-        level: "Básico"
+        level: "Básico",
+        price: 10,
       },
 
       // 7:00 PM Row
       {
         id: '6',
-        title: "💚 Kizomba",
+        name: "💚 Kizomba",
         instructor: "Carlos Rodríguez",
         duration: "⏱️ 60 min",
         color: "green",
@@ -104,11 +96,12 @@ export const fetchClasses = async () => {
         time: "7:00 PM",
         location: "Ritmo Vivo",
         genre: "Kizomba",
-        level: "Básico"
+        level: "Básico",
+        price: 10,
       },
       {
         id: '7',
-        title: "🎵 Salsa Avanzada",
+        name: "🎵 Salsa Avanzada",
         instructor: "Juan Pérez",
         duration: "⏱️ 60 min",
         color: "red",
@@ -116,11 +109,12 @@ export const fetchClasses = async () => {
         time: "7:00 PM",
         location: "Social Club",
         genre: "Salsa",
-        level: "Avanzado"
+        level: "Avanzado",
+        price: 10,
       },
       {
         id: '8',
-        title: "🎭 Tango",
+        name: "🎭 Tango",
         instructor: "Ana Martínez",
         duration: "⏱️ 60 min",
         color: "blue",
@@ -128,11 +122,12 @@ export const fetchClasses = async () => {
         time: "7:00 PM",
         location: "Ritmo Vivo",
         genre: "Tango",
-        level: "Básico"
+        level: "Básico",
+        price: 10,
       },
       {
         id: '9',
-        title: "💃 Bachata Intermedia",
+        name: "💃 Bachata Intermedia",
         instructor: "María González",
         duration: "⏱️ 60 min",
         color: "purple",
@@ -140,11 +135,12 @@ export const fetchClasses = async () => {
         time: "7:00 PM",
         location: "Social Club",
         genre: "Bachata",
-        level: "Intermedio"
+        level: "Intermedio",
+        price: 10,
       },
       {
         id: '10',
-        title: "🎵 Salsa Casino",
+        name: "🎵 Salsa Casino",
         instructor: "Juan Pérez",
         duration: "⏱️ 60 min",
         color: "red",
@@ -152,13 +148,14 @@ export const fetchClasses = async () => {
         time: "7:00 PM",
         location: "Ritmo Vivo",
         genre: "Salsa",
-        level: "Intermedio"
+        level: "Intermedio",
+        price: 10,
       },
 
       // 8:00 PM Row
       {
         id: '11',
-        title: "💃 Bachata Avanzada",
+        name: "💃 Bachata Avanzada",
         instructor: "María González",
         duration: "⏱️ 60 min",
         color: "purple",
@@ -166,11 +163,12 @@ export const fetchClasses = async () => {
         time: "8:00 PM",
         location: "Social Club",
         genre: "Bachata",
-        level: "Avanzado"
+        level: "Avanzado",
+        price: 10,
       },
       {
         id: '12',
-        title: "🔥 Merengue Avanzado",
+        name: "🔥 Merengue Avanzado",
         instructor: "Carlos Rodríguez",
         duration: "⏱️ 60 min",
         color: "orange",
@@ -178,11 +176,12 @@ export const fetchClasses = async () => {
         time: "8:00 PM",
         location: "Ritmo Vivo",
         genre: "Merengue",
-        level: "Avanzado"
+        level: "Avanzado",
+        price: 10,
       },
       {
         id: '13',
-        title: "🎵 Salsa en Línea",
+        name: "🎵 Salsa en Línea",
         instructor: "Juan Pérez",
         duration: "⏱️ 60 min",
         color: "red",
@@ -190,11 +189,12 @@ export const fetchClasses = async () => {
         time: "8:00 PM",
         location: "Social Club",
         genre: "Salsa",
-        level: "Avanzado"
+        level: "Avanzado",
+        price: 10,
       },
       {
         id: '14',
-        title: "💚 Kizomba Avanzado",
+        name: "💚 Kizomba Avanzado",
         instructor: "Ana Martínez",
         duration: "⏱️ 60 min",
         color: "green",
@@ -202,11 +202,12 @@ export const fetchClasses = async () => {
         time: "8:00 PM",
         location: "Ritmo Vivo",
         genre: "Kizomba",
-        level: "Avanzado"
+        level: "Avanzado",
+        price: 10,
       },
       {
         id: '15',
-        title: "🔥 Clase Libre",
+        name: "🔥 Clase Libre",
         instructor: "Todos los profesores",
         duration: "⏱️ 120 min",
         color: "special",
@@ -215,7 +216,8 @@ export const fetchClasses = async () => {
         buttonText: "¡Únete!",
         location: "Social Club",
         genre: "Mix",
-        level: "Todos"
+        level: "Todos",
+        price: 10,
       }
     ];
 

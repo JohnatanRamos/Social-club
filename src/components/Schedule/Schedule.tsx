@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { classesStore, isLoading, errorStore, fetchClasses } from '../../stores/classesStore';
 import { filtersStore } from '../../stores/scheduleFiltersStore';
-import { ClassCard } from '../UI/ClassCard';
+import { CourseCard } from '../UI/CourseCard';
 
 const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 const TIME_SLOTS = ["6:00 PM", "7:00 PM", "8:00 PM"];
@@ -74,12 +74,15 @@ export const Schedule: React.FC = () => {
                                     return (
                                         <td key={`${day}-${time}`} className="py-4 px-6 min-w-[200px]">
                                             {classSession ? (
-                                                <ClassCard
-                                                    title={classSession.title}
+                                                <CourseCard
+                                                    name={classSession.name}
                                                     instructor={classSession.instructor}
                                                     duration={classSession.duration}
+                                                    price={classSession.price}
                                                     color={classSession.color}
                                                     buttonText={classSession.buttonText}
+                                                    id={classSession.id}
+
                                                 />
                                             ) : (
                                                 <div className="h-full min-h-[140px] flex items-center justify-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm">
@@ -109,7 +112,7 @@ export const Schedule: React.FC = () => {
                                                 classSession.color === 'blue' ? 'bg-blue-100 text-blue-700' :
                                                     'bg-linear-to-r from-red-100 to-purple-100 text-purple-700'
                                     }`}>
-                                    {classSession.title.split(' ')[1] || 'Clase'}
+                                    {classSession.name.split(' ')[1] || 'Clase'}
                                 </span>
                             </div>
                             <div className="space-y-2 mb-4">

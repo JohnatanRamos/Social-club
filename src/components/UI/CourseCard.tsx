@@ -1,13 +1,5 @@
 import React from 'react';
-
-interface ClassCardProps {
-    title: string;
-    instructor: string;
-    duration: string;
-    color?: "red" | "purple" | "orange" | "green" | "blue" | "special";
-    buttonText?: string;
-    onClick?: () => void;
-}
+import type { CourseCardProps } from '../../types/Course';
 
 const colorMap = {
     red: {
@@ -54,22 +46,20 @@ const colorMap = {
     },
 };
 
-export const ClassCard: React.FC<ClassCardProps> = ({
-    title,
+export const CourseCard: React.FC<CourseCardProps> = ({
+    name,
     instructor,
     duration,
     color = "red",
     buttonText = "Inscribirme",
-    onClick
 }) => {
     const styles = colorMap[color];
 
     return (
         <div
             className={`class-cell border-2 rounded-xl p-4 ${styles.bg} ${styles.border} transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:shadow-xl`}
-            onClick={onClick}
         >
-            <div className={`font-bold ${styles.text}`}>{title}</div>
+            <div className={`font-bold ${styles.text}`}>{name}</div>
             <div className="text-sm text-gray-600 mt-1">{instructor}</div>
             <div className="text-xs text-gray-500 mt-1">{duration}</div>
             <button

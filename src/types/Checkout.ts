@@ -1,8 +1,5 @@
 import type { CourseCardProps } from "./Course";
 
-export interface CheckoutCourse extends 
-Pick<CourseCardProps, 'name' | 'instructor' | 'duration' | 'price' | 'id'> {}
-
 export interface User {
   fullName: string;
   cedula: string;
@@ -15,7 +12,7 @@ export interface Partner extends Omit<User, 'dob'> {}
 
 export type CourseMode = 'individual' | 'pareja';
 
-export interface CartCourseItem extends CheckoutCourse {
+export interface CartCourseItem extends CourseCardProps {
   uniqueId: number;
   mode: CourseMode;
   partner: Partner;

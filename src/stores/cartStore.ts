@@ -1,12 +1,13 @@
 import { persistentAtom } from '@nanostores/persistent';
-import type { CartCourseItem, CheckoutCourse } from '../types/Checkout';
+import type { CartCourseItem } from '../types/Checkout';
+import type { CourseCardProps } from '../types/Course';
 
 export const cartStore = persistentAtom<CartCourseItem[]>('cart', [], {
   encode: JSON.stringify,
   decode: JSON.parse,
 });
 
-export const addToCart = (course: CheckoutCourse) => {
+export const addToCart = (course: CourseCardProps) => {
   const currentCart = cartStore.get();
   const newItem: CartCourseItem = {
     ...course,

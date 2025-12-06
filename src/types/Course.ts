@@ -11,4 +11,5 @@ export interface CourseCardProps {
     location?: "Social Club" | "Ritmo Vivo";
     genre?: "Salsa" | "Bachata" | "Merengue" | "Kizomba" | "Tango" | "Mix";
     level?: "Principiante" | "Básico" | "Intermedio" | "Avanzado" | "Todos";
+    onAdd?: () => void;
 }

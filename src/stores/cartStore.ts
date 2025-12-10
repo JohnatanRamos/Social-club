@@ -9,6 +9,23 @@ export const cartStore = persistentAtom<CartCourseItem[]>('cart', [], {
 
 export const addToCart = (course: CourseCardProps) => {
   const currentCart = cartStore.get();
+
+  // Check if course is already in cart
+  const isCourseInCart = currentCart.some(item => item.id === course.id);
+  if (isCourseInCart) {
+    alert("Este curso ya está en tu carrito.");
+    return;
+  }
+
+  // Check if location matches existing items in cart
+  if (currentCart.length > 0) {
+    const cartLocation = currentCart[0].location;
+    if (course.location && cartLocation && course.location !== cartLocation) {
+      alert(`No puedes agregar cursos de diferentes sedes en una misma compra. Tu carrito actual contiene cursos de: ${cartLocation}. Por favor, finaliza tu compra actual o vacía el carrito para agregar cursos de otra sede.`);
+      return;
+    }
+  }
+
   const newItem: CartCourseItem = {
     ...course,
     uniqueId: Date.now(),

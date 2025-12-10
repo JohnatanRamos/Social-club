@@ -3,6 +3,7 @@ import { useCheckout } from '../../hooks/useCheckout';
 import { PersonalDataForm } from './PersonalDataForm';
 import { CourseItem } from './CourseItem';
 import { OrderSummary } from './OrderSummary';
+import { RelatedCoursesCarousel } from './RelatedCoursesCarousel';
 
 export default function Checkout() {
   const {
@@ -62,6 +63,8 @@ export default function Checkout() {
                 </div>
               )}
             </section>
+
+            <RelatedCoursesCarousel cart={cart} />
           </div>
 
           {/* --- COLUMNA IZQUIERDA: RESUMEN DE COMPRA (Sticky) --- */}

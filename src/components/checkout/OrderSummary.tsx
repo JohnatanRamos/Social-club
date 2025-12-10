@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Ticket, CreditCard } from 'lucide-react';
+import { Ticket, CreditCard, Trash2 } from 'lucide-react';
 import type { CartCourseItem } from '../../types/Checkout';
 
 interface OrderSummaryProps {
@@ -48,8 +48,12 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                                         <p className="font-medium text-slate-900">
                                             {formatCurrency(item.mode === 'pareja' ? item.price * 2 : item.price)}
                                         </p>
-                                        <button onClick={() => onRemoveCourse(idx)} className="text-red-400 hover:text-red-600 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            Eliminar
+                                        <button
+                                            onClick={() => onRemoveCourse(idx)}
+                                            className="text-red-600 p-1 rounded-full hover:bg-red-50 transition-all cursor-pointer"
+                                            title="Eliminar curso"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
                                         </button>
                                     </div>
                                 </div>

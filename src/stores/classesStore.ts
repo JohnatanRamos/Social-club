@@ -31,6 +31,8 @@ export const fetchClasses = async () => {
         genre: "Salsa",
         level: "Básico",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '2',
@@ -44,6 +46,8 @@ export const fetchClasses = async () => {
         genre: "Bachata",
         level: "Básico",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '3',
@@ -57,6 +61,8 @@ export const fetchClasses = async () => {
         genre: "Merengue",
         level: "Básico",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '4',
@@ -70,6 +76,8 @@ export const fetchClasses = async () => {
         genre: "Salsa",
         level: "Intermedio",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '5',
@@ -83,6 +91,8 @@ export const fetchClasses = async () => {
         genre: "Bachata",
         level: "Básico",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
 
       // 7:00 PM Row
@@ -98,6 +108,8 @@ export const fetchClasses = async () => {
         genre: "Kizomba",
         level: "Básico",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '7',
@@ -111,6 +123,8 @@ export const fetchClasses = async () => {
         genre: "Salsa",
         level: "Avanzado",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '8',
@@ -124,6 +138,8 @@ export const fetchClasses = async () => {
         genre: "Tango",
         level: "Básico",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '9',
@@ -137,6 +153,8 @@ export const fetchClasses = async () => {
         genre: "Bachata",
         level: "Intermedio",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '10',
@@ -150,6 +168,8 @@ export const fetchClasses = async () => {
         genre: "Salsa",
         level: "Intermedio",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
 
       // 8:00 PM Row
@@ -165,6 +185,8 @@ export const fetchClasses = async () => {
         genre: "Bachata",
         level: "Avanzado",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '12',
@@ -178,6 +200,8 @@ export const fetchClasses = async () => {
         genre: "Merengue",
         level: "Avanzado",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '13',
@@ -191,6 +215,8 @@ export const fetchClasses = async () => {
         genre: "Salsa",
         level: "Avanzado",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '14',
@@ -204,6 +230,8 @@ export const fetchClasses = async () => {
         genre: "Kizomba",
         level: "Avanzado",
         price: 10,
+        promotion: false,
+        capacity: 20
       },
       {
         id: '15',
@@ -218,6 +246,8 @@ export const fetchClasses = async () => {
         genre: "Mix",
         level: "Todos",
         price: 10,
+        promotion: false,
+        capacity: 20
       }
     ];
 

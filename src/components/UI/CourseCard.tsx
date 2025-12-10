@@ -50,6 +50,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     name,
     instructor,
     duration,
+    location,
     color = "red",
     buttonText = "Inscribirme",
     onAdd
@@ -63,6 +64,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <div className={`font-bold ${styles.text}`}>{name}</div>
             <div className="text-sm text-gray-600 mt-1">{instructor}</div>
             <div className="text-xs text-gray-500 mt-1">{duration}</div>
+            <div className="text-xs text-gray-500 mt-1">📍 {location}</div>
             <button
                 onClick={(e) => {
                     e.stopPropagation();

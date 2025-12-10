@@ -8,8 +8,10 @@ export interface CourseCardProps {
     day?: "Lunes" | "Martes" | "Miércoles" | "Jueves" | "Viernes" | "Sábado" | "Domingo";
     time?: string; // e.g., "6:00 PM"
     buttonText?: string;
-    location?: "Social Club" | "Ritmo Vivo";
+    location: "Social Club" | "Ritmo Vivo";
     genre?: "Salsa" | "Bachata" | "Merengue" | "Kizomba" | "Tango" | "Mix";
     level?: "Principiante" | "Básico" | "Intermedio" | "Avanzado" | "Todos";
     onAdd?: () => void;
+    promotion: boolean;
+    capacity: number;
 }

@@ -77,6 +77,9 @@ export const Schedule: React.FC = () => {
                                         <td key={`${day}-${time}`} className="py-4 px-6 min-w-[200px]">
                                             {classSession ? (
                                                 <CourseCard
+                                                    location={classSession.location}
+                                                    capacity={classSession.capacity}
+                                                    promotion={classSession.promotion}
                                                     name={classSession.name}
                                                     instructor={classSession.instructor}
                                                     duration={classSession.duration}

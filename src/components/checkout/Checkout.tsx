@@ -73,6 +73,7 @@ export default function Checkout() {
             subtotal={subtotal}
             total={subtotal}
             onRemoveCourse={removeCourse}
+            onCheckout={() => window.location.href = '/success'}
           />
 
         </div>

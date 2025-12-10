@@ -39,3 +39,7 @@ export const removeFromCart = (uniqueId: number) => {
   const currentCart = cartStore.get();
   cartStore.set(currentCart.filter(item => item.uniqueId !== uniqueId));
 };
+
+export const clearCart = () => {
+  cartStore.set([]);
+};

@@ -8,6 +8,7 @@ interface OrderSummaryProps {
     subtotal: number;
     total: number;
     onRemoveCourse: (index: number) => void;
+    onCheckout?: () => void;
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
@@ -15,6 +16,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
     subtotal,
     total,
     onRemoveCourse,
+    onCheckout,
 }) => {
     const formatCurrency = (val: number) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(val);
 
@@ -76,6 +78,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                     </div>
 
                     <button
+                        onClick={onCheckout}
                         className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center space-x-2"
                         disabled={cart.length === 0}
                     >

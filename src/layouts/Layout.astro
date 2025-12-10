@@ -6,11 +6,15 @@ import Footer from "../components/shared/footer.astro";
 interface Props {
   title?: string;
   description?: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
 }
 
 const {
-  title = "Novalux",
-  description = "Desarrollo de software, páginas web, e-commerce y asistentes WhatsApp con IA. Transformamos tu negocio con soluciones digitales innovadoras.",
+  title = "Social Club",
+  description = "Academia de bailes y eventos.s",
+  showHeader = true,
+  showFooter = true,
 } = Astro.props;
 ---
 
@@ -25,8 +29,8 @@ const {
     <title>{title}</title>
   </head>
   <body class="bg-gray-50">
-    <Header />
+    {showHeader && <Header />}
     <slot />
-    <Footer />
+    {showFooter && <Footer />}
   </body>
 </html>

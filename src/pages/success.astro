@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { EnrollmentSuccess } from "../components/checkout/EnrollmentSuccess";
+---
+
+<Layout
+    title="Inscripción Exitosa | Social Club"
+    description="Tu inscripción ha sido procesada correctamente."
+    showHeader={false}
+    showFooter={false}
+>
+    <main class="min-h-screen bg-slate-50">
+        <EnrollmentSuccess client:load />
+    </main>
+</Layout>

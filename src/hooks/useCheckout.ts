@@ -26,9 +26,9 @@ export const useCheckout = () => {
 
   const handlePartnerChange = (index: number, field: keyof Partner, value: string) => {
     const newCart = [...cart];
-    newCart[index] = { 
-      ...newCart[index], 
-      partner: { ...newCart[index].partner, [field]: value } 
+    newCart[index] = {
+      ...newCart[index],
+      partner: { ...newCart[index].partner, [field]: value }
     };
     cartStore.set(newCart);
   };
@@ -45,6 +45,12 @@ export const useCheckout = () => {
     }
   };
 
+  const [isPromptPayment, setIsPromptPayment] = useState(false);
+
+  const togglePromptPayment = () => {
+    setIsPromptPayment(!isPromptPayment);
+  };
+
   const removeCourse = (index: number) => {
     const newCart = cart.filter((_, i) => i !== index);
     cartStore.set(newCart);
@@ -55,6 +61,29 @@ export const useCheckout = () => {
     return acc + itemPrice;
   }, 0);
 
+  // Calculate Bundle Discount
+  const eligibleForBundle = cart.filter(item => item.mode === 'individual' && !item.promotion);
+  const eligibleTotal = eligibleForBundle.reduce((acc, item) => acc + item.price, 0);
+
+  let bundleDiscount = 0;
+  if (eligibleForBundle.length >= 3) {
+    bundleDiscount = eligibleTotal * 0.15;
+  } else if (eligibleForBundle.length === 2) {
+    bundleDiscount = eligibleTotal * 0.05;
+  }
+  // Round to 2 decimals
+  bundleDiscount = Math.round(bundleDiscount * 100) / 100;
+
+  // Calculate Prompt Payment Discount
+  // Applied to the total after bundle discount
+  const intermediateTotal = subtotal - bundleDiscount;
+  const promptPaymentDiscount = isPromptPayment ? intermediateTotal * 0.05 : 0;
+
+  // Round to 2 decimals
+  const finalPromptPaymentDiscount = Math.round(promptPaymentDiscount * 100) / 100;
+
+  const total = Math.round((intermediateTotal - finalPromptPaymentDiscount) * 100) / 100;
+
   return {
     mainUser,
     cart,
@@ -63,6 +92,11 @@ export const useCheckout = () => {
     handlePartnerChange,
     autofillPartner,
     removeCourse,
-    subtotal
+    subtotal,
+    bundleDiscount,
+    promptPaymentDiscount: finalPromptPaymentDiscount,
+    total,
+    isPromptPayment,
+    togglePromptPayment
   };
 };

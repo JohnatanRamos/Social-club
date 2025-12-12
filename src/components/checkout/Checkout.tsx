@@ -14,7 +14,12 @@ export default function Checkout() {
     handlePartnerChange,
     autofillPartner,
     removeCourse,
-    subtotal
+    subtotal,
+    bundleDiscount,
+    promptPaymentDiscount,
+    total,
+    isPromptPayment,
+    togglePromptPayment
   } = useCheckout();
 
   return (
@@ -71,7 +76,11 @@ export default function Checkout() {
           <OrderSummary
             cart={cart}
             subtotal={subtotal}
-            total={subtotal}
+            total={total}
+            bundleDiscount={bundleDiscount}
+            promptPaymentDiscount={promptPaymentDiscount}
+            isPromptPayment={isPromptPayment}
+            onTogglePromptPayment={togglePromptPayment}
             onRemoveCourse={removeCourse}
             onCheckout={() => window.location.href = '/success'}
           />

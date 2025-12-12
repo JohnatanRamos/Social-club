@@ -7,6 +7,10 @@ interface OrderSummaryProps {
     cart: CartCourseItem[];
     subtotal: number;
     total: number;
+    bundleDiscount: number;
+    promptPaymentDiscount: number;
+    isPromptPayment: boolean;
+    onTogglePromptPayment: () => void;
     onRemoveCourse: (index: number) => void;
     onCheckout?: () => void;
 }
@@ -15,10 +19,14 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
     cart,
     subtotal,
     total,
+    bundleDiscount,
+    promptPaymentDiscount,
+    isPromptPayment,
+    onTogglePromptPayment,
     onRemoveCourse,
     onCheckout,
 }) => {
-    const formatCurrency = (val: number) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(val);
+    const formatCurrency = (val: number) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(val);
 
     return (
         <aside className="w-full lg:w-1/3 order-2 lg:order-2 lg:sticky lg:top-24 space-y-6">
@@ -64,12 +72,40 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                     </div>
 
                     <div className="border-t border-slate-100 pt-4 space-y-3">
+                        {/* Opciones de Pago */}
+                        <div className="flex items-center justify-between py-2">
+                            <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
+                                <input
+                                    type="checkbox"
+                                    checked={isPromptPayment}
+                                    onChange={onTogglePromptPayment}
+                                    className="w-4 h-4 text-orange-600 rounded border-slate-300 focus:ring-orange-500"
+                                />
+                                <span>Pago de contado (-5%)</span>
+                            </label>
+                        </div>
+
                         {/* Totales */}
                         <div className="space-y-2 pt-2 text-sm">
                             <div className="flex justify-between text-slate-500">
                                 <span>Subtotal</span>
                                 <span>{formatCurrency(subtotal)}</span>
                             </div>
+
+                            {bundleDiscount > 0 && (
+                                <div className="flex justify-between text-green-600">
+                                    <span>Descuento por paquete</span>
+                                    <span>-{formatCurrency(bundleDiscount)}</span>
+                                </div>
+                            )}
+
+                            {promptPaymentDiscount > 0 && (
+                                <div className="flex justify-between text-green-600">
+                                    <span>Descuento pronto pago</span>
+                                    <span>-{formatCurrency(promptPaymentDiscount)}</span>
+                                </div>
+                            )}
+
                             <div className="flex justify-between items-center text-lg font-bold text-slate-900 pt-3 border-t border-slate-100">
                                 <span>Total a Pagar</span>
                                 <span>{formatCurrency(total)}</span>

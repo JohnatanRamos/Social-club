@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { Calendar } from 'lucide-react';
 import { useCheckout } from '../../hooks/useCheckout';
 import { PersonalDataForm } from './PersonalDataForm';
 import { CourseItem } from './CourseItem';
 import { OrderSummary } from './OrderSummary';
 import { RelatedCoursesCarousel } from './RelatedCoursesCarousel';
+import { DiscountUpsellModal } from './DiscountUpsellModal';
 
 export default function Checkout() {
   const {
@@ -21,6 +23,22 @@ export default function Checkout() {
     isPromptPayment,
     togglePromptPayment
   } = useCheckout();
+
+  const [isUpsellModalOpen, setIsUpsellModalOpen] = useState(false);
+
+  const handleCheckoutClick = () => {
+    const individualCourses = cart.filter(item => item.mode === 'individual' && !item.promotion);
+    // Show upsell if they haven't reached the max bundle discount (3 courses)
+    if (individualCourses.length < 3) {
+      setIsUpsellModalOpen(true);
+    } else {
+      window.location.href = '/success';
+    }
+  };
+
+  const handleContinueToPayment = () => {
+    window.location.href = '/success';
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-600">
@@ -82,11 +100,18 @@ export default function Checkout() {
             isPromptPayment={isPromptPayment}
             onTogglePromptPayment={togglePromptPayment}
             onRemoveCourse={removeCourse}
-            onCheckout={() => window.location.href = '/success'}
+            onCheckout={handleCheckoutClick}
           />
 
         </div>
       </section>
+
+      <DiscountUpsellModal
+        isOpen={isUpsellModalOpen}
+        onClose={() => setIsUpsellModalOpen(false)}
+        onContinue={handleContinueToPayment}
+        cart={cart}
+      />
     </div>
   );
 }

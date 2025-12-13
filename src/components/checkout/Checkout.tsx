@@ -26,18 +26,88 @@ export default function Checkout() {
 
   const [isUpsellModalOpen, setIsUpsellModalOpen] = useState(false);
 
+  // Helper to generate the integrity signature
+  const generateSignature = async (reference: string, amountInCents: number, currency: string, integritySecret: string) => {
+    const concatenatedString = `${reference}${amountInCents}${currency}${integritySecret}`;
+    const encondedText = new TextEncoder().encode(concatenatedString);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", encondedText);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    return hashHex;
+  };
+
+  const handleWompiWidget = async () => {
+    // WOMPI KEYS
+    console.log(import.meta.env.RITMO_PUBLIC_KEY);
+    console.log(import.meta.env.RITMO_INTEGRITY_SECRET);
+
+    const PUBLIC_KEY = import.meta.env.RITMO_PUBLIC_KEY;
+    const INTEGRITY_SECRET = import.meta.env.RITMO_INTEGRITY_SECRET;
+
+    const amountInCents = Math.round(total * 100);
+    const reference = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const currency = 'COP';
+
+    try {
+      const signature = await generateSignature(reference, amountInCents, currency, INTEGRITY_SECRET);
+
+      // Check if the Wompi script is loaded
+      // @ts-ignore
+      if (typeof window.WidgetCheckout === 'undefined') {
+        alert("Error: El sistema de pagos no se cargó correctamente. Por favor recarga la página.");
+        return;
+      }
+
+      // Configure the checkout
+      // @ts-ignore
+      const checkout = new window.WidgetCheckout({
+        currency: 'COP',
+        amountInCents: amountInCents,
+        reference: reference,
+        publicKey: PUBLIC_KEY,
+        signature: { integrity: signature },
+        redirectUrl: 'https://socialclubritmovivo.com/success', // Opcional
+        customerData: { // Opcional
+          email: mainUser.email,
+          fullName: mainUser.fullName,
+          phoneNumber: mainUser.whatsapp,
+          phoneNumberPrefix: '+57',
+          legalId: mainUser.cedula,
+          legalIdType: 'CC'
+        },
+      });
+
+      // Open the widget
+      checkout.open(function (result: any) {
+        const transaction = result.transaction;
+
+        // You can handle the result here without redirecting if you prefer,
+        // but typically for a successful payment you might want to show the success page.
+        if (transaction.status === 'APPROVED') {
+          window.location.href = '/success';
+        } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR') {
+          alert(`La transacción fue rechazada o falló. Estado: ${transaction.status}`);
+        }
+      });
+
+    } catch (error) {
+      console.error("Error initializing Wompi widget:", error);
+      alert("Hubo un error iniciando el pago. Por favor intenta nuevamente.");
+    }
+  };
+
   const handleCheckoutClick = () => {
     const individualCourses = cart.filter(item => item.mode === 'individual' && !item.promotion);
     // Show upsell if they haven't reached the max bundle discount (3 courses)
     if (individualCourses.length < 3) {
       setIsUpsellModalOpen(true);
     } else {
-      window.location.href = '/success';
+      handleWompiWidget();
     }
   };
 
   const handleContinueToPayment = () => {
-    window.location.href = '/success';
+    handleWompiWidget();
   };
 
   return (

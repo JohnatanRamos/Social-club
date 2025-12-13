@@ -30,7 +30,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Salsa",
         level: "Básico",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -45,7 +45,7 @@ export const fetchClasses = async () => {
         location: "Ritmo Vivo",
         genre: "Bachata",
         level: "Básico",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -60,7 +60,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Merengue",
         level: "Básico",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -75,7 +75,7 @@ export const fetchClasses = async () => {
         location: "Ritmo Vivo",
         genre: "Salsa",
         level: "Intermedio",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -90,7 +90,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Bachata",
         level: "Básico",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -107,7 +107,7 @@ export const fetchClasses = async () => {
         location: "Ritmo Vivo",
         genre: "Kizomba",
         level: "Básico",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -122,7 +122,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Salsa",
         level: "Avanzado",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -137,7 +137,7 @@ export const fetchClasses = async () => {
         location: "Ritmo Vivo",
         genre: "Tango",
         level: "Básico",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -152,7 +152,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Bachata",
         level: "Intermedio",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -167,7 +167,7 @@ export const fetchClasses = async () => {
         location: "Ritmo Vivo",
         genre: "Salsa",
         level: "Intermedio",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -184,7 +184,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Bachata",
         level: "Avanzado",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -199,7 +199,7 @@ export const fetchClasses = async () => {
         location: "Ritmo Vivo",
         genre: "Merengue",
         level: "Avanzado",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -214,7 +214,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Salsa",
         level: "Avanzado",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -229,7 +229,7 @@ export const fetchClasses = async () => {
         location: "Ritmo Vivo",
         genre: "Kizomba",
         level: "Avanzado",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       },
@@ -245,7 +245,7 @@ export const fetchClasses = async () => {
         location: "Social Club",
         genre: "Mix",
         level: "Todos",
-        price: 10,
+        price: 120000,
         promotion: false,
         capacity: 20
       }

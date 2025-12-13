@@ -38,11 +38,17 @@ export default function Checkout() {
 
   const handleWompiWidget = async () => {
     // WOMPI KEYS
-    console.log(import.meta.env.RITMO_PUBLIC_KEY);
-    console.log(import.meta.env.RITMO_INTEGRITY_SECRET);
+    // Note: In Astro, client-side environment variables must start with PUBLIC_
+    const PUBLIC_KEY = import.meta.env.PUBLIC_RITMO_PUBLIC_KEY;
+    const INTEGRITY_SECRET = import.meta.env.PUBLIC_RITMO_INTEGRITY_SECRET;
 
-    const PUBLIC_KEY = import.meta.env.RITMO_PUBLIC_KEY;
-    const INTEGRITY_SECRET = import.meta.env.RITMO_INTEGRITY_SECRET;
+    console.log("Public Key:", PUBLIC_KEY); // Debugging
+
+    if (!PUBLIC_KEY || !INTEGRITY_SECRET) {
+      console.error("Missing Wompi keys in environment variables. Make sure they start with PUBLIC_");
+      alert("Error de configuración de pagos. Por favor contacta al administrador.");
+      return;
+    }
 
     const amountInCents = Math.round(total * 100);
     const reference = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;

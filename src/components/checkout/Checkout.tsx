@@ -37,16 +37,32 @@ export default function Checkout() {
   };
 
   const handleWompiWidget = async () => {
-    // WOMPI KEYS
-    // Note: In Astro, client-side environment variables must start with PUBLIC_
-    const PUBLIC_KEY = import.meta.env.PUBLIC_RITMO_PUBLIC_KEY;
-    const INTEGRITY_SECRET = import.meta.env.PUBLIC_RITMO_INTEGRITY_SECRET;
+    if (cart.length === 0) {
+      alert("El carrito está vacío.");
+      return;
+    }
 
-    console.log("Public Key:", PUBLIC_KEY); // Debugging
+    // Determine location from the first item (assuming all items are from the same location due to cartStore logic)
+    const location = cart[0].location;
+
+    let PUBLIC_KEY = '';
+    let INTEGRITY_SECRET = '';
+
+    if (location === 'Social Club') {
+      PUBLIC_KEY = import.meta.env.PUBLIC_WOMPI_PUBLIC_KEY_SOCIAL_CLUB;
+      INTEGRITY_SECRET = import.meta.env.PUBLIC_WOMPI_INTEGRITY_SECRET_SOCIAL_CLUB;
+    } else if (location === 'Ritmo Vivo') {
+      PUBLIC_KEY = import.meta.env.PUBLIC_WOMPI_PUBLIC_KEY_RITMO_VIVO;
+      INTEGRITY_SECRET = import.meta.env.PUBLIC_WOMPI_INTEGRITY_SECRET_RITMO_VIVO;
+    } else {
+      console.error("Unknown location:", location);
+      alert("Error: No se pudo determinar la sede para el pago. Por favor contacta soporte.");
+      return;
+    }
 
     if (!PUBLIC_KEY || !INTEGRITY_SECRET) {
-      console.error("Missing Wompi keys in environment variables. Make sure they start with PUBLIC_");
-      alert("Error de configuración de pagos. Por favor contacta al administrador.");
+      console.error(`Missing Wompi keys for location: ${location}. Check your .env file.`);
+      alert(`Error de configuración de pagos para la sede ${location}. Por favor contacta al administrador.`);
       return;
     }
 

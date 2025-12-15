@@ -1,13 +1,25 @@
 import React, { useEffect } from 'react';
 import { CheckCircle, Home, Calendar } from 'lucide-react';
-import { clearCart } from '../../stores/cartStore';
+import { clearCart, cartStore } from '../../stores/cartStore';
 
 export const EnrollmentSuccess: React.FC = () => {
 
+    const [isValid, setIsValid] = React.useState(false);
+
     useEffect(() => {
+        const cartItems = cartStore.get();
+
+        if (cartItems.length === 0) {
+            window.location.href = '/horarios';
+            return;
+        }
+
+        setIsValid(true);
         // Clear cart on mount
         clearCart();
     }, []);
+
+    if (!isValid) return null;
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center p-4">
@@ -21,7 +33,7 @@ export const EnrollmentSuccess: React.FC = () => {
                 </h1>
 
                 <p className="text-slate-600 text-lg">
-                    Hemos recibido tu solicitud correctamente. Te hemos enviado un correo con los detalles de tu inscripción.
+                    Hemos recibido tu solicitud correctamente. Te enviaremos un correo con los detalles de tu inscripción.
                 </p>
 
                 <div className="bg-slate-50 rounded-xl p-6 text-left space-y-3">

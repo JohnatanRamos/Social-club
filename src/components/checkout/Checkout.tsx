@@ -108,9 +108,9 @@ export default function Checkout() {
 
         // You can handle the result here without redirecting if you prefer,
         // but typically for a successful payment you might want to show the success page.
-        if (transaction.status === 'APPROVED') {
+        if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
           window.location.href = '/success';
-        } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR') {
+        } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
           alert(`La transacción fue rechazada o falló. Estado: ${transaction.status}`);
         }
       });

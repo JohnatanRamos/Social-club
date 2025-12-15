@@ -6,9 +6,10 @@ import type { User } from '../../types/Checkout';
 interface PersonalDataFormProps {
     user: User;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    errors?: Partial<Record<keyof User, string>>;
 }
 
-export const PersonalDataForm: React.FC<PersonalDataFormProps> = ({ user, onChange }) => {
+export const PersonalDataForm: React.FC<PersonalDataFormProps> = ({ user, onChange, errors }) => {
     return (
         <section className="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-slate-200">
             <div className="flex items-start space-x-3 mb-6 border-b border-slate-100 pb-4">
@@ -28,6 +29,7 @@ export const PersonalDataForm: React.FC<PersonalDataFormProps> = ({ user, onChan
                     value={user.fullName}
                     onChange={onChange}
                     placeholder="Ej: Pepito Pérez"
+                    error={errors?.fullName}
                 />
                 <InputField
                     label="Cédula / ID"
@@ -35,6 +37,7 @@ export const PersonalDataForm: React.FC<PersonalDataFormProps> = ({ user, onChan
                     value={user.cedula}
                     onChange={onChange}
                     placeholder="Ej: 1032..."
+                    error={errors?.cedula}
                 />
                 <InputField
                     label="Correo Electrónico"
@@ -43,13 +46,15 @@ export const PersonalDataForm: React.FC<PersonalDataFormProps> = ({ user, onChan
                     onChange={onChange}
                     type="email"
                     placeholder="correo@ejemplo.com"
+                    error={errors?.email}
                 />
                 <InputField
                     label="WhatsApp"
                     name="whatsapp"
                     value={user.whatsapp}
                     onChange={onChange}
-                    placeholder="+57 300..."
+                    placeholder="Ej: 3003212345"
+                    error={errors?.whatsapp}
                 />
                 <InputField
                     label="Fecha de Nacimiento"
@@ -57,6 +62,7 @@ export const PersonalDataForm: React.FC<PersonalDataFormProps> = ({ user, onChan
                     value={user.dob}
                     onChange={onChange}
                     type="date"
+                    error={errors?.dob}
                 />
             </div>
         </section>

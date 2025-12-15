@@ -21,7 +21,10 @@ export default function Checkout() {
     promptPaymentDiscount,
     total,
     isPromptPayment,
-    togglePromptPayment
+    togglePromptPayment,
+    isValid,
+    userErrors,
+    partnerErrors
   } = useCheckout();
 
   const [isUpsellModalOpen, setIsUpsellModalOpen] = useState(false);
@@ -141,7 +144,11 @@ export default function Checkout() {
           <div className="w-full lg:w-2/3 order-1 lg:order-1 space-y-8">
 
             {/* 1. Datos del Responsable */}
-            <PersonalDataForm user={mainUser} onChange={handleMainUserChange} />
+            <PersonalDataForm
+              user={mainUser}
+              onChange={handleMainUserChange}
+              errors={userErrors}
+            />
 
             {/* 2. Detalles de los Cursos */}
             <section className="space-y-6">
@@ -165,6 +172,7 @@ export default function Checkout() {
                   onPartnerChange={handlePartnerChange}
                   onAutofillPartner={autofillPartner}
                   showAutofill={cart.filter(c => c.mode === 'pareja').length > 1}
+                  errors={partnerErrors[index]}
                 />
               ))}
 
@@ -193,6 +201,7 @@ export default function Checkout() {
             onTogglePromptPayment={togglePromptPayment}
             onRemoveCourse={removeCourse}
             onCheckout={handleCheckoutClick}
+            isValid={isValid}
           />
 
         </div>

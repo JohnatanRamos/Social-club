@@ -13,6 +13,7 @@ interface OrderSummaryProps {
     onTogglePromptPayment: () => void;
     onRemoveCourse: (index: number) => void;
     onCheckout?: () => void;
+    isValid?: boolean;
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
@@ -25,6 +26,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
     onTogglePromptPayment,
     onRemoveCourse,
     onCheckout,
+    isValid = false,
 }) => {
     const formatCurrency = (val: number) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(val);
 
@@ -115,8 +117,11 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
 
                     <button
                         onClick={onCheckout}
-                        className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center space-x-2"
-                        disabled={cart.length === 0}
+                        className={`w-full font-bold py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 ${isValid && cart.length > 0
+                                ? 'bg-orange-600 hover:bg-orange-700 text-white shadow-orange-500/20'
+                                : 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none'
+                            }`}
+                        disabled={!isValid || cart.length === 0}
                     >
                         <CreditCard className="w-5 h-5" />
                         <span>Finalizar Inscripción</span>

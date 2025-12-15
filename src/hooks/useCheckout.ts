@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useStore } from '@nanostores/react';
 import { cartStore } from '../stores/cartStore';
 import { type User, type CourseMode, type Partner } from '../types/Checkout';
+import { validateUser, validatePartner } from '../utils/validation';
 
 export const useCheckout = () => {
   const [mainUser, setMainUser] = useState<User>({
@@ -84,6 +85,26 @@ export const useCheckout = () => {
 
   const total = Math.round((intermediateTotal - finalPromptPaymentDiscount) * 100) / 100;
 
+  // Validation Logic
+  const validationState = useMemo(() => {
+    const userValidation = validateUser(mainUser);
+
+    const partnersValidation = cart.map((item) => {
+      if (item.mode === 'individual') return { isValid: true, errors: {} };
+      return validatePartner(item.partner);
+    });
+
+    const isUserValid = userValidation.isValid;
+    const arePartnersValid = partnersValidation.every(v => v.isValid);
+    const isCartNotEmpty = cart.length > 0;
+
+    return {
+      isValid: isUserValid && arePartnersValid && isCartNotEmpty,
+      userErrors: userValidation.errors,
+      partnerErrors: partnersValidation.map(v => v.errors)
+    };
+  }, [mainUser, cart]);
+
   return {
     mainUser,
     cart,
@@ -97,6 +118,9 @@ export const useCheckout = () => {
     promptPaymentDiscount: finalPromptPaymentDiscount,
     total,
     isPromptPayment,
-    togglePromptPayment
+    togglePromptPayment,
+    isValid: validationState.isValid,
+    userErrors: validationState.userErrors,
+    partnerErrors: validationState.partnerErrors
   };
 };

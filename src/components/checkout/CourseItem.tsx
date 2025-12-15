@@ -11,6 +11,7 @@ interface CourseItemProps {
     onPartnerChange: (index: number, field: keyof Partner, value: string) => void;
     onAutofillPartner: (index: number) => void;
     showAutofill: boolean;
+    errors?: Partial<Record<keyof Partner, string>>;
 }
 
 export const CourseItem: React.FC<CourseItemProps> = ({
@@ -20,7 +21,8 @@ export const CourseItem: React.FC<CourseItemProps> = ({
     onToggleMode,
     onPartnerChange,
     onAutofillPartner,
-    showAutofill
+    showAutofill,
+    errors
 }) => {
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all hover:shadow-md">
@@ -87,18 +89,21 @@ export const CourseItem: React.FC<CourseItemProps> = ({
                                 value={item.partner.fullName}
                                 onChange={(e) => onPartnerChange(index, 'fullName', e.target.value)}
                                 placeholder="Nombre completo"
+                                error={errors?.fullName}
                             />
                             <InputField
                                 label="Cédula Pareja"
                                 name="cedula"
                                 value={item.partner.cedula}
                                 onChange={(e) => onPartnerChange(index, 'cedula', e.target.value)}
+                                error={errors?.cedula}
                             />
                             <InputField
                                 label="WhatsApp Pareja"
                                 name="whatsapp"
                                 value={item.partner.whatsapp}
                                 onChange={(e) => onPartnerChange(index, 'whatsapp', e.target.value)}
+                                error={errors?.whatsapp}
                             />
                             <InputField
                                 label="Email Pareja"
@@ -106,6 +111,7 @@ export const CourseItem: React.FC<CourseItemProps> = ({
                                 value={item.partner.email}
                                 onChange={(e) => onPartnerChange(index, 'email', e.target.value)}
                                 type="email"
+                                error={errors?.email}
                             />
                         </div>
                     </div>

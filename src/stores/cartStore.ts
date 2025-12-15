@@ -1,4 +1,5 @@
 import { persistentAtom } from '@nanostores/persistent';
+import { toast } from 'sonner';
 import type { CartCourseItem } from '../types/Checkout';
 import type { CourseCardProps } from '../types/Course';
 
@@ -13,7 +14,9 @@ export const addToCart = (course: CourseCardProps) => {
   // Check if course is already in cart
   const isCourseInCart = currentCart.some(item => item.id === course.id);
   if (isCourseInCart) {
-    alert("Este curso ya está en tu carrito.");
+    toast.warning("Este curso ya está en tu carrito.", {
+      position: 'top-right',
+    });
     return;
   }
 
@@ -21,7 +24,9 @@ export const addToCart = (course: CourseCardProps) => {
   if (currentCart.length > 0) {
     const cartLocation = currentCart[0].location;
     if (course.location && cartLocation && course.location !== cartLocation) {
-      alert(`No puedes agregar cursos de diferentes sedes en una misma compra. Tu carrito actual contiene cursos de: ${cartLocation}. Por favor, finaliza tu compra actual o vacía el carrito para agregar cursos de otra sede.`);
+      toast.error(`No puedes agregar cursos de diferentes sedes en una misma compra. Tu carrito actual contiene cursos de: ${cartLocation}. Por favor, finaliza tu compra actual o vacía el carrito para agregar cursos de otra sede.`, {
+        position: 'top-right',
+      });
       return;
     }
   }

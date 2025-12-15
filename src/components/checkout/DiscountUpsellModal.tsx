@@ -88,7 +88,7 @@ export const DiscountUpsellModal: React.FC<DiscountUpsellModalProps> = ({
                             onClick={onContinue}
                             className="w-full py-3 px-4 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 font-medium rounded-xl transition-colors"
                         >
-                            No gracias, continuar al pago
+                            Continuar
                         </button>
                     </div>
                 </div>

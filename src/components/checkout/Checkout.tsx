@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { Calendar } from 'lucide-react';
 import { useCheckout } from '../../hooks/useCheckout';
 import { PersonalDataForm } from './PersonalDataForm';
@@ -41,7 +42,7 @@ export default function Checkout() {
 
   const handleWompiWidget = async () => {
     if (cart.length === 0) {
-      alert("El carrito está vacío.");
+      toast.error("El carrito está vacío.");
       return;
     }
 
@@ -59,13 +60,15 @@ export default function Checkout() {
       INTEGRITY_SECRET = import.meta.env.PUBLIC_WOMPI_INTEGRITY_SECRET_RITMO_VIVO;
     } else {
       console.error("Unknown location:", location);
-      alert("Error: No se pudo determinar la sede para el pago. Por favor contacta soporte.");
+      toast.error("Error: No se pudo determinar la sede para el pago. Por favor contacta soporte.");
       return;
     }
 
     if (!PUBLIC_KEY || !INTEGRITY_SECRET) {
       console.error(`Missing Wompi keys for location: ${location}. Check your .env file.`);
-      alert(`Error de configuración de pagos para la sede ${location}. Por favor contacta al administrador.`);
+      toast.error(`Error de configuración de pagos para la sede ${location}. Por favor contacta al administrador.`, {
+        position: 'top-right',
+      });
       return;
     }
 
@@ -79,7 +82,9 @@ export default function Checkout() {
       // Check if the Wompi script is loaded
       // @ts-ignore
       if (typeof window.WidgetCheckout === 'undefined') {
-        alert("Error: El sistema de pagos no se cargó correctamente. Por favor recarga la página.");
+        toast.error("Error: El sistema de pagos no se cargó correctamente. Por favor recarga la página.", {
+          position: 'top-right',
+        });
         return;
       }
 
@@ -111,13 +116,26 @@ export default function Checkout() {
         if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
           window.location.href = '/success';
         } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
-          alert(`La transacción fue rechazada o falló. Estado: ${transaction.status}`);
+          toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
+            position: 'top-right',
+          });
         }
       });
 
     } catch (error) {
       console.error("Error initializing Wompi widget:", error);
-      alert("Hubo un error iniciando el pago. Por favor intenta nuevamente.");
+      toast.error("Hubo un error iniciando el pago. Por favor intenta nuevamente.", {
+        position: 'top-right',
+      });
+    }
+  };
+
+  const handleFinalizeEnrollment = () => {
+    if (isPromptPayment) {
+      handleWompiWidget();
+    } else {
+      // If not paying immediately (not prompt payment), redirect to success page
+      window.location.href = '/success';
     }
   };
 
@@ -127,12 +145,12 @@ export default function Checkout() {
     if (individualCourses.length < 3) {
       setIsUpsellModalOpen(true);
     } else {
-      handleWompiWidget();
+      handleFinalizeEnrollment();
     }
   };
 
   const handleContinueToPayment = () => {
-    handleWompiWidget();
+    handleFinalizeEnrollment();
   };
 
   return (

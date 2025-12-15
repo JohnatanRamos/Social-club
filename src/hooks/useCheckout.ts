@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useStore } from '@nanostores/react';
+import { toast } from 'sonner';
 import { cartStore } from '../stores/cartStore';
 import { type User, type CourseMode, type Partner } from '../types/Checkout';
 import { validateUser, validatePartner } from '../utils/validation';
@@ -42,7 +43,9 @@ export const useCheckout = () => {
       newCart[targetIndex] = { ...newCart[targetIndex], partner: { ...sourceCourse.partner } };
       cartStore.set(newCart);
     } else {
-      alert("No hay datos de pareja previos para copiar.");
+      toast.info("No hay datos de pareja previos para copiar.", {
+        position: 'top-right',
+      });
     }
   };
 

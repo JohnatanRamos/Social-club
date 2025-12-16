@@ -22,7 +22,7 @@ export const RelatedCoursesCarousel: React.FC<RelatedCoursesCarouselProps> = ({ 
     const cartIds = new Set(cart.map(item => item.id));
 
     const relatedCourses = classes.filter(course =>
-        course.location === cartLocation && !cartIds.has(course.id)
+        course.location === cartLocation && !cartIds.has(course.id) && course.capacity > course.availableSlots
     );
 
     if (relatedCourses.length === 0) return null;
@@ -41,11 +41,11 @@ export const RelatedCoursesCarousel: React.FC<RelatedCoursesCarouselProps> = ({ 
                         <div>
                             <div className="flex justify-between items-start mb-2">
                                 <span className={`px-2 py-1 rounded text-xs font-medium ${course.color === 'red' ? 'bg-red-100 text-red-700' :
-                                        course.color === 'purple' ? 'bg-purple-100 text-purple-700' :
-                                            course.color === 'orange' ? 'bg-orange-100 text-orange-700' :
-                                                course.color === 'green' ? 'bg-green-100 text-green-700' :
-                                                    course.color === 'blue' ? 'bg-blue-100 text-blue-700' :
-                                                        'bg-slate-100 text-slate-700'
+                                    course.color === 'purple' ? 'bg-purple-100 text-purple-700' :
+                                        course.color === 'orange' ? 'bg-orange-100 text-orange-700' :
+                                            course.color === 'green' ? 'bg-green-100 text-green-700' :
+                                                course.color === 'blue' ? 'bg-blue-100 text-blue-700' :
+                                                    'bg-slate-100 text-slate-700'
                                     }`}>
                                     {course.genre}
                                 </span>

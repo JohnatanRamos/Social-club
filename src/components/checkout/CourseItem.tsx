@@ -46,8 +46,15 @@ export const CourseItem: React.FC<CourseItemProps> = ({
                         Individual
                     </button>
                     <button
+                        disabled={item.availableSlots >= item.capacity - 1}
+                        title={item.availableSlots >= item.capacity - 1 ? "Solo queda 1 cupo disponible" : ""}
                         onClick={() => onToggleMode(index, 'pareja')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${item.mode === 'pareja' ? 'bg-white text-orange-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${item.availableSlots >= item.capacity - 1
+                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                : item.mode === 'pareja'
+                                    ? 'bg-white text-orange-600 shadow-sm'
+                                    : 'text-slate-500 hover:text-slate-700'
+                            }`}
                     >
                         En Pareja
                     </button>

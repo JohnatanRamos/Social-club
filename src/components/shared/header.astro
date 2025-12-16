@@ -1,47 +1,96 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+    { href: "/", label: "Inicio" },
+    { href: "/horarios", label: "Clases" },
+    { href: "/eventos", label: "Eventos" },
+    { href: "/reservas", label: "Reservas" },
+    { href: "/nosotros", label: "Nosotros" },
+    { href: "/restaurante", label: "Restaurante" },
+    { href: "/faq", label: "FAQ" },
+];
+---
+
 <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <!-- Logos Section -->
-                <div class="flex items-center space-x-6">
-                    <!-- Social Club Logo -->
-                    <div class="flex items-center space-x-3">
-                        <img src="/logo-social.png" alt="Social Club Logo" class="h-12 w-12 rounded-full">
-                        <div>
-                            <h1 class="text-lg font-bold text-sc-orange">SOCIAL CLUB</h1>
-                            <p class="text-xs text-gray-600">Aguacatala</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Separator -->
-                    <div class="h-12 w-px bg-gray-300"></div>
-                    
-                    <!-- Ritmo Vivo Logo -->
-                    <div class="flex items-center space-x-3">
-                        <img src="/logo-ritmo.png" alt="Ritmo Vivo Logo" class="h-12 w-12 rounded-full">
-                        <div>
-                            <h1 class="text-lg font-bold text-rv-aqua">RITMO VIVO</h1>
-                            <p class="text-xs text-gray-600">Envigado</p>
-                        </div>
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logos Section -->
+            <div class="flex items-center space-x-6">
+                <!-- Social Club Logo -->
+                <div class="flex items-center space-x-3">
+                    <img
+                        src="/logo-social.png"
+                        alt="Social Club Logo"
+                        class="h-12 w-12 rounded-full"
+                    />
+                    <div>
+                        <h1 class="text-lg font-bold text-sc-orange">
+                            SOCIAL CLUB
+                        </h1>
+                        <p class="text-xs text-gray-600">Aguacatala</p>
                     </div>
                 </div>
-                
-                <!-- Navigation -->
-                <nav class="hidden md:flex items-center space-x-6">
-                    <a href="/" class="text-sc-orange font-bold">Inicio</a>
-                    <a href="horarios" class="text-gray-700 hover:text-sc-orange transition font-medium">Clases</a>
-                    <a href="eventos" class="text-gray-700 hover:text-sc-orange transition font-medium">Eventos</a>
-                    <a href="reservas" class="text-gray-700 hover:text-sc-orange transition font-medium">Reservas</a>
-                    <a href="nosotros" class="text-gray-700 hover:text-sc-orange transition font-medium">Nosotros</a>
-                    <a href="restaurante" class="text-gray-700 hover:text-sc-orange transition font-medium">Restaurante</a>
-                    <a href="faq" class="text-gray-700 hover:text-sc-orange transition font-medium">FAQ</a>
-                </nav>
-                
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+
+                <!-- Separator -->
+                <div class="h-12 w-px bg-gray-300"></div>
+
+                <!-- Ritmo Vivo Logo -->
+                <div class="flex items-center space-x-3">
+                    <img
+                        src="/logo-ritmo.png"
+                        alt="Ritmo Vivo Logo"
+                        class="h-12 w-12 rounded-full"
+                    />
+                    <div>
+                        <h1 class="text-lg font-bold text-rv-aqua">
+                            RITMO VIVO
+                        </h1>
+                        <p class="text-xs text-gray-600">Envigado</p>
+                    </div>
+                </div>
             </div>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center space-x-6">
+                {
+                    navLinks.map((link) => {
+                        const isActive =
+                            link.href === "/"
+                                ? currentPath === "/"
+                                : currentPath.startsWith(link.href);
+
+                        return (
+                            <a
+                                href={link.href}
+                                class={
+                                    isActive
+                                        ? "text-sc-orange font-bold"
+                                        : "text-gray-700 hover:text-sc-orange transition font-medium"
+                                }
+                            >
+                                {link.label}
+                            </a>
+                        );
+                    })
+                }
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-700">
+                <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
         </div>
-    </header>
+    </div>
+</header>

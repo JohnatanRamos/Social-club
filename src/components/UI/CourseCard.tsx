@@ -54,11 +54,10 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     color = "red",
     buttonText = "Inscribirme",
     availableSlots,
-    capacity,
     onAdd
 }) => {
     const styles = colorMap[color];
-    const isFull = availableSlots === capacity;
+    const isFull = availableSlots === 0;
 
     return (
         <div

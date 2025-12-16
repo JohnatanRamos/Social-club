@@ -33,7 +33,7 @@ export const fetchClasses = async () => {
         price: 120000,
         promotion: false,
         capacity: 20,
-        availableSlots: 19
+        availableSlots: 0
       },
       {
         id: '2',
@@ -49,7 +49,7 @@ export const fetchClasses = async () => {
         price: 120000,
         promotion: false,
         capacity: 20,
-        availableSlots: 15
+        availableSlots: 1
       },
       {
         id: '3',

@@ -22,7 +22,7 @@ export const RelatedCoursesCarousel: React.FC<RelatedCoursesCarouselProps> = ({ 
     const cartIds = new Set(cart.map(item => item.id));
 
     const relatedCourses = classes.filter(course =>
-        course.location === cartLocation && !cartIds.has(course.id) && course.capacity > course.availableSlots
+        course.location === cartLocation && !cartIds.has(course.id) && course.availableSlots > 0
     );
 
     if (relatedCourses.length === 0) return null;

@@ -136,18 +136,18 @@ export const Schedule: React.FC = () => {
                                 </div>
                             </div>
                             <button
-                                disabled={classSession.availableSlots === classSession.capacity}
+                                disabled={classSession.availableSlots === 0}
                                 onClick={() => {
-                                    if (classSession.availableSlots !== classSession.capacity) {
+                                    if (classSession.availableSlots !== 0) {
                                         addToCart(classSession);
                                     }
                                 }}
-                                className={`w-full py-3 rounded-xl font-semibold transition ${classSession.availableSlots === classSession.capacity
-                                        ? "bg-gray-400 text-white cursor-not-allowed"
-                                        : "gradient-bg text-white hover:shadow-lg"
+                                className={`w-full py-3 rounded-xl font-semibold transition ${classSession.availableSlots === 0
+                                    ? "bg-gray-400 text-white cursor-not-allowed"
+                                    : "gradient-bg text-white hover:shadow-lg"
                                     }`}
                             >
-                                {classSession.availableSlots === classSession.capacity ? "Cupo lleno" : (classSession.buttonText || "Reservar Clase")}
+                                {classSession.availableSlots === 0 ? "Cupo lleno" : (classSession.buttonText || "Reservar Clase")}
                             </button>
                         </div>
                     ))

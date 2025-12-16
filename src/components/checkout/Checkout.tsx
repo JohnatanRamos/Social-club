@@ -29,6 +29,7 @@ export default function Checkout() {
   } = useCheckout();
 
   const [isUpsellModalOpen, setIsUpsellModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Helper to generate the integrity signature
   const generateSignature = async (reference: string, amountInCents: number, currency: string, integritySecret: string) => {
@@ -38,6 +39,49 @@ export default function Checkout() {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
     return hashHex;
+  };
+
+  const sendBookingData = async () => {
+    const payload = {
+      bookingInfo: {
+        fullName: mainUser.fullName,
+        identificationNumber: mainUser.cedula,
+        email: mainUser.email,
+        phone: mainUser.whatsapp,
+        birthDate: mainUser.dob
+      },
+      items: cart.map(item => ({
+        classId: item.id,
+        persons: item.mode === 'pareja' ? 2 : 1,
+        companions: item.mode === 'pareja' ? [{
+          fullName: item.partner.fullName,
+          identificationNumber: item.partner.cedula,
+          phone: item.partner.whatsapp,
+          email: item.partner.email
+        }] : []
+      })),
+      isCashPayment: !isPromptPayment
+    };
+
+    try {
+      // TODO: Replace with environment variable if needed
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error('Error creating booking');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Booking error:', error);
+      throw error;
+    }
   };
 
   const handleWompiWidget = async () => {
@@ -130,12 +174,27 @@ export default function Checkout() {
     }
   };
 
-  const handleFinalizeEnrollment = () => {
-    if (isPromptPayment) {
-      handleWompiWidget();
-    } else {
-      // If not paying immediately (not prompt payment), redirect to success page
-      window.location.href = '/success';
+  const handleFinalizeEnrollment = async () => {
+    setIsSubmitting(true);
+    try {
+      await sendBookingData();
+
+      if (isPromptPayment) {
+        await handleWompiWidget();
+      } else {
+        // If not paying immediately (not prompt payment), redirect to success page
+        window.location.href = '/success';
+      }
+    } catch (error) {
+      toast.error("Hubo un error al procesar tu inscripción. Por favor intenta nuevamente.", {
+        position: 'top-right',
+      });
+    } finally {
+      // If we are redirecting or opening Wompi, we might want to keep loading state
+      // But if Wompi opens, it's a modal, so we can stop loading or keep it.
+      // If prompt payment, Wompi opens. If user cancels Wompi, we should probably stop loading.
+      // Since handleWompiWidget is async and returns after opening, we can stop loading here.
+      setIsSubmitting(false);
     }
   };
 
@@ -220,6 +279,7 @@ export default function Checkout() {
             onRemoveCourse={removeCourse}
             onCheckout={handleCheckoutClick}
             isValid={isValid}
+            isLoading={isSubmitting}
           />
 
         </div>

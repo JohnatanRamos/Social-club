@@ -14,6 +14,7 @@ interface OrderSummaryProps {
     onRemoveCourse: (index: number) => void;
     onCheckout?: () => void;
     isValid?: boolean;
+    isLoading?: boolean;
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
@@ -27,6 +28,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
     onRemoveCourse,
     onCheckout,
     isValid = false,
+    isLoading = false,
 }) => {
     const formatCurrency = (val: number) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(val);
 
@@ -117,14 +119,23 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
 
                     <button
                         onClick={onCheckout}
-                        className={`w-full font-bold py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 ${isValid && cart.length > 0
-                                ? 'bg-orange-600 hover:bg-orange-700 text-white shadow-orange-500/20'
-                                : 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none'
+                        className={`w-full font-bold py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 ${isValid && cart.length > 0 && !isLoading
+                            ? 'bg-orange-600 hover:bg-orange-700 text-white shadow-orange-500/20'
+                            : 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none'
                             }`}
-                        disabled={!isValid || cart.length === 0}
+                        disabled={!isValid || cart.length === 0 || isLoading}
                     >
-                        <CreditCard className="w-5 h-5" />
-                        <span>Finalizar Inscripción</span>
+                        {isLoading ? (
+                            <>
+                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                <span>Procesando...</span>
+                            </>
+                        ) : (
+                            <>
+                                <CreditCard className="w-5 h-5" />
+                                <span>Finalizar Inscripción</span>
+                            </>
+                        )}
                     </button>
                     <p className="text-xs text-center text-slate-400">
                         Al completar, aceptas nuestros términos y condiciones.

@@ -87,6 +87,7 @@ export const Schedule: React.FC = () => {
                                                     color={classSession.color}
                                                     buttonText={classSession.buttonText}
                                                     id={classSession.id}
+                                                    availableSlots={classSession.availableSlots}
                                                     onAdd={() => addToCart(classSession)}
                                                 />
                                             ) : (
@@ -135,10 +136,18 @@ export const Schedule: React.FC = () => {
                                 </div>
                             </div>
                             <button
-                                onClick={() => addToCart(classSession)}
-                                className="w-full gradient-bg text-white py-3 rounded-xl font-semibold hover:shadow-lg transition"
+                                disabled={classSession.availableSlots === classSession.capacity}
+                                onClick={() => {
+                                    if (classSession.availableSlots !== classSession.capacity) {
+                                        addToCart(classSession);
+                                    }
+                                }}
+                                className={`w-full py-3 rounded-xl font-semibold transition ${classSession.availableSlots === classSession.capacity
+                                        ? "bg-gray-400 text-white cursor-not-allowed"
+                                        : "gradient-bg text-white hover:shadow-lg"
+                                    }`}
                             >
-                                {classSession.buttonText || "Reservar Clase"}
+                                {classSession.availableSlots === classSession.capacity ? "Cupo lleno" : (classSession.buttonText || "Reservar Clase")}
                             </button>
                         </div>
                     ))

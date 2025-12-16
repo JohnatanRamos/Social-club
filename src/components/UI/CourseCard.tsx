@@ -53,9 +53,12 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     location,
     color = "red",
     buttonText = "Inscribirme",
+    availableSlots,
+    capacity,
     onAdd
 }) => {
     const styles = colorMap[color];
+    const isFull = availableSlots === capacity;
 
     return (
         <div
@@ -66,13 +69,17 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <div className="text-xs text-gray-500 mt-1">{duration}</div>
             <div className="text-xs text-gray-500 mt-1">📍 {location}</div>
             <button
+                disabled={isFull}
                 onClick={(e) => {
                     e.stopPropagation();
-                    onAdd?.();
+                    if (!isFull) onAdd?.();
                 }}
-                className={`mt-2 w-full text-white py-1 px-3 rounded-lg text-sm font-semibold transition ${styles.btn} ${styles.btnHover}`}
+                className={`mt-2 w-full text-white py-1 px-3 rounded-lg text-sm font-semibold transition ${isFull
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : `${styles.btn} ${styles.btnHover}`
+                    }`}
             >
-                {buttonText}
+                {isFull ? "Cupo lleno" : buttonText}
             </button>
         </div>
     );

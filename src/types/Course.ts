@@ -14,4 +14,5 @@ export interface CourseCardProps {
     onAdd?: () => void;
     promotion: boolean;
     capacity: number;
+    availableSlots: number;
 }

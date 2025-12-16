@@ -32,7 +32,8 @@ export const fetchClasses = async () => {
         level: "Básico",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 19
       },
       {
         id: '2',
@@ -47,7 +48,8 @@ export const fetchClasses = async () => {
         level: "Básico",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '3',
@@ -62,7 +64,8 @@ export const fetchClasses = async () => {
         level: "Básico",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 20
       },
       {
         id: '4',
@@ -77,7 +80,8 @@ export const fetchClasses = async () => {
         level: "Intermedio",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '5',
@@ -92,7 +96,8 @@ export const fetchClasses = async () => {
         level: "Básico",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
 
       // 7:00 PM Row
@@ -109,7 +114,8 @@ export const fetchClasses = async () => {
         level: "Básico",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '7',
@@ -124,7 +130,8 @@ export const fetchClasses = async () => {
         level: "Avanzado",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '8',
@@ -139,7 +146,8 @@ export const fetchClasses = async () => {
         level: "Básico",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '9',
@@ -154,7 +162,8 @@ export const fetchClasses = async () => {
         level: "Intermedio",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '10',
@@ -169,7 +178,8 @@ export const fetchClasses = async () => {
         level: "Intermedio",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
 
       // 8:00 PM Row
@@ -186,7 +196,8 @@ export const fetchClasses = async () => {
         level: "Avanzado",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '12',
@@ -201,7 +212,8 @@ export const fetchClasses = async () => {
         level: "Avanzado",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '13',
@@ -216,7 +228,8 @@ export const fetchClasses = async () => {
         level: "Avanzado",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '14',
@@ -231,7 +244,8 @@ export const fetchClasses = async () => {
         level: "Avanzado",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       },
       {
         id: '15',
@@ -247,7 +261,8 @@ export const fetchClasses = async () => {
         level: "Todos",
         price: 120000,
         promotion: false,
-        capacity: 20
+        capacity: 20,
+        availableSlots: 15
       }
     ];
 

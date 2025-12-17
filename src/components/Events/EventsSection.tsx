@@ -122,11 +122,6 @@ const EventsSection: React.FC = () => {
                                     className="w-full h-64 object-cover"
                                 />
                                 <div
-                                    className="absolute top-4 right-4 bg-sc-orange text-white px-4 py-2 rounded-full font-bold"
-                                >
-                                    🔥 ESTE FIN DE SEMANA
-                                </div>
-                                <div
                                     className="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-sm"
                                 >
                                     ⏰ Faltan 2 días
@@ -157,16 +152,6 @@ const EventsSection: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="mb-6">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <span className="text-sm text-gray-600">Confirmados</span>
-                                        <span className="text-sm font-semibold text-gray-800">185/200 personas</span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 rounded-full h-2">
-                                        <div className="bg-sc-orange h-2 rounded-full" style={{ width: "92%" }}></div>
-                                    </div>
-                                </div>
-
                                 <div className="flex gap-3 mb-3">
                                     <a
                                         href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20reservar%20para%20Noche%20de%20Salsa%20el%2015%20de%20Nov"
@@ -193,11 +178,6 @@ const EventsSection: React.FC = () => {
                                     alt="Workshop"
                                     className="w-full h-64 object-cover"
                                 />
-                                <div
-                                    className="absolute top-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full font-bold"
-                                >
-                                    🎓 CUPOS LIMITADOS
-                                </div>
                             </div>
                             <div className="p-8">
                                 <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
@@ -219,24 +199,8 @@ const EventsSection: React.FC = () => {
                                         <div className="font-bold text-gray-800">📍 Ritmo Vivo</div>
                                     </div>
                                     <div className="bg-purple-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Inversión</div>
+                                        <div className="text-sm text-gray-600 mb-1">Cover</div>
                                         <div className="font-bold text-purple-600 text-xl">$40.000</div>
-                                    </div>
-                                </div>
-
-                                <div
-                                    className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 mb-6"
-                                >
-                                    <div className="flex items-start gap-3">
-                                        <span className="text-2xl">⚡</span>
-                                        <div>
-                                            <div className="font-bold text-yellow-800 mb-1">
-                                                ¡Solo 8 cupos disponibles!
-                                            </div>
-                                            <div className="text-sm text-yellow-700">
-                                                Incluye: Material didáctico + Certificado
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 

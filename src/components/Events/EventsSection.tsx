@@ -9,6 +9,14 @@ import {
 import type { Event } from "../../types/Event";
 import Card from "../UI/Card";
 
+const getBgColor = (color: string) => {
+    if (color.includes("sc-orange")) return "bg-orange-50";
+    if (color.includes("rv-aqua")) return "bg-cyan-50";
+    if (color.includes("pink")) return "bg-pink-50";
+    if (color.includes("purple")) return "bg-purple-50";
+    return "bg-gray-50";
+};
+
 const EventsSection: React.FC = () => {
     // Subscribe to global store
     const events = useStore(eventsStore);
@@ -105,125 +113,78 @@ const EventsSection: React.FC = () => {
             </section>
 
             {/* Featured Events Section */}
-            <section className="py-12 bg-linear-to-br from-orange-50 to-red-50">
-                <div className="container mx-auto px-4">
-                    <div className="flex items-center gap-3 mb-8">
-                        <span className="text-4xl">🔥</span>
-                        <h3 className="text-3xl font-bold text-gray-800">Eventos Destacados</h3>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {/* Featured Event 1 */}
-                        <div className="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift">
-                            <div className="relative">
-                                <img
-                                    src="timba.jpg"
-                                    alt="Evento destacado"
-                                    className="w-full h-64 object-cover"
-                                />
-                                <div
-                                    className="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-sm"
-                                >
-                                    ⏰ Faltan 2 días
-                                </div>
-                            </div>
-                            <div className="p-8">
-                                <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-                                    <span>📅 Viernes 15 Noviembre 2025</span>
-                                    <span>•</span>
-                                    <span>🕐 9:00 PM - 3:00 AM</span>
-                                </div>
-                                <h4 className="text-3xl font-bold mb-3 text-gray-800">
-                                    Noche de Salsa y Timba 🎵
-                                </h4>
-                                <p className="text-gray-600 mb-4 leading-relaxed">
-                                    La mejor noche de salsa del mes con DJ invitado especial desde
-                                    Cali. Música en vivo, shows de baile profesional y mucho más.
-                                </p>
-
-                                <div className="grid grid-cols-2 gap-4 mb-6">
-                                    <div className="bg-orange-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Ubicación</div>
-                                        <div className="font-bold text-gray-800">📍 Social Club</div>
-                                    </div>
-                                    <div className="bg-orange-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Cover</div>
-                                        <div className="font-bold text-sc-orange text-xl">$25.000</div>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-3 mb-3">
-                                    <a
-                                        href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20reservar%20para%20Noche%20de%20Salsa%20el%2015%20de%20Nov"
-                                        className="flex-1 gradient-bg text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
-                                    >
-                                        Reservar Mesa
-                                    </a>
-                                </div>
-                                <a
-                                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Noche+de+Salsa+y+Timba&dates=20251115T210000/20251116T030000&details=La+mejor+noche+de+salsa+del+mes+con+DJ+invitado+especial+desde+Cali.+Música+en+vivo,+shows+de+baile+profesional.+Cover:+$25.000&location=Social+Club,+Calle+12+sur+48-01,+Aguacatala,+Medellín&sf=true&output=xml"
-                                    target="_blank"
-                                    className="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
-                                >
-                                    📅 Agregar a Google Calendar
-                                </a>
-                            </div>
+            {events.filter(e => e.featuredEvents).length > 0 && (
+                <section className="py-12 bg-linear-to-br from-orange-50 to-red-50">
+                    <div className="container mx-auto px-4">
+                        <div className="flex items-center gap-3 mb-8">
+                            <span className="text-4xl">🔥</span>
+                            <h3 className="text-3xl font-bold text-gray-800">Eventos Destacados</h3>
                         </div>
 
-                        {/* Featured Event 2 */}
-                        <div className="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift">
-                            <div className="relative">
-                                <img
-                                    src="bachata.jpg"
-                                    alt="Workshop"
-                                    className="w-full h-64 object-cover"
-                                />
-                            </div>
-                            <div className="p-8">
-                                <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-                                    <span>📅 Sábado 16 Noviembre 2025</span>
-                                    <span>•</span>
-                                    <span>🕐 4:00 PM - 7:00 PM</span>
-                                </div>
-                                <h4 className="text-3xl font-bold mb-3 text-gray-800">
-                                    Workshop de Bachata Sensual 💃
-                                </h4>
-                                <p className="text-gray-600 mb-4 leading-relaxed">
-                                    Taller intensivo de 3 horas con instructores internacionales.
-                                    Aprende técnicas avanzadas y mejora tu estilo.
-                                </p>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {events
+                                .filter((event) => event.featuredEvents)
+                                .map((event, index) => (
+                                    <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift">
+                                        <div className="relative">
+                                            <img
+                                                src={event.image}
+                                                alt={event.title}
+                                                className="w-full h-64 object-cover"
+                                            />
+                                            {/* Optional: Add a badge if we had a way to calculate days remaining */}
+                                            <div
+                                                className="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-sm"
+                                            >
+                                                ✨ Destacado
+                                            </div>
+                                        </div>
+                                        <div className="p-8">
+                                            <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+                                                <span>📅 {event.date}</span>
+                                            </div>
+                                            <h4 className="text-3xl font-bold mb-3 text-gray-800">
+                                                {event.title}
+                                            </h4>
+                                            <p className="text-gray-600 mb-4 leading-relaxed">
+                                                {event.description}
+                                            </p>
 
-                                <div className="grid grid-cols-2 gap-4 mb-6">
-                                    <div className="bg-purple-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Ubicación</div>
-                                        <div className="font-bold text-gray-800">📍 Ritmo Vivo</div>
-                                    </div>
-                                    <div className="bg-purple-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Cover</div>
-                                        <div className="font-bold text-purple-600 text-xl">$40.000</div>
-                                    </div>
-                                </div>
+                                            <div className="grid grid-cols-2 gap-4 mb-6">
+                                                <div className={`${getBgColor(event.color)} rounded-xl p-4`}>
+                                                    <div className="text-sm text-gray-600 mb-1">Ubicación</div>
+                                                    <div className="font-bold text-gray-800">📍 {event.location}</div>
+                                                </div>
+                                                <div className={`${getBgColor(event.color)} rounded-xl p-4`}>
+                                                    <div className="text-sm text-gray-600 mb-1">Cover</div>
+                                                    <div className={`font-bold text-xl ${event.color}`}>
+                                                        {event.price === 0 ? "Gratis" : `$${event.price.toLocaleString()}`}
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                <div className="flex gap-3 mb-3">
-                                    <a
-                                        href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20inscribirme%20al%20Workshop%20de%20Bachata"
-                                        className="flex-1 bg-purple-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-purple-700 transition"
-                                    >
-                                        Inscribirme Ahora
-                                    </a>
-                                </div>
-                                <a
-                                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Workshop+de+Bachata+Sensual&dates=20251116T160000/20251116T190000&details=Taller+intensivo+de+3+horas+con+instructores+internacionales.+Aprende+técnicas+avanzadas+y+mejora+tu+estilo.+Incluye:+Material+didáctico+y+Certificado.+Inversión:+$40.000&location=Ritmo+Vivo,+Medellín&sf=true&output=xml"
-                                    target="_blank"
-                                    className="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
-                                >
-                                    📅 Agregar a Google Calendar
-                                </a>
-                            </div>
+                                            <div className="flex gap-3 mb-3">
+                                                <a
+                                                    href={`https://wa.me/573218903991?text=Hola%2C%20quiero%20reservar%20para%20${encodeURIComponent(event.title)}`}
+                                                    className={`flex-1 text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition ${event.buttonClass || 'gradient-bg'}`}
+                                                >
+                                                    {event.type === "Workshops" ? "Inscribirme Ahora" : "Reservar Mesa"}
+                                                </a>
+                                            </div>
+                                            <a
+                                                href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${encodeURIComponent(event.date)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&sf=true&output=xml`}
+                                                target="_blank"
+                                                className="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
+                                            >
+                                                📅 Agregar a Google Calendar
+                                            </a>
+                                        </div>
+                                    </div>
+                                ))}
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            )}
 
             {/* Events Grid Section */}
             <section className="py-12">

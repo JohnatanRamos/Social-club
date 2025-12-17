@@ -31,16 +31,6 @@ export default function Checkout() {
   const [isUpsellModalOpen, setIsUpsellModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Helper to generate the integrity signature
-  const generateSignature = async (reference: string, amountInCents: number, currency: string, integritySecret: string) => {
-    const concatenatedString = `${reference}${amountInCents}${currency}${integritySecret}`;
-    const encondedText = new TextEncoder().encode(concatenatedString);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", encondedText);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-    return hashHex;
-  };
-
   const sendBookingData = async () => {
     const payload = {
       bookingInfo: {
@@ -60,7 +50,9 @@ export default function Checkout() {
           email: item.partner.email
         }] : []
       })),
-      isCashPayment: !isPromptPayment
+      isCashPayment: !isPromptPayment,
+      location: cart[0].location,
+      amount: Math.round(total * 100)
     };
 
     try {
@@ -84,44 +76,8 @@ export default function Checkout() {
     }
   };
 
-  const handleWompiWidget = async (reference: string) => {
-    if (cart.length === 0) {
-      toast.error("El carrito está vacío.");
-      return;
-    }
-
-    // Determine location from the first item (assuming all items are from the same location due to cartStore logic)
-    const location = cart[0].location;
-
-    let PUBLIC_KEY = '';
-    let INTEGRITY_SECRET = '';
-
-    if (location === 'Social Club') {
-      PUBLIC_KEY = import.meta.env.PUBLIC_WOMPI_PUBLIC_KEY_SOCIAL_CLUB;
-      INTEGRITY_SECRET = import.meta.env.PUBLIC_WOMPI_INTEGRITY_SECRET_SOCIAL_CLUB;
-    } else if (location === 'Ritmo Vivo') {
-      PUBLIC_KEY = import.meta.env.PUBLIC_WOMPI_PUBLIC_KEY_RITMO_VIVO;
-      INTEGRITY_SECRET = import.meta.env.PUBLIC_WOMPI_INTEGRITY_SECRET_RITMO_VIVO;
-    } else {
-      console.error("Unknown location:", location);
-      toast.error("Error: No se pudo determinar la sede para el pago. Por favor contacta soporte.");
-      return;
-    }
-
-    if (!PUBLIC_KEY || !INTEGRITY_SECRET) {
-      console.error(`Missing Wompi keys for location: ${location}. Check your .env file.`);
-      toast.error(`Error de configuración de pagos para la sede ${location}. Por favor contacta al administrador.`, {
-        position: 'top-right',
-      });
-      return;
-    }
-
-    const amountInCents = Math.round(total * 100);
-    const currency = 'COP';
-
+  const handleWompiWidget = async (reference: string, PUBLIC_KEY: string, signature: string) => {
     try {
-      const signature = await generateSignature(reference, amountInCents, currency, INTEGRITY_SECRET);
-
       // Check if the Wompi script is loaded
       // @ts-ignore
       if (typeof window.WidgetCheckout === 'undefined') {
@@ -135,7 +91,7 @@ export default function Checkout() {
       // @ts-ignore
       const checkout = new window.WidgetCheckout({
         currency: 'COP',
-        amountInCents: amountInCents,
+        amountInCents: Math.round(total * 100),
         reference: reference,
         publicKey: PUBLIC_KEY,
         signature: { integrity: signature },
@@ -175,13 +131,17 @@ export default function Checkout() {
 
   const handleFinalizeEnrollment = async () => {
     setIsSubmitting(true);
+    if (cart.length === 0) {
+      toast.error("El carrito está vacío.");
+      return;
+    }
     try {
       const bookingData = await sendBookingData();
 
       console.log(bookingData);
 
       if (isPromptPayment) {
-        await handleWompiWidget(bookingData.reservationId);
+        await handleWompiWidget(bookingData.reservationId, bookingData.publicKey, bookingData.signature);
       } else {
         // If not paying immediately (not prompt payment), redirect to success page
         window.location.href = '/success';

@@ -65,7 +65,7 @@ export default function Checkout() {
 
     try {
       // TODO: Replace with environment variable if needed
-      const response = await fetch('/api/bookings', {
+      const response = await fetch('http://72.60.114.240:3000/reservations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ export default function Checkout() {
     }
   };
 
-  const handleWompiWidget = async () => {
+  const handleWompiWidget = async (reference: string) => {
     if (cart.length === 0) {
       toast.error("El carrito está vacío.");
       return;
@@ -117,7 +117,6 @@ export default function Checkout() {
     }
 
     const amountInCents = Math.round(total * 100);
-    const reference = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const currency = 'COP';
 
     try {
@@ -177,10 +176,12 @@ export default function Checkout() {
   const handleFinalizeEnrollment = async () => {
     setIsSubmitting(true);
     try {
-      await sendBookingData();
+      const bookingData = await sendBookingData();
+
+      console.log(bookingData);
 
       if (isPromptPayment) {
-        await handleWompiWidget();
+        await handleWompiWidget(bookingData.reservationId);
       } else {
         // If not paying immediately (not prompt payment), redirect to success page
         window.location.href = '/success';

@@ -1,7 +1,9 @@
 export interface Event {
   image: string;
   color: "text-sc-orange" | "text-rv-aqua" | "text-pink-600" | "text-purple-600";
-  date: string;
+  date: Date;
+  day: "Lunes" | "Martes" | "Miércoles" | "Jueves" | "Viernes" | "Sábado" | "Domingo";
+  time: string;
   title: string;
   description: string;
   location: string;

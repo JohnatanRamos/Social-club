@@ -8,6 +8,7 @@ import {
 } from "../../stores/eventsStore";
 import type { Event } from "../../types/Event";
 import Card from "../UI/Card";
+import { formatDate, formatGoogleCalendarDate } from "../../utils/dateUtils";
 
 const getBgColor = (color: string) => {
     if (color.includes("sc-orange")) return "bg-orange-50";
@@ -141,7 +142,7 @@ const EventsSection: React.FC = () => {
                                         </div>
                                         <div className="p-8">
                                             <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-                                                <span>📅 {event.date}</span>
+                                                <span>📅 {event.day} {formatDate(event.date)} ⏰ {event.time}</span>
                                             </div>
                                             <h4 className="text-3xl font-bold mb-3 text-gray-800">
                                                 {event.title}
@@ -172,7 +173,7 @@ const EventsSection: React.FC = () => {
                                                 </a>
                                             </div>
                                             <a
-                                                href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${encodeURIComponent(event.date)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&sf=true&output=xml`}
+                                                href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${encodeURIComponent(formatGoogleCalendarDate(event.date))}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&sf=true&output=xml`}
                                                 target="_blank"
                                                 className="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
                                             >

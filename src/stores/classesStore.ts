@@ -14,7 +14,8 @@ export const fetchClasses = async () => {
   errorStore.set(null);
 
   try {
-    const response = await fetch('http://72.60.114.240:3000/classes');
+    const API_URL = "https://api.ritmovivosocialclub.com/classes";
+    const response = await fetch(API_URL);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch classes: ${response.status} ${response.statusText}`);

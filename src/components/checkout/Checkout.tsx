@@ -56,8 +56,8 @@ export default function Checkout() {
     };
 
     try {
-      // TODO: Replace with environment variable if needed
-      const response = await fetch('http://72.60.114.240:3000/reservations', {
+      const API_URL = "https://api.ritmovivosocialclub.com/reservations";
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -141,7 +141,7 @@ export default function Checkout() {
       console.log(bookingData);
 
       if (isPromptPayment) {
-        await handleWompiWidget(bookingData.reservationId, bookingData.publicKey, bookingData.signature);
+        await handleWompiWidget(bookingData.reservationId, bookingData.payment.publicKey, bookingData.payment.signature);
       } else {
         // If not paying immediately (not prompt payment), redirect to success page
         window.location.href = '/success';

@@ -1,18 +1,13 @@
 export interface Event {
   image: string;
-  badge?: {
-    text: string;
-    colorClass: string;
-  };
+  color: "text-sc-orange" | "text-rv-aqua" | "text-pink-600";
   date: string;
   title: string;
   description: string;
   location: string;
-  price: string;
-  priceClass?: string;
+  price: number;
   buttonClass?: string;
-  reserveLink: string;
-  calendarLink: string;
   type?: string;
   month?: string;
+  isFree: boolean;
 }

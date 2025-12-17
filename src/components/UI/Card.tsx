@@ -10,23 +10,13 @@ const Card: React.FC<CardProps> = ({
     description,
     location,
     price,
-    badge,
-    reserveLink,
-    calendarLink,
-    priceClass = "text-sc-orange",
+    color = "text-sc-orange",
     buttonClass = "gradient-bg",
 }) => {
     return (
         <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100 h-full flex flex-col">
             <div className="relative">
                 <img src={image} alt={title} className="w-full h-48 object-cover" />
-                {badge && (
-                    <div
-                        className={`absolute top-4 right-4 text-white px-3 py-1 rounded-full font-bold text-sm ${badge.colorClass}`}
-                    >
-                        {badge.text}
-                    </div>
-                )}
             </div>
             <div className="p-6 flex flex-col grow">
                 <div className="text-sm text-gray-600 mb-2">{date}</div>
@@ -36,18 +26,19 @@ const Card: React.FC<CardProps> = ({
                     <span className="text-sm font-semibold text-gray-700">
                         📍 {location}
                     </span>
-                    <span className={`font-bold ${priceClass}`}>{price}</span>
+                    <span className={`font-bold ${color}`}>{price}</span>
                 </div>
                 <div className="flex gap-2 mb-2">
                     <a
-                        href={reserveLink}
+                        href="https://wa.me/573218903991"
                         className={`flex-1 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition ${buttonClass}`}
                     >
                         Reservar
                     </a>
                 </div>
+
                 <a
-                    href={calendarLink}
+                    href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${date}&details=${description}&location=${location}&sf=true&output=xml`}
                     target="_blank"
                     className="block w-full text-center py-2 border border-blue-500 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-50 transition"
                 >

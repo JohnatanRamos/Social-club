@@ -77,7 +77,10 @@ const navLinks = [
             </nav>
 
             <!-- Mobile Menu Button -->
-            <button class="md:hidden text-gray-700">
+            <button
+                id="menu-btn"
+                class="md:hidden text-gray-700 focus:outline-none"
+            >
                 <svg
                     class="w-6 h-6"
                     fill="none"
@@ -85,6 +88,7 @@ const navLinks = [
                     viewBox="0 0 24 24"
                 >
                     <path
+                        id="menu-path"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
@@ -93,4 +97,49 @@ const navLinks = [
             </button>
         </div>
     </div>
+
+    <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white border-t border-gray-100 pb-4 px-4 shadow-lg"
+    >
+        <nav class="flex flex-col space-y-4 pt-4">
+            {
+                navLinks.map((link) => {
+                    const isActive =
+                        link.href === "/"
+                            ? currentPath === "/"
+                            : currentPath.startsWith(link.href);
+
+                    return (
+                        <a
+                            href={link.href}
+                            class={
+                                isActive
+                                    ? "text-sc-orange font-bold bg-sc-light px-4 py-2 rounded-lg"
+                                    : "text-gray-700 hover:text-sc-orange hover:bg-gray-50 px-4 py-2 rounded-lg transition font-medium"
+                            }
+                        >
+                            {link.label}
+                        </a>
+                    );
+                })
+            }
+        </nav>
+    </div>
 </header>
+
+<script>
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuPath = document.getElementById("menu-path");
+
+    const openPath = "M4 6h16M4 12h16M4 18h16";
+    const closePath = "M6 18L18 6M6 6l12 12";
+
+    menuBtn?.addEventListener("click", () => {
+        const isHidden = mobileMenu?.classList.toggle("hidden");
+        if (menuPath) {
+            menuPath.setAttribute("d", isHidden ? openPath : closePath);
+        }
+    });
+</script>

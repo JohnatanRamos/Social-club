@@ -75,12 +75,6 @@ import Layout from "../layouts/Layout.astro";
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap justify-center gap-4">
         <a
-          href="#clases"
-          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
-        >
-          💃 Sobre las Clases
-        </a>
-        <a
           href="#precios"
           class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
         >
@@ -96,13 +90,7 @@ import Layout from "../layouts/Layout.astro";
           href="#eventos"
           class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
         >
-          🎉 Eventos
-        </a>
-        <a
-          href="#coworking"
-          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
-        >
-          💻 Coworking
+          🎉 Eventos y Discoteca
         </a>
       </div>
     </div>
@@ -112,245 +100,6 @@ import Layout from "../layouts/Layout.astro";
   <section class="py-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <!-- SOBRE LAS CLASES -->
-        <div id="clases" class="mb-12">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-4xl">💃</span>
-            <h3 class="text-3xl font-bold text-gray-800">Sobre las Clases</h3>
-          </div>
-
-          <div class="space-y-4">
-            <!-- FAQ Item -->
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Necesito experiencia previa para tomar clases?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  ¡Para nada! Nuestras clases están diseñadas para todos los
-                  niveles, desde principiantes absolutos hasta bailarines
-                  avanzados. Tenemos clases específicas para cada nivel, así que
-                  siempre estarás en un grupo acorde a tu experiencia.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Puedo tomar una clase de prueba antes de inscribirme?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  ¡Sí! Tu primera clase es TOTALMENTE GRATIS. Así puedes conocer
-                  a nuestros profesores, el ambiente, y decidir si Social Club
-                  es para ti. Solo contáctanos por WhatsApp para agendar tu
-                  clase de prueba.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Necesito venir con pareja?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  ¡No es necesario! La mayoría de nuestros estudiantes vienen
-                  solos. Durante las clases rotamos parejas constantemente para
-                  que todos practiquen con diferentes personas. Es una excelente
-                  forma de conocer gente nueva y mejorar tus habilidades.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Qué debo llevar a mi primera clase?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Solo necesitas ropa cómoda para moverte y zapatos apropiados
-                  (nada de tacones muy altos o zapatos resbaladizos). Te
-                  recomendamos traer una botella de agua. ¡Y muchas ganas de
-                  bailar! 😊
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Cuánto dura cada clase?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Cada clase grupal tiene una duración de 60 minutos. Las clases
-                  privadas pueden ser de 60, 90 o 120 minutos según tu
-                  preferencia.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Puedo recuperar clases si falto?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  ¡Sí! Puedes recuperar clases durante el período de vigencia de
-                  tu plan. Por ejemplo, si tienes mensualidad, puedes recuperar
-                  tus clases dentro de ese mes.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Qué géneros de baile enseñan?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Enseñamos: Salsa (en línea, casino, estilo caleño), Bachata
-                  (tradicional, sensual, moderna), Merengue, Kizomba, Tango y
-                  más. Consulta nuestros horarios para ver la oferta completa.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- PRECIOS Y PAGOS -->
         <div id="precios" class="mb-12">
           <div class="flex items-center gap-3 mb-6">
@@ -370,7 +119,7 @@ import Layout from "../layouts/Layout.astro";
                   ¿Cuáles son los métodos de pago aceptados?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -384,76 +133,8 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  Aceptamos efectivo, tarjetas de débito/crédito, Nequi y
-                  transferencias bancarias. Puedes pagar directamente en
-                  cualquiera de nuestras sedes.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Hay matrícula o costos adicionales?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  No, no cobramos matrícula ni costos de inscripción. El precio
-                  que ves en nuestra página de precios es el precio final que
-                  pagas.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Puedo congelar mi plan si no puedo asistir?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Sí, puedes congelar tu plan:
-                  <ul class="list-disc ml-6 mt-2">
-                    <li>Mensualidad: hasta 1 semana</li>
-                    <li>Trimestre: hasta 2 semanas</li>
-                  </ul>
-                  Solo debes notificarnos con anticipación.
+                  Efectivo, transferencia, tarjeta (debito y credito), Link de
+                  pago
                 </div>
               </div>
             </div>
@@ -469,7 +150,7 @@ import Layout from "../layouts/Layout.astro";
                   ¿Hay descuentos disponibles?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -483,12 +164,10 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  Sí, ofrecemos descuentos especiales:
-                  <ul class="list-disc ml-6 mt-2">
-                    <li>Estudiantes: 10% (con carnet)</li>
-                    <li>Grupos de 3+ personas: 15%</li>
-                    <li>Parejas: 12%</li>
-                  </ul>
+                  Contamos con algunos descuentos autorizadas, Si celebras tu
+                  cumpleaños con nosotros te damos un bono del 20% para las
+                  clases, por referir a alguien a nuestros clases, por pronto
+                  pago y promociones en algunos de nuestros cursos
                 </div>
               </div>
             </div>
@@ -500,9 +179,9 @@ import Layout from "../layouts/Layout.astro";
               <div
                 class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
               >
-                <h4 class="font-bold text-gray-800 pr-8">¿Hacen reembolsos?</h4>
+                <h4 class="font-bold text-gray-800 pr-8">¿Hacen reembolso?</h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -516,9 +195,10 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  Los planes no son reembolsables una vez iniciados. Sin
-                  embargo, puedes congelar tu plan o transferir tus clases a
-                  otra persona con previa autorización.
+                  Se realiza un reembolso si por nuestra parte no se puede
+                  cumplir con el servicio comprado, o luego de evaluar por que
+                  deseas realizar el reembolso y este tiene un tiempo de
+                  respuesta de 15 días hábiles
                 </div>
               </div>
             </div>
@@ -543,10 +223,10 @@ import Layout from "../layouts/Layout.astro";
                 class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
               >
                 <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Dónde están ubicadas las sedes?
+                  ¿Dónde están ubicados?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -560,13 +240,11 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  <strong>Social Club:</strong> Calle 12 sur # 48-01, Local 102,
-                  Rotonda Interna Aguacatala, Medellín.<br />
-                  <strong>Ritmo Vivo:</strong> [Dirección pendiente]<br /><br />
-                  Puedes ver los mapas completos en nuestra página de <a
-                    href="index.html#ubicaciones"
-                    class="text-sc-orange hover:underline">Ubicaciones</a
-                  >.
+                  Ritmo vivo:📍Estamos ubicados en: Cl. 39 Sur #40-55, Zona 9,
+                  Envigado, Antioquia Al lado de la Cámara de comercio Social
+                  Club: 📍Social Club Academia de Danza Estamos ubicados en los
+                  bajos del puente de la Aguacatala Calle 12 sur # 48 - 01 local
+                  102
                 </div>
               </div>
             </div>
@@ -579,10 +257,10 @@ import Layout from "../layouts/Layout.astro";
                 class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
               >
                 <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Cuáles son los horarios de las clases?
+                  ¿Hay parqueaderos disponibles?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -596,13 +274,11 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  Las clases grupales son de lunes a viernes de 6:00 PM a 10:00
-                  PM. Tenemos múltiples horarios para que elijas el que mejor te
-                  funcione. Consulta todos los horarios detallados en nuestra
-                  página de <a
-                    href="horarios.html"
-                    class="text-sc-orange hover:underline">Clases</a
-                  >.
+                  Ritmo vivo: No cuenta con parqueadero el más cercano es en la
+                  esquina al lado de la cámara de comercio Social Club: No
+                  contamos con parqueadero propia, sin embargo al lado del
+                  establecimiento encuentran un parqueadero tanto de carros y
+                  motos
                 </div>
               </div>
             </div>
@@ -615,10 +291,10 @@ import Layout from "../layouts/Layout.astro";
                 class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
               >
                 <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Hay parqueadero disponible?
+                  ¿Cómo llegar en transporte público?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -632,41 +308,12 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  Sí, ambas sedes cuentan con parqueadero. En Social Club el
-                  parqueadero es gratis. Consulta disponibilidad al llegar.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Cómo llego en transporte público?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  <strong>Social Club (Aguacatala):</strong> Puedes tomar el Metro
-                  hasta Aguacatala y luego un bus o taxi. También hay varias rutas
-                  de buses que pasan cerca. Contáctanos por WhatsApp para indicaciones
-                  específicas desde tu ubicación.
+                  <strong>Ritmo Vivo:</strong> De la estación Envigado tomas un alimentador
+                  que diga Guanteros y te deja en toda la cámara de comercio de Envigado
+                  <strong>Social Club:</strong> Una vez salgas de Estación Aguacatala,
+                  debes dirigirte hacia la zona de la <strong
+                    >glorieta / rotonda de Aguacatala</strong
+                  >, Esa caminata suele tomar unos 5 minutos
                 </div>
               </div>
             </div>
@@ -682,7 +329,7 @@ import Layout from "../layouts/Layout.astro";
                   ¿Puedo tomar clases en ambas sedes?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -696,9 +343,8 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  ¡Sí! Tu plan es válido en ambas sedes. Puedes tomar clases en
-                  Social Club un día y en Ritmo Vivo al siguiente, como
-                  prefieras.
+                  Claro que sí puedes elegir la sede más cercana para tomar tus
+                  clases
                 </div>
               </div>
             </div>
@@ -723,10 +369,10 @@ import Layout from "../layouts/Layout.astro";
                 class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
               >
                 <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Necesito reservar mesa para la discoteca?
+                  ¿Es necesario reservar una mesa?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -740,10 +386,9 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  No es obligatorio, pero es altamente recomendado,
-                  especialmente para eventos especiales o fines de semana.
-                  Reservar mesa te garantiza un espacio y a veces tiene
-                  descuento en el cover.
+                  No es necesario, sin embargo por nuestra parte recomendamos
+                  realizar la reserva si deseas asegurar un espacio cómodo o
+                  deseas llegar después de las 8:00pm
                 </div>
               </div>
             </div>
@@ -756,10 +401,10 @@ import Layout from "../layouts/Layout.astro";
                 class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
               >
                 <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Cuál es el código de vestimenta?
+                  ¿En qué horario son las clases gratis?
                 </h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -773,9 +418,11 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  Para las clases: ropa cómoda y deportiva.<br />
-                  Para la discoteca: casual elegante. Evita bermudas, chancletas
-                  y camisetas sin mangas.
+                  En Ritmo vivo contamos con clases gratis de Lunes a viernes de
+                  7:00 a 8:00pm y sábado de 8:00 a 9:00pm En Social club
+                  nuestras clases son los Jueves, viernes y sábado de 8:00 a
+                  9:00pm cada semana es un Ritmo diferente No necesitas
+                  inscripción
                 </div>
               </div>
             </div>
@@ -787,11 +434,9 @@ import Layout from "../layouts/Layout.astro";
               <div
                 class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
               >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Los estudiantes tienen descuento en eventos?
-                </h4>
+                <h4 class="font-bold text-gray-800 pr-8">¿Tiene cover?</h4>
                 <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
+                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -805,181 +450,9 @@ import Layout from "../layouts/Layout.astro";
               </div>
               <div class="faq-answer">
                 <div class="px-6 pb-6 text-gray-600">
-                  Sí, los estudiantes activos de nuestras clases reciben
-                  descuentos especiales en muchos de nuestros eventos. Además,
-                  si tienes el plan ilimitado, obtienes 10% de descuento
-                  automático.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Organizan eventos privados?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  ¡Sí! Organizamos cumpleaños, despedidas, eventos corporativos,
-                  team buildings y más. Contáctanos por WhatsApp para cotizar tu
-                  evento privado.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- COWORKING -->
-        <div id="coworking" class="mb-12">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-4xl">💻</span>
-            <h3 class="text-3xl font-bold text-gray-800">
-              Coworking (Ritmo Vivo)
-            </h3>
-          </div>
-
-          <div class="space-y-4">
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Qué incluye el espacio de coworking?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  El coworking incluye: WiFi de alta velocidad, escritorios
-                  ergonómicos, café y té ilimitado, impresora y escáner, salas
-                  de reuniones, y un ambiente tranquilo y productivo.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Cuáles son los horarios del coworking?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  El espacio de coworking en Ritmo Vivo está disponible de lunes
-                  a viernes de 8:00 AM a 6:00 PM.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Necesito reservar con anticipación?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  No es necesario para el día completo, pero si quieres asegurar
-                  una sala de reuniones o un escritorio específico, te
-                  recomendamos reservar con anticipación por WhatsApp.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Puedo hacer videollamadas?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  ¡Claro! Tenemos salas privadas especialmente diseñadas para
-                  videollamadas y reuniones virtuales con buena acústica y
-                  privacidad.
+                  En ninguno de nuestros establecimientos se maneja un cover,
+                  esto solo si es un evento especial y será anunciado con
+                  anticipación por nuestras redes sociales
                 </div>
               </div>
             </div>

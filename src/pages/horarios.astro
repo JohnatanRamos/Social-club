@@ -14,10 +14,12 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
   <!-- Page Hero -->
   <section class="gradient-bg text-white py-16">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-5xl font-bold mb-4">Disfruta de nuestras clases</h2>
+      <h2 class="text-5xl font-bold mb-4">
+        ¡Tu próxima clase te está esperando!
+      </h2>
       <p class="text-xl max-w-2xl mx-auto">
-        Aprende a bailar con los mejores profesores en Social Club & Ritmo Vivo,
-        en la sede que quieras, en el ritmo que quieras.
+        Ritmo Vivo y Social Club te abren sus pistas para aprender y gozar.
+        Encuentra tu nivel, tu estilo y tu nueva comunidad.
       </p>
     </div>
   </section>
@@ -51,17 +53,12 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap justify-center gap-6 text-center">
         <div class="flex items-center gap-2">
-          <span class="text-3xl">🎓</span>
-          <div class="text-left">
-            <div class="font-bold text-gray-800">Primera Clase</div>
-            <div class="text-sm text-gray-600">GRATIS</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
           <span class="text-3xl">💳</span>
           <div class="text-left">
             <div class="font-bold text-gray-800">Métodos de Pago</div>
-            <div class="text-sm text-gray-600">Efectivo, Tarjeta, Nequi</div>
+            <div class="text-sm text-gray-600">
+              Efectivo, tarjeta, Transferencia
+            </div>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -69,7 +66,7 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
           <div class="text-left">
             <div class="font-bold text-gray-800">Descuentos</div>
             <div class="text-sm text-gray-600">
-              Estudiantes, Grupos, Parejas
+              Individual, referidos, bonos
             </div>
           </div>
         </div>
@@ -81,50 +78,45 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
   <section class="py-16">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
-        <h3 class="text-4xl font-bold text-gray-800 mb-4">
-          💃 Planes de Clases
-        </h3>
+        <h3 class="text-4xl font-bold text-gray-800 mb-4">💃 Paquetes</h3>
         <p class="text-gray-600 max-w-2xl mx-auto">
-          Todos los planes incluyen acceso a todas las clases grupales de
-          cualquier género musical
+          Todos los paquetes tienen una vigencia de dos meses.
         </p>
       </div>
 
       <div class="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
-        <!-- Plan 1: Clase Individual -->
+        <!-- Plan 1: Clase Privada -->
         <div
           class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden"
         >
           <div class="bg-gray-100 p-6 text-center">
             <div class="text-4xl mb-3">🎯</div>
-            <h4 class="text-2xl font-bold text-gray-800 mb-2">
-              Clase Individual
-            </h4>
+            <h4 class="text-2xl font-bold text-gray-800 mb-2">Clase Privada</h4>
             <p class="text-sm text-gray-600">Perfecta para probar</p>
           </div>
           <div class="p-8">
             <div class="text-center mb-6">
               <div class="price-tag text-gray-800">
-                $20<span class="text-2xl">.000</span>
+                $90<span class="text-2xl">.000</span>
               </div>
               <div class="text-gray-600 text-sm">por clase</div>
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">1 clase de 60 minutos</span>
+                <span class="text-gray-700">1 hora de clase</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
                 <span class="text-gray-700">Cualquier género musical</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Válida 30 días</span>
+                <span class="text-gray-700">
+                  Lunes a viernes : 9:00am a 5:00pm
+                </span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-gray-300 text-xl">✗</span>
-                <span class="text-gray-400">Sin descuentos</span>
+                <span class="text-gray-700">Sábado de 9:00am a 1:00pm</span>
               </li>
             </ul>
             <a
@@ -142,37 +134,43 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
         >
           <div class="gradient-bg p-6 text-center text-white">
             <div class="text-4xl mb-3">⭐</div>
-            <h4 class="text-2xl font-bold mb-2">Mensualidad</h4>
+            <h4 class="text-2xl font-bold mb-2">Paquete por 5 horas</h4>
             <p class="text-sm">Más popular</p>
           </div>
           <div class="p-8">
             <div class="text-center mb-6">
               <div class="price-tag text-sc-orange">
-                $140<span class="text-2xl">.000</span>
+                $400<span class="text-2xl">.000</span>
               </div>
               <div class="text-gray-600 text-sm">8 clases al mes</div>
               <div
                 class="mt-2 inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold"
               >
-                Ahorras $20.000
+                Ahorras $50.000
               </div>
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">8 clases de 60 min c/u</span>
+                <span class="text-gray-700"
+                  >Puedes programar hasta 2 hora de clase por día</span
+                >
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Todos los géneros</span>
+                <span class="text-gray-700">Cualquier género musical</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Válidas 30 días</span>
+                <span class="text-gray-700">Vigencia de 2 meses</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Puedes congelar 1 semana</span>
+                <span class="text-gray-700"
+                  >Lunes a viernes : 9:00am a 5:00pm</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-gray-700">Sábado de 9:00am a 1:00pm</span>
               </li>
             </ul>
             <a
@@ -190,41 +188,43 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
         >
           <div class="bg-purple-600 p-6 text-center text-white">
             <div class="text-4xl mb-3">🎓</div>
-            <h4 class="text-2xl font-bold mb-2">Trimestre</h4>
+            <h4 class="text-2xl font-bold mb-2">Paquete por 10 horas</h4>
             <p class="text-sm">Mejor inversión</p>
           </div>
           <div class="p-8">
             <div class="text-center mb-6">
               <div class="price-tag text-purple-600">
-                $360<span class="text-2xl">.000</span>
+                $750<span class="text-2xl">.000</span>
               </div>
               <div class="text-gray-600 text-sm">24 clases (3 meses)</div>
               <div
                 class="mt-2 inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold"
               >
-                Ahorras $120.000
+                Ahorras $140.000
               </div>
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">24 clases de 60 min</span>
+                <span class="text-gray-700"
+                  >Puedes programar hasta 2 hora de clase por día</span
+                >
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Todos los géneros</span>
+                <span class="text-gray-700">Cualquier género musical</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Válidas 90 días</span>
+                <span class="text-gray-700">Vigencia de 2 mesess</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Puedes congelar 2 semanas</span>
+                <span class="text-gray-700"
+                  >Lunes a viernes : 8:00am a 5:00pm</span
+                >
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Certificado al finalizar</span>
+                <span class="text-gray-700">Sábado de 10:00am a 1:00pm</span>
               </li>
             </ul>
             <a
@@ -241,18 +241,18 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
           class="pricing-card bg-white rounded-2xl shadow-lg overflow-hidden"
         >
           <div
-            class="bg-gradient-to-r from-yellow-500 to-orange-500 p-6 text-center text-white"
+            class="bg-linear-to-r from-yellow-500 to-orange-500 p-6 text-center text-white"
           >
             <div class="text-4xl mb-3">👑</div>
-            <h4 class="text-2xl font-bold mb-2">Ilimitado</h4>
+            <h4 class="text-2xl font-bold mb-2">Clases empresariales</h4>
             <p class="text-sm">Para dedicados</p>
           </div>
           <div class="p-8">
             <div class="text-center mb-6">
               <div class="price-tag text-orange-500">
-                $200<span class="text-2xl">.000</span>
+                $90<span class="text-2xl">.000</span>
               </div>
-              <div class="text-gray-600 text-sm">Clases ilimitadas/mes</div>
+              <div class="text-gray-600 text-sm">Valor individual</div>
               <div
                 class="mt-2 inline-block bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold"
               >
@@ -262,25 +262,13 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
             <ul class="space-y-3 mb-8">
               <li class="flex items-start gap-2">
                 <span class="text-green-500 text-xl">✓</span>
+                <span class="text-gray-700">Cualquier género musical</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-500 text-xl">✓</span>
                 <span class="text-gray-700"
-                  ><strong>Ilimitadas</strong> al mes</span
+                  >Horario: Tu eliges el día y la hora</span
                 >
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Todos los géneros</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Válidas 30 días</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Acceso a eventos VIP</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-green-500 text-xl">✓</span>
-                <span class="text-gray-700">Descuento 10% en eventos</span>
               </li>
             </ul>
             <a
@@ -295,118 +283,6 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
     </div>
   </section>
 
-  <!-- Clases Privadas -->
-  <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-12">
-          <h3 class="text-4xl font-bold text-gray-800 mb-4">
-            👥 Clases Privadas
-          </h3>
-          <p class="text-gray-600">
-            Atención personalizada, horarios flexibles, progreso acelerado
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Individual -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <div class="text-5xl mb-4">👤</div>
-            <h4 class="text-2xl font-bold mb-3 text-gray-800">Individual</h4>
-            <div class="text-4xl font-bold text-sc-orange mb-2">$60.000</div>
-            <div class="text-gray-600 text-sm mb-6">por hora</div>
-            <ul class="text-left space-y-2 mb-6">
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>1 persona</span>
-              </li>
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>Horario flexible</span>
-              </li>
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>Atención 100% personalizada</span>
-              </li>
-            </ul>
-            <a
-              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20clases%20privadas%20individuales"
-              class="block w-full text-center py-3 border-2 border-sc-orange text-sc-orange rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
-            >
-              Agendar
-            </a>
-          </div>
-
-          <!-- Pareja -->
-          <div
-            class="bg-white rounded-2xl shadow-lg p-8 text-center border-2 border-sc-orange"
-          >
-            <div class="text-5xl mb-4">💑</div>
-            <h4 class="text-2xl font-bold mb-3 text-gray-800">Pareja</h4>
-            <div class="text-4xl font-bold text-sc-orange mb-2">$80.000</div>
-            <div class="text-gray-600 text-sm mb-6">por hora</div>
-            <ul class="text-left space-y-2 mb-6">
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>2 personas</span>
-              </li>
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>Horario flexible</span>
-              </li>
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>Enfoque en conexión</span>
-              </li>
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span class="font-semibold text-sc-orange"
-                  >Más económico por persona</span
-                >
-              </li>
-            </ul>
-            <a
-              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20clases%20privadas%20en%20pareja"
-              class="block w-full text-center py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition"
-            >
-              Agendar
-            </a>
-          </div>
-
-          <!-- Grupo -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <div class="text-5xl mb-4">👨‍👩‍👧‍👦</div>
-            <h4 class="text-2xl font-bold mb-3 text-gray-800">Grupo Privado</h4>
-            <div class="text-4xl font-bold text-sc-orange mb-2">$120.000</div>
-            <div class="text-gray-600 text-sm mb-6">
-              por hora (3-6 personas)
-            </div>
-            <ul class="text-left space-y-2 mb-6">
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>3 a 6 personas</span>
-              </li>
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>Horario flexible</span>
-              </li>
-              <li class="flex items-center gap-2 text-gray-700">
-                <span class="text-green-500">✓</span>
-                <span>Perfecto para amigos/familia</span>
-              </li>
-            </ul>
-            <a
-              href="https://wa.me/573XXXXXXXXX?text=Hola%2C%20quiero%20información%20sobre%20clases%20privadas%20grupales"
-              class="block w-full text-center py-3 border-2 border-sc-orange text-sc-orange rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
-            >
-              Agendar
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Descuentos Section -->
   <section class="py-16">
     <div class="container mx-auto px-4">
@@ -414,41 +290,63 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
         <h3 class="text-4xl font-bold text-gray-800 mb-4">
           🎁 Descuentos Especiales
         </h3>
-        <p class="text-gray-600">Aprovecha nuestras promociones y ahorra más</p>
+        <p class="text-gray-600">Aprovecha nuestros descuentos y ahorra más</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto">
         <div
-          class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center"
+          class="bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center"
         >
           <div class="text-6xl mb-4">🎓</div>
-          <h4 class="text-2xl font-bold mb-3 text-gray-800">Estudiantes</h4>
-          <div class="text-5xl font-bold text-blue-600 mb-4">10%</div>
-          <p class="text-gray-700 mb-4">
-            En cualquier plan mensual o trimestral
+          <h4 class="text-2xl font-bold mb-3 text-gray-800">
+            Bono de cumpleaños
+          </h4>
+          <div class="text-5xl font-bold text-blue-600 mb-4">20%</div>
+          <p class="text-gray-700 mb-4">Este descuento es acumulable</p>
+          <p class="text-sm text-gray-600">
+            *Ingresa el código al momento de la compra
           </p>
-          <p class="text-sm text-gray-600">*Presentando carnet vigente</p>
         </div>
 
         <div
-          class="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8 text-center"
+          class="bg-linear-to-br from-pink-50 to-pink-100 rounded-2xl p-8 text-center"
         >
           <div class="text-6xl mb-4">👥</div>
-          <h4 class="text-2xl font-bold mb-3 text-gray-800">Grupos</h4>
-          <div class="text-5xl font-bold text-pink-600 mb-4">15%</div>
-          <p class="text-gray-700 mb-4">Para grupos de 3 o más personas</p>
-          <p class="text-sm text-gray-600">*Deben inscribirse juntos</p>
+          <h4 class="text-2xl font-bold mb-3 text-gray-800">
+            Referido para curso grupal
+          </h4>
+          <div class="text-5xl font-bold text-pink-600 mb-4">5%</div>
+          <p class="text-gray-700 mb-4">acumulable</p>
+          <p class="text-sm text-gray-600">
+            *Referido tiene que ser un tercero, no puede ser tu pareja
+          </p>
         </div>
 
         <div
-          class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 text-center"
+          class="bg-linear-to-br from-purple-50 to-purple-100 rounded-2xl p-8 text-center"
         >
           <div class="text-6xl mb-4">💑</div>
-          <h4 class="text-2xl font-bold mb-3 text-gray-800">Parejas</h4>
-          <div class="text-5xl font-bold text-purple-600 mb-4">12%</div>
-          <p class="text-gray-700 mb-4">Paquete especial para dos</p>
+          <h4 class="text-2xl font-bold mb-3 text-gray-800">Grupos</h4>
+          <div class="text-5xl font-bold text-purple-600 mb-4">15%</div>
+          <p class="text-gray-700 mb-4">
+            si tomas 3 o más cursos si adquieres. 5% si tomas 2 cursos
+          </p>
           <p class="text-sm text-gray-600">
-            *Aplica en plan mensual y trimestral
+            *Solo aplica en mensualidad individual
+          </p>
+        </div>
+
+        <div
+          class="bg-linear-to-br from-purple-50 to-purple-100 rounded-2xl p-8 text-center"
+        >
+          <div class="text-6xl mb-4">💑</div>
+          <h4 class="text-2xl font-bold mb-3 text-gray-800">2x1</h4>
+          <!-- <div class="text-5xl font-bold text-purple-600 mb-4">15%</div> -->
+          <p class="text-gray-700 mb-4">
+            <!-- si tomas 3 o más cursos si adquieres. 5% si tomas 2 cursos -->
+          </p>
+          <p class="text-sm text-gray-600">
+            *Solo aplica para el primer mes del curso
           </p>
         </div>
       </div>
@@ -462,7 +360,7 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
         <h3 class="text-3xl font-bold text-gray-800 mb-8">
           💳 Métodos de Pago
         </h3>
-        <div class="grid md:grid-cols-4 gap-6">
+        <div class="grid md:grid-cols-3 gap-6">
           <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="text-4xl mb-3">💵</div>
             <div class="font-bold text-gray-800">Efectivo</div>
@@ -471,10 +369,6 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
             <div class="text-4xl mb-3">💳</div>
             <div class="font-bold text-gray-800">Tarjeta</div>
             <div class="text-xs text-gray-600 mt-1">Débito/Crédito</div>
-          </div>
-          <div class="bg-white rounded-xl shadow-lg p-6">
-            <div class="text-4xl mb-3">📱</div>
-            <div class="font-bold text-gray-800">Nequi</div>
           </div>
           <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="text-4xl mb-3">🏦</div>
@@ -486,47 +380,91 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
   </section>
 
   <!-- FAQ Section -->
-  <section class="py-16 bg-gradient-to-br from-orange-50 to-red-50">
+  <section class="py-16 bg-linear-to-br from-orange-50 to-red-50">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
         <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-          ❓ Preguntas Frecuentes sobre Precios
+          ❓ Preguntas Frecuentes
         </h3>
 
         <div class="space-y-4">
           <div class="bg-white rounded-xl shadow-md p-6">
             <h4 class="font-bold text-gray-800 mb-2">
-              ¿Puedo recuperar clases si falto?
+              ¿Puedo recuperar una clase si la pierdo?
             </h4>
             <p class="text-gray-600">
-              Sí, puedes recuperar clases dentro del período de vigencia de tu
-              plan.
+              Si tienes clase privada o paquete, sí puedes repararla siempre y
+              cuando la canceles mínimo 2 horas antes. Si cancelas por fuera del
+              tiempo, la clase se da por tomada. En los cursos grupales no es
+              posible reponer, porque el grupo lleva una continuidad. Pero
+              tranqui: en el grupo de WhatsApp siempre enviamos videos con lo
+              visto en clase, y el profe empieza cada sesión con repaso y
+              resolución de dudas. Si, Social Club o el profesor deben cancelar,
+              ahí sí la clase se repone sin problema.
             </p>
           </div>
           <div class="bg-white rounded-xl shadow-md p-6">
             <h4 class="font-bold text-gray-800 mb-2">
-              ¿Puedo congelar mi mensualidad?
+              ¿Hay algún problema si en la promo 2x1 se inscriben dos hombres o
+              dos mujeres?
             </h4>
             <p class="text-gray-600">
-              Sí, puedes congelar tu plan hasta por 2 semanas previa
-              notificación.
+              ¡Para nada! La promo 2x1 aplica para una pareja de baile, sin
+              importar el género. Lo único importante es que haya un rol
+              definido: un líder y un seguidor. Dos chicas o dos chicos son más
+              que bienvenidos. Solo les pedimos decidir antes quién será líder y
+              quién seguidor durante el mes, para mantener el equilibrio del
+              grupo.
             </p>
           </div>
           <div class="bg-white rounded-xl shadow-md p-6">
             <h4 class="font-bold text-gray-800 mb-2">
-              ¿Hay matrícula o costos adicionales?
+              ¿Debo inscribirme en todos los cursos con la misma pareja?
             </h4>
             <p class="text-gray-600">
-              No, no cobramos matrícula. El precio que ves es el precio final.
+              Para nada. Puedes cambiar de pareja entre cursos sin afectar tu
+              proceso. Lo importante es que te sientas cómodo y disfrutes
+              aprender.
             </p>
           </div>
           <div class="bg-white rounded-xl shadow-md p-6">
             <h4 class="font-bold text-gray-800 mb-2">
-              ¿Los precios son los mismos en ambas sedes?
+              ¿Puedo congelar mi mensualidad o mi paquete de clases?
             </h4>
             <p class="text-gray-600">
-              Sí, tanto Social Club como Ritmo Vivo manejan los mismos precios
-              para las clases.
+              Sí, puedes congelar tu proceso. Solo debes avisarnos antes para
+              revisar tu caso. Una vez aprobado, puedes congelar hasta por 2
+              meses máximo.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h4 class="font-bold text-gray-800 mb-2">
+              ¿Cuánto dura cada clase de un curso grupal?
+            </h4>
+            <p class="text-gray-600">
+              Cada mensualidad incluye 4 clases, de 1 hora y media cada una. Las
+              clases son una vez por semana.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h4 class="font-bold text-gray-800 mb-2">
+              ¿Necesito llevar pareja?
+            </h4>
+            <p class="text-gray-600">
+              No es necesario. Puedes pagar tu mensualidad individual y, si en
+              clase hay un líder disponible, tomas la sesión con esa persona. Si
+              hace falta, Social Club pone apoyo para que nadie se quede sin
+              bailar.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <h4 class="font-bold text-gray-800 mb-2">
+              Si tomo un paquete de clases privadas, ¿puedo ver varios ritmos?
+            </h4>
+            <p class="text-gray-600">
+              Sí puedes, aunque nuestra recomendación es máximo uno o dos ritmos
+              para que puedas trabajar bien la técnica y los pasos básicos sin
+              saturarte.
             </p>
           </div>
         </div>
@@ -537,16 +475,18 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
   <!-- CTA Section -->
   <section class="py-16 gradient-bg text-white">
     <div class="container mx-auto px-4 text-center">
-      <h3 class="text-4xl font-bold mb-6">¿Listo para tu primera clase?</h3>
+      <h3 class="text-4xl md:text-5xl font-bold mb-6">
+        ¡Aprende a bailar Sabroso!
+      </h3>
       <p class="text-xl mb-8 max-w-2xl mx-auto">
-        Únete a nuestra comunidad de bailarines. ¡La primera clase es gratis!
+        Horarios flexibles, estilos variados y pura buena vibra.
       </p>
       <a
         href="https://wa.me/573XXXXXXXXX"
         target="_blank"
         class="inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
       >
-        📲 Agendar Clase de Prueba
+        📲 Agenda Tu clase ahora
       </a>
     </div>
   </section>

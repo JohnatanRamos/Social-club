@@ -7,32 +7,27 @@ import Layout from "../layouts/Layout.astro";
   <section class="relative gradient-bg text-white py-24 overflow-hidden">
     <div class="container mx-auto px-4 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        <div
-          class="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6"
-        >
-          <span class="text-yellow-300 font-semibold">✨ Viernes & Sábados</span
-          >
-        </div>
         <h2 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
-          Baila, Come, <span class="text-yellow-300">Rumbea</span>
+          Aquí no solo se <span class="text-yellow-300">baila… </span>¡También
+          se <span class="text-yellow-300">come</span> delicioso!
         </h2>
-        <p class="text-2xl mb-8 text-white/90">
-          Los mejores fines de semana de Medellín te esperan
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#reservar"
-            class="inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl pulse-glow"
-          >
-            🎉 Reservar Mesa
-          </a>
-          <a
-            href="#menu"
-            class="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sc-orange transition"
-          >
-            🍽️ Ver Menú
-          </a>
-        </div>
+      </div>
+      <p class="text-2xl mb-8 text-white/90 text-center">
+        Los mejores fines de semana de Medellín te esperan
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="#reservar"
+          class="inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl pulse-glow"
+        >
+          🎉 Reservar Mesa
+        </a>
+        <a
+          href="#menu"
+          class="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sc-orange transition"
+        >
+          🍽️ Ver Menú
+        </a>
       </div>
     </div>
   </section>
@@ -57,32 +52,25 @@ import Layout from "../layouts/Layout.astro";
             Sabores que Enamoran
           </h4>
           <p class="text-gray-600 mb-6 leading-relaxed text-lg">
-            Nuestro restaurante ofrece una selección de platos diseñados para
-            compartir y disfrutar antes de bailar o durante toda la noche. Desde
-            picadas hasta platos principales, todo preparado con ingredientes
-            frescos y mucho amor.
+            Nuestra gastronomía es el combo perfecto entre sabor, cultura y
+            buena vibra. Aquí encuentras platos para todos los antojos y para
+            todo tipo de parche.
           </p>
-          <div class="space-y-3">
-            <div class="flex items-center gap-3">
-              <span class="text-green-500 text-2xl">✓</span>
-              <span class="text-gray-700">Platos colombianos auténticos</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-green-500 text-2xl">✓</span>
-              <span class="text-gray-700"
-                >Opciones vegetarianas disponibles</span
-              >
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-green-500 text-2xl">✓</span>
-              <span class="text-gray-700">Barra de cócteles completa</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-green-500 text-2xl">✓</span>
-              <span class="text-gray-700">Servicio a la mesa toda la noche</span
-              >
-            </div>
-          </div>
+          <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+            En Ritmo Vivo arrancamos desde temprano con desayunos, panadería
+            fresca y opciones que van desde carnes, ensaladas, hamburguesas,
+            papas y platos para compartir. En Social Club vas directo al sabor
+            con carnes, hamburguesas, ensaladas, papas y opciones para compartir
+            que son la mejor excusa para alargar la noche.
+          </p>
+          <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+            Y sí, en ambos espacios también tenemos opciones vegetarianas para
+            que nadie se quede por fuera del plan.
+          </p>
+          <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+            Aquí la gastronomía se mezcla con la música, la cultura y la energía
+            que nos caracteriza.
+          </p>
         </div>
         <div>
           <img
@@ -95,199 +83,15 @@ import Layout from "../layouts/Layout.astro";
 
       <!-- Menu Categories -->
       <div class="max-w-6xl mx-auto">
-        <h4 class="text-3xl font-bold text-center mb-12 text-gray-800">
-          Nuestro Menú
-        </h4>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Category 1: Entradas -->
-          <div>
-            <div
-              class="bg-linear-to-br from-orange-100 to-red-100 rounded-t-2xl p-6 text-center"
-            >
-              <div class="text-4xl mb-2">🍟</div>
-              <h5 class="text-2xl font-bold text-gray-800">
-                Entradas & Picadas
-              </h5>
-            </div>
-            <div class="bg-white rounded-b-2xl shadow-lg p-6">
-              <div class="space-y-4">
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Patacones con Hogao</span
-                    >
-                    <span class="text-sc-orange font-bold">$15.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    Crujientes patacones con salsa hogao casera
-                  </p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Alitas Picantes</span
-                    >
-                    <span class="text-sc-orange font-bold">$18.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    10 alitas con salsa BBQ o búfalo
-                  </p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Picada Social Club</span
-                    >
-                    <span class="text-sc-orange font-bold">$45.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    Para compartir: chicharrón, chorizo, papa, yuca
-                  </p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Deditos de Queso</span
-                    >
-                    <span class="text-sc-orange font-bold">$12.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    8 unidades con salsa de la casa
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Category 2: Platos Fuertes -->
-          <div>
-            <div
-              class="bg-gradient-to-br from-green-100 to-teal-100 rounded-t-2xl p-6 text-center"
-            >
-              <div class="text-4xl mb-2">🍖</div>
-              <h5 class="text-2xl font-bold text-gray-800">Platos Fuertes</h5>
-            </div>
-            <div class="bg-white rounded-b-2xl shadow-lg p-6">
-              <div class="space-y-4">
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Bandeja Paisa</span
-                    >
-                    <span class="text-sc-orange font-bold">$28.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">Tradicional y completa</p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Pechuga a la Plancha</span
-                    >
-                    <span class="text-sc-orange font-bold">$22.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    Con arroz, papas y ensalada
-                  </p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Hamburguesa Premium</span
-                    >
-                    <span class="text-sc-orange font-bold">$20.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    200g de carne, queso, tocineta, papas
-                  </p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Lomo de Cerdo</span
-                    >
-                    <span class="text-sc-orange font-bold">$26.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    En salsa BBQ con acompañamiento
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Category 3: Bebidas -->
-          <div>
-            <div
-              class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-t-2xl p-6 text-center"
-            >
-              <div class="text-4xl mb-2">🍹</div>
-              <h5 class="text-2xl font-bold text-gray-800">
-                Bebidas & Cócteles
-              </h5>
-            </div>
-            <div class="bg-white rounded-b-2xl shadow-lg p-6">
-              <div class="space-y-4">
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800">Mojito</span>
-                    <span class="text-sc-orange font-bold">$15.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">Clásico o de frutos rojos</p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800">Piña Colada</span>
-                    <span class="text-sc-orange font-bold">$16.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">Cremosa y tropical</p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Cerveza Nacional</span
-                    >
-                    <span class="text-sc-orange font-bold">$5.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">
-                    Poker, Águila, Club Colombia
-                  </p>
-                </div>
-
-                <div class="menu-item p-3 rounded-lg hover:bg-gray-50">
-                  <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-gray-800"
-                      >Jarra de Sangría</span
-                    >
-                    <span class="text-sc-orange font-bold">$35.000</span>
-                  </div>
-                  <p class="text-sm text-gray-600">Para compartir (1 litro)</p>
-                </div>
-
-                <div
-                  class="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-3 mt-4"
-                >
-                  <div class="font-bold text-yellow-800 mb-1">
-                    🍹 Happy Hour
-                  </div>
-                  <div class="text-sm text-yellow-700">
-                    2x1 en bebidas antes de 10 PM
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="text-center mb-12">
+          <h3 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            ¿Listo para antojarte?
+          </h3>
+          <p class="text-xl text-gray-600">Descubre la carta completa</p>
         </div>
-
-        <div class="text-center mt-8 flex justify-center gap-4">
+        <div
+          class="text-center mt-8 flex flex-col sm:flex-row justify-center gap-4"
+        >
           <a
             href="http://socialclubacademia.com/_files/ugd/af8f4b_65cfb77ae10a47b1b36002662dc4a2a6.pdf"
             target="_blank"
@@ -297,7 +101,7 @@ import Layout from "../layouts/Layout.astro";
           </a>
 
           <a
-            href="http://socialclubacademia.com/_files/ugd/af8f4b_65cfb77ae10a47b1b36002662dc4a2a6.pdf"
+            href="https://drive.google.com/drive/folders/1w2BA6NJQqi1B-u9CG832bkJphmRjjweb"
             target="_blank"
             class="inline-block gradient-rv text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg transition"
           >

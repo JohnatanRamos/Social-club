@@ -45,7 +45,7 @@ const Card: React.FC<CardProps> = ({
                 </div>
                 <div className="flex gap-2 mb-2">
                     <a
-                        href="https://wa.me/573218903991"
+                        href={`https://wa.me/573218903991?text=${encodeURIComponent(`Quiero reservar para el evento: ${title}`)}`}
                         className={`flex-1 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition ${styles.btn}`}
                     >
                         Reservar

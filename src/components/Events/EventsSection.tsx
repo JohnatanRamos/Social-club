@@ -171,10 +171,10 @@ const EventsSection: React.FC = () => {
 
                                                 <div className="flex gap-3 mb-3">
                                                     <a
-                                                        href={`https://wa.me/573218903991?text=Hola%2C%20quiero%20reservar%20para%20${encodeURIComponent(event.title)}`}
+                                                        href={`https://wa.me/573218903991?text=${encodeURIComponent(`Quiero reservar para el evento: ${event.title}`)}`}
                                                         className={`flex-1 text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition ${styles.btn}`}
                                                     >
-                                                        {event.type === "Workshops" ? "Inscribirme Ahora" : "Reservar Mesa"}
+                                                        Inscribirme Ahora
                                                     </a>
                                                 </div>
                                                 <a

@@ -1,13 +1,22 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
 import { filtersStore, setFilter } from '../../stores/scheduleFiltersStore';
+import { classesStore } from '../../stores/classesStore';
 
 export const ScheduleFilters: React.FC = () => {
     const filters = useStore(filtersStore);
+    const classes = useStore(classesStore);
 
     const handleChange = (key: keyof typeof filters, value: string) => {
         setFilter(key, value);
     };
+
+    // Derived filter options
+    const genres = ["Todos los géneros", ...new Set(classes.map(c => c.genre).filter(Boolean) as string[])];
+    const levels = ["Todos los niveles", ...new Set(classes.map(c => c.level).filter(Boolean) as string[])];
+    const locations = ["Todas las sedes", ...new Set(classes.map(c => c.location).filter(Boolean) as string[])];
+    const instructors = ["Todos los profesores", ...new Set(classes.map(c => c.instructor).filter(Boolean) as string[])];
+    const days = ["Todos los días", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
     return (
         <section
@@ -26,9 +35,9 @@ export const ScheduleFilters: React.FC = () => {
                             onChange={(e) => handleChange('location', e.target.value)}
                             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                         >
-                            <option>Todas las sedes</option>
-                            <option>Social Club</option>
-                            <option>Ritmo Vivo</option>
+                            {locations.map(loc => (
+                                <option key={loc} value={loc}>{loc}</option>
+                            ))}
                         </select>
                     </div>
 
@@ -42,12 +51,9 @@ export const ScheduleFilters: React.FC = () => {
                             onChange={(e) => handleChange('genre', e.target.value)}
                             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                         >
-                            <option>Todos los géneros</option>
-                            <option>Salsa</option>
-                            <option>Bachata</option>
-                            <option>Merengue</option>
-                            <option>Kizomba</option>
-                            <option>Tango</option>
+                            {genres.map(genre => (
+                                <option key={genre} value={genre}>{genre}</option>
+                            ))}
                         </select>
                     </div>
 
@@ -61,11 +67,9 @@ export const ScheduleFilters: React.FC = () => {
                             onChange={(e) => handleChange('level', e.target.value)}
                             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                         >
-                            <option>Todos los niveles</option>
-                            <option>Principiante</option>
-                            <option>Básico</option>
-                            <option>Intermedio</option>
-                            <option>Avanzado</option>
+                            {levels.map(level => (
+                                <option key={level} value={level}>{level}</option>
+                            ))}
                         </select>
                     </div>
 
@@ -79,13 +83,9 @@ export const ScheduleFilters: React.FC = () => {
                             onChange={(e) => handleChange('day', e.target.value)}
                             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                         >
-                            <option>Todos los días</option>
-                            <option>Lunes</option>
-                            <option>Martes</option>
-                            <option>Miércoles</option>
-                            <option>Jueves</option>
-                            <option>Viernes</option>
-                            <option>Sábado</option>
+                            {days.map(day => (
+                                <option key={day} value={day}>{day}</option>
+                            ))}
                         </select>
                     </div>
 
@@ -99,11 +99,9 @@ export const ScheduleFilters: React.FC = () => {
                             onChange={(e) => handleChange('instructor', e.target.value)}
                             className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                         >
-                            <option>Todos los profesores</option>
-                            <option>Juan Pérez</option>
-                            <option>María González</option>
-                            <option>Carlos Rodríguez</option>
-                            <option>Ana Martínez</option>
+                            {instructors.map(ins => (
+                                <option key={ins} value={ins}>{ins}</option>
+                            ))}
                         </select>
                     </div>
                 </div>

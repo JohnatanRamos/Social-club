@@ -7,13 +7,14 @@ import { addToCart } from '../../stores/cartStore';
 import { FloatingCartButton } from '../UI/FloatingCartButton';
 
 const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-const TIME_SLOTS = ["6:00 PM", "7:00 PM", "8:00 PM"];
 
 export const Schedule: React.FC = () => {
     const classes = useStore(classesStore);
     const loading = useStore(isLoading);
     const error = useStore(errorStore);
     const filters = useStore(filtersStore);
+
+    const TIME_SLOTS = [...new Set(classes.map(c => c.time?.toUpperCase()).filter(Boolean) as string[])].sort();
 
     useEffect(() => {
         fetchClasses();
@@ -51,7 +52,7 @@ export const Schedule: React.FC = () => {
     });
 
     const getClassForSlot = (day: string, time: string) => {
-        return filteredClasses.find(c => c.day === day && c.time === time);
+        return filteredClasses.find(c => c.day === day && c.time?.toUpperCase() === time);
     };
 
     return (
@@ -110,7 +111,7 @@ export const Schedule: React.FC = () => {
                     filteredClasses.map((classSession) => (
                         <div key={classSession.id} className="bg-white rounded-2xl shadow-lg p-6">
                             <div className="flex items-center justify-between mb-4">
-                                <h4 className="font-bold text-lg">{classSession.day} {classSession.time}</h4>
+                                <h4 className="font-bold text-lg">{classSession.day} {classSession.time?.toUpperCase()}</h4>
                                 <span className={`px-3 py-1 rounded-full text-sm font-semibold ${classSession.color === 'red' ? 'bg-red-100 text-red-700' :
                                     classSession.color === 'purple' ? 'bg-purple-100 text-purple-700' :
                                         classSession.color === 'orange' ? 'bg-orange-100 text-orange-700' :

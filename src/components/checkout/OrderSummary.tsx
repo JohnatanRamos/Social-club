@@ -55,12 +55,12 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                                         <p className="font-semibold text-slate-700">{item.name}</p>
                                         <p className="text-xs text-slate-500">{item.duration}</p>
                                         <div className="mt-1 inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600">
-                                            {item.mode === 'pareja' ? 'Pareja (x2)' : 'Individual'}
+                                            {item.mode === 'pareja' ? (item.promotion ? 'Pareja (Promo 2x1)' : 'Pareja (x2)') : 'Individual'}
                                         </div>
                                     </div>
                                     <div className="text-right">
                                         <p className="font-medium text-slate-900">
-                                            {formatCurrency(item.mode === 'pareja' ? item.price * 2 : item.price)}
+                                            {formatCurrency((item.mode === 'pareja' && !item.promotion) ? item.price * 2 : item.price)}
                                         </p>
                                         <button
                                             onClick={() => onRemoveCourse(idx)}

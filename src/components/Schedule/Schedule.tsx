@@ -111,18 +111,13 @@ export const Schedule: React.FC = () => {
                     filteredClasses.map((classSession) => (
                         <div key={classSession.id} className="bg-white rounded-2xl shadow-lg p-6">
                             <div className="flex items-center justify-between mb-4">
-                                <h4 className="font-bold text-lg">{classSession.day} {classSession.time?.toUpperCase()}</h4>
-                                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${classSession.color === 'red' ? 'bg-red-100 text-red-700' :
-                                    classSession.color === 'purple' ? 'bg-purple-100 text-purple-700' :
-                                        classSession.color === 'orange' ? 'bg-orange-100 text-orange-700' :
-                                            classSession.color === 'green' ? 'bg-green-100 text-green-700' :
-                                                classSession.color === 'blue' ? 'bg-blue-100 text-blue-700' :
-                                                    'bg-linear-to-r from-red-100 to-purple-100 text-purple-700'
-                                    }`}>
-                                    {classSession.name.split(' ')[1] || 'Clase'}
-                                </span>
+                                <h4 className="font-bold text-lg">{classSession.name}</h4>
                             </div>
                             <div className="space-y-2 mb-4">
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <span>📅</span>
+                                    <span>{classSession.day} {classSession.time?.toUpperCase()}</span>
+                                </div>
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
                                     <span>👨‍🏫</span>
                                     <span>{classSession.instructor}</span>

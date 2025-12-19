@@ -83,7 +83,7 @@ const fetchEvents = async () => {
         location: "Social Club",
         price: 0,
         color: "pink",
-        type: "Fiestas Temáticas",
+        type: "Fiestica",
         isFree: true,
         month: "Diciembre 2025",
         featuredEvents: false,
@@ -91,12 +91,12 @@ const fetchEvents = async () => {
     ];
 
     // Uncomment this when you have the real API
-    // const response = await fetch(API_URL);
-    // if (!response.ok) throw new Error("Failed to fetch events");
-    // const data = await response.json();
-    // eventsStore.set(data);
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error("Failed to fetch events");
+    const data = await response.json();
+    eventsStore.set(data);
 
-    eventsStore.set(mockData);
+    // eventsStore.set(mockData);
     isInitialized = true;
   } catch (err) {
     errorStore.set(err instanceof Error ? err.message : "An error occurred");

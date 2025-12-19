@@ -56,6 +56,9 @@ const EventsSection: React.FC = () => {
         setFilteredEvents(result);
     }, [selectedLocation, selectedType, selectedMonth, events]);
 
+    // Derived filter options
+    const eventTypes = ["Todos los tipos", ...new Set(events.map((e) => e.type).filter(Boolean) as string[])];
+
     return (
         <>
             {/* Filters Section */}
@@ -89,11 +92,11 @@ const EventsSection: React.FC = () => {
                                 onChange={(e) => setSelectedType(e.target.value)}
                                 className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                             >
-                                <option>Todos los tipos</option>
-                                <option>Fiestas Temáticas</option>
-                                <option>Workshops</option>
-                                <option>Shows en Vivo</option>
-                                <option>Competencias</option>
+                                {eventTypes.map((type) => (
+                                    <option key={type} value={type}>
+                                        {type}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 

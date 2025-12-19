@@ -1,4 +1,9 @@
 ---
+import { Image } from "astro:assets";
+
+import socialClubLogo from "../../assets/ÍCONO_SOCIAL_CLUB_.svg";
+import ritmoVivoLogo from "../../assets/ÍCONO_RITMOVIVO_.svg";
+
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
@@ -19,8 +24,8 @@ const navLinks = [
             <div class="flex items-center space-x-6">
                 <!-- Social Club Logo -->
                 <div class="flex items-center space-x-3">
-                    <img
-                        src="/logo-social.png"
+                    <Image
+                        src={socialClubLogo}
                         alt="Social Club Logo"
                         class="h-12 w-12 rounded-full"
                     />
@@ -37,8 +42,8 @@ const navLinks = [
 
                 <!-- Ritmo Vivo Logo -->
                 <div class="flex items-center space-x-3">
-                    <img
-                        src="/logo-ritmo.png"
+                    <Image
+                        src={ritmoVivoLogo}
                         alt="Ritmo Vivo Logo"
                         class="h-12 w-12 rounded-full"
                     />

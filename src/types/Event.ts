@@ -1,6 +1,6 @@
 export interface Event {
   image: string;
-  color: "text-sc-orange" | "text-rv-aqua" | "text-pink-600" | "text-purple-600";
+  color: "orange" | "blue" | "pink" | "green";
   date: Date;
   day: "Lunes" | "Martes" | "Miércoles" | "Jueves" | "Viernes" | "Sábado" | "Domingo";
   time: string;
@@ -8,7 +8,6 @@ export interface Event {
   description: string;
   location: string;
   price: number;
-  buttonClass?: string;
   type?: string;
   month?: string;
   isFree: boolean;

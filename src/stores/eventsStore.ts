@@ -34,8 +34,7 @@ const fetchEvents = async () => {
           "Entrada gratis para ellos antes de las 11 PM. ¡Tragos especiales!",
         location: "Social Club",
         price: 0,
-        color: "text-pink-600",
-        buttonClass: "bg-pink-600",
+        color: "pink",
         type: "Fiesta para ellos",
         isFree: true,
         month: "Diciembre 2025",
@@ -51,8 +50,7 @@ const fetchEvents = async () => {
           "Ven vestido temático. Premios para los mejores outfits tropicales.",
         location: "Social Club",
         price: 30000,
-        color: "text-sc-orange",
-        buttonClass: "gradient-bg",
+        color: "orange",
         type: "Fiestas Temáticas",
         month: "Noviembre 2025",
         isFree: false,
@@ -68,8 +66,7 @@ const fetchEvents = async () => {
           "Banda en vivo tocando los mejores clásicos de la salsa.",
         location: "Ritmo Vivo",
         price: 35000,
-        color: "text-rv-aqua",
-        buttonClass: "bg-rv-aqua",
+        color: "blue",
         type: "Shows en Vivo",
         month: "Noviembre 2025",
         isFree: false,
@@ -85,8 +82,7 @@ const fetchEvents = async () => {
           "Entrada gratis para ellas antes de las 11 PM. ¡Tragos especiales!",
         location: "Social Club",
         price: 0,
-        color: "text-pink-600",
-        buttonClass: "bg-pink-600",
+        color: "pink",
         type: "Fiestas Temáticas",
         isFree: true,
         month: "Diciembre 2025",
@@ -95,12 +91,12 @@ const fetchEvents = async () => {
     ];
 
     // Uncomment this when you have the real API
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error("Failed to fetch events");
-    const data = await response.json();
-    eventsStore.set(data);
+    // const response = await fetch(API_URL);
+    // if (!response.ok) throw new Error("Failed to fetch events");
+    // const data = await response.json();
+    // eventsStore.set(data);
 
-    // eventsStore.set(mockData);
+    eventsStore.set(mockData);
     isInitialized = true;
   } catch (err) {
     errorStore.set(err instanceof Error ? err.message : "An error occurred");

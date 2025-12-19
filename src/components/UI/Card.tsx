@@ -11,11 +11,19 @@ const Card: React.FC<CardProps> = ({
     description,
     location,
     price,
-    color = "text-sc-orange",
-    buttonClass = "gradient-bg",
+    color = "orange",
     day,
     time,
 }) => {
+    const colorMap = {
+        orange: { text: "text-sc-orange", btn: "gradient-bg" },
+        blue: { text: "text-rv-aqua", btn: "bg-rv-aqua" },
+        pink: { text: "text-pink-600", btn: "bg-pink-600" },
+        green: { text: "text-green-600", btn: "bg-green-600" },
+    };
+
+    const styles = colorMap[color as keyof typeof colorMap] || colorMap.orange;
+
     return (
         <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100 h-full flex flex-col">
             <div className="relative">
@@ -31,12 +39,14 @@ const Card: React.FC<CardProps> = ({
                     <span className="text-sm font-semibold text-gray-700">
                         📍 {location}
                     </span>
-                    <span className={`font-bold ${color}`}>{price}</span>
+                    <span className={`font-bold ${styles.text}`}>
+                        {price === 0 ? "Gratis" : `$${price.toLocaleString()}`}
+                    </span>
                 </div>
                 <div className="flex gap-2 mb-2">
                     <a
                         href="https://wa.me/573218903991"
-                        className={`flex-1 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition ${buttonClass}`}
+                        className={`flex-1 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg transition ${styles.btn}`}
                     >
                         Reservar
                     </a>

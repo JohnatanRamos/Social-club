@@ -10,12 +10,15 @@ import type { Event } from "../../types/Event";
 import Card from "../UI/Card";
 import { formatDate, formatGoogleCalendarDate } from "../../utils/dateUtils";
 
-const getBgColor = (color: string) => {
-    if (color.includes("sc-orange")) return "bg-orange-50";
-    if (color.includes("rv-aqua")) return "bg-cyan-50";
-    if (color.includes("pink")) return "bg-pink-50";
-    if (color.includes("purple")) return "bg-purple-50";
-    return "bg-gray-50";
+const colorMap = {
+    orange: { text: "text-sc-orange", btn: "gradient-bg", bg: "bg-orange-50" },
+    blue: { text: "text-rv-aqua", btn: "bg-rv-aqua", bg: "bg-cyan-50" },
+    pink: { text: "text-pink-600", btn: "bg-pink-600", bg: "bg-pink-50" },
+    green: { text: "text-green-600", btn: "bg-green-600", bg: "bg-green-50" },
+};
+
+const getStyles = (color: string) => {
+    return colorMap[color as keyof typeof colorMap] || colorMap.orange;
 };
 
 const EventsSection: React.FC = () => {
@@ -125,63 +128,66 @@ const EventsSection: React.FC = () => {
                         <div className="grid md:grid-cols-2 gap-8">
                             {events
                                 .filter((event) => event.featuredEvents)
-                                .map((event, index) => (
-                                    <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift">
-                                        <div className="relative">
-                                            <img
-                                                src={event.image}
-                                                alt={event.title}
-                                                className="w-full h-64 object-cover"
-                                            />
-                                            {/* Optional: Add a badge if we had a way to calculate days remaining */}
-                                            <div
-                                                className="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-sm"
-                                            >
-                                                ✨ Destacado
-                                            </div>
-                                        </div>
-                                        <div className="p-8">
-                                            <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-                                                <span>📅 {event.day} {formatDate(event.date)} ⏰ {event.time}</span>
-                                            </div>
-                                            <h4 className="text-3xl font-bold mb-3 text-gray-800">
-                                                {event.title}
-                                            </h4>
-                                            <p className="text-gray-600 mb-4 leading-relaxed">
-                                                {event.description}
-                                            </p>
-
-                                            <div className="grid grid-cols-2 gap-4 mb-6">
-                                                <div className={`${getBgColor(event.color)} rounded-xl p-4`}>
-                                                    <div className="text-sm text-gray-600 mb-1">Ubicación</div>
-                                                    <div className="font-bold text-gray-800">📍 {event.location}</div>
+                                .map((event, index) => {
+                                    const styles = getStyles(event.color);
+                                    return (
+                                        <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-xl hover-lift">
+                                            <div className="relative">
+                                                <img
+                                                    src={event.image}
+                                                    alt={event.title}
+                                                    className="w-full h-64 object-cover"
+                                                />
+                                                {/* Optional: Add a badge if we had a way to calculate days remaining */}
+                                                <div
+                                                    className="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-sm"
+                                                >
+                                                    ✨ Destacado
                                                 </div>
-                                                <div className={`${getBgColor(event.color)} rounded-xl p-4`}>
-                                                    <div className="text-sm text-gray-600 mb-1">Cover</div>
-                                                    <div className={`font-bold text-xl ${event.color}`}>
-                                                        {event.price === 0 ? "Gratis" : `$${event.price.toLocaleString()}`}
+                                            </div>
+                                            <div className="p-8">
+                                                <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+                                                    <span>📅 {event.day} {formatDate(event.date)} ⏰ {event.time}</span>
+                                                </div>
+                                                <h4 className="text-3xl font-bold mb-3 text-gray-800">
+                                                    {event.title}
+                                                </h4>
+                                                <p className="text-gray-600 mb-4 leading-relaxed">
+                                                    {event.description}
+                                                </p>
+
+                                                <div className="grid grid-cols-2 gap-4 mb-6">
+                                                    <div className={`${styles.bg} rounded-xl p-4`}>
+                                                        <div className="text-sm text-gray-600 mb-1">Ubicación</div>
+                                                        <div className="font-bold text-gray-800">📍 {event.location}</div>
+                                                    </div>
+                                                    <div className={`${styles.bg} rounded-xl p-4`}>
+                                                        <div className="text-sm text-gray-600 mb-1">Cover</div>
+                                                        <div className={`font-bold text-xl ${styles.text}`}>
+                                                            {event.price === 0 ? "Gratis" : `$${event.price.toLocaleString()}`}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div className="flex gap-3 mb-3">
+                                                <div className="flex gap-3 mb-3">
+                                                    <a
+                                                        href={`https://wa.me/573218903991?text=Hola%2C%20quiero%20reservar%20para%20${encodeURIComponent(event.title)}`}
+                                                        className={`flex-1 text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition ${styles.btn}`}
+                                                    >
+                                                        {event.type === "Workshops" ? "Inscribirme Ahora" : "Reservar Mesa"}
+                                                    </a>
+                                                </div>
                                                 <a
-                                                    href={`https://wa.me/573218903991?text=Hola%2C%20quiero%20reservar%20para%20${encodeURIComponent(event.title)}`}
-                                                    className={`flex-1 text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition ${event.buttonClass || 'gradient-bg'}`}
+                                                    href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${encodeURIComponent(formatGoogleCalendarDate(event.date))}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&sf=true&output=xml`}
+                                                    target="_blank"
+                                                    className="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
                                                 >
-                                                    {event.type === "Workshops" ? "Inscribirme Ahora" : "Reservar Mesa"}
+                                                    📅 Agregar a Google Calendar
                                                 </a>
                                             </div>
-                                            <a
-                                                href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${encodeURIComponent(formatGoogleCalendarDate(event.date))}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&sf=true&output=xml`}
-                                                target="_blank"
-                                                className="block w-full text-center py-3 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
-                                            >
-                                                📅 Agregar a Google Calendar
-                                            </a>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                         </div>
                     </div>
                 </section>

@@ -160,7 +160,7 @@ export default function Checkout() {
   };
 
   const handleCheckoutClick = () => {
-    const individualCourses = cart.filter(item => item.mode === 'individual' && !item.promotion);
+    const individualCourses = cart.filter(item => item.mode === 'individual');
     // Show upsell if they haven't reached the max bundle discount (3 courses)
     if (individualCourses.length < 3) {
       setIsUpsellModalOpen(true);

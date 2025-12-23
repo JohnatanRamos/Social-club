@@ -17,7 +17,7 @@ export const DiscountUpsellModal: React.FC<DiscountUpsellModalProps> = ({
 }) => {
     if (!isOpen) return null;
 
-    const individualCourses = cart.filter(item => item.mode === 'individual' && !item.promotion);
+    const individualCourses = cart.filter(item => item.mode === 'individual');
     const count = individualCourses.length;
 
     let title = '';

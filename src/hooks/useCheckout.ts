@@ -61,13 +61,13 @@ export const useCheckout = () => {
   };
 
   const subtotal = cart.reduce((acc, item) => {
-    const isCouplePromo = item.mode === 'pareja' && item.promotion;
+    const isCouplePromo = item.mode === 'pareja';
     const itemPrice = (item.mode === 'pareja' && !isCouplePromo) ? item.price * 2 : item.price;
     return acc + itemPrice;
   }, 0);
 
   // Calculate Bundle Discount
-  const eligibleForBundle = cart.filter(item => item.mode === 'individual' && !item.promotion);
+  const eligibleForBundle = cart.filter(item => item.mode === 'individual');
   const eligibleTotal = eligibleForBundle.reduce((acc, item) => acc + item.price, 0);
 
   let bundleDiscount = 0;

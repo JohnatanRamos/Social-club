@@ -8,6 +8,37 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
   .gradient-bg {
     background: linear-gradient(135deg, #f05123 0%, #ff6b3d 100%);
   }
+
+  .faq-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(255, 107, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .faq-item.active {
+    border-color: #ff6b00;
+    box-shadow:
+      0 10px 25px -5px rgba(255, 107, 0, 0.1),
+      0 8px 10px -6px rgba(255, 107, 0, 0.1);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-icon {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 </style>
 
 <Layout>
@@ -394,84 +425,244 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
         </h3>
 
         <div class="space-y-4">
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <h4 class="font-bold text-gray-800 mb-2">
-              ¿Puedo recuperar una clase si la pierdo?
-            </h4>
-            <p class="text-gray-600">
-              Si tienes clase privada o paquete, sí puedes repararla siempre y
-              cuando la canceles mínimo 2 horas antes. Si cancelas por fuera del
-              tiempo, la clase se da por tomada. En los cursos grupales no es
-              posible reponer, porque el grupo lleva una continuidad. Pero
-              tranqui: en el grupo de WhatsApp siempre enviamos videos con lo
-              visto en clase, y el profe empieza cada sesión con repaso y
-              resolución de dudas. Si, Social Club o el profesor deben cancelar,
-              ahí sí la clase se repone sin problema.
-            </p>
+          <!-- FAQ Item 1 -->
+          <div
+            class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+            onclick="toggleFAQ(this)"
+          >
+            <div
+              class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
+            >
+              <h4 class="font-bold text-gray-800 pr-8">
+                ¿Puedo recuperar una clase si la pierdo?
+              </h4>
+              <svg
+                class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-gray-600">
+                Si tienes clase privada o paquete, sí puedes repararla siempre y
+                cuando la canceles mínimo 2 horas antes. Si cancelas por fuera
+                del tiempo, la clase se da por tomada. En los cursos grupales no
+                es posible reponer, porque el grupo lleva una continuidad. Pero
+                tranqui: en el grupo de WhatsApp siempre enviamos videos con lo
+                visto en clase, y el profe empieza cada sesión con repaso y
+                resolución de dudas. Si, Social Club o el profesor deben
+                cancelar, ahí sí la clase se repone sin problema.
+              </div>
+            </div>
           </div>
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <h4 class="font-bold text-gray-800 mb-2">
-              ¿Hay algún problema si en la promo 2x1 se inscriben dos hombres o
-              dos mujeres?
-            </h4>
-            <p class="text-gray-600">
-              ¡Para nada! La promo 2x1 aplica para una pareja de baile, sin
-              importar el género. Lo único importante es que haya un rol
-              definido: un líder y un seguidor. Dos chicas o dos chicos son más
-              que bienvenidos. Solo les pedimos decidir antes quién será líder y
-              quién seguidor durante el mes, para mantener el equilibrio del
-              grupo.
-            </p>
+
+          <!-- FAQ Item 2 -->
+          <div
+            class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+            onclick="toggleFAQ(this)"
+          >
+            <div
+              class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
+            >
+              <h4 class="font-bold text-gray-800 pr-8">
+                ¿Hay algún problema si en la promo 2x1 se inscriben dos hombres
+                o dos mujeres?
+              </h4>
+              <svg
+                class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-gray-600">
+                ¡Para nada! La promo 2x1 aplica para una pareja de baile, sin
+                importar el género. Lo único importante es que haya un rol
+                definido: un líder y un seguidor. Dos chicas o dos chicos son
+                más que bienvenidos. Solo les pedimos decidir antes quién será
+                líder y quién seguidor durante el mes, para mantener el
+                equilibrio del grupo.
+              </div>
+            </div>
           </div>
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <h4 class="font-bold text-gray-800 mb-2">
-              ¿Debo inscribirme en todos los cursos con la misma pareja?
-            </h4>
-            <p class="text-gray-600">
-              Para nada. Puedes cambiar de pareja entre cursos sin afectar tu
-              proceso. Lo importante es que te sientas cómodo y disfrutes
-              aprender.
-            </p>
+
+          <!-- FAQ Item 3 -->
+          <div
+            class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+            onclick="toggleFAQ(this)"
+          >
+            <div
+              class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
+            >
+              <h4 class="font-bold text-gray-800 pr-8">
+                ¿Debo inscribirme en todos los cursos con la misma pareja?
+              </h4>
+              <svg
+                class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-gray-600">
+                Para nada. Puedes cambiar de pareja entre cursos sin afectar tu
+                proceso. Lo importante es que te sientas cómodo y disfrutes
+                aprender.
+              </div>
+            </div>
           </div>
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <h4 class="font-bold text-gray-800 mb-2">
-              ¿Puedo congelar mi mensualidad o mi paquete de clases?
-            </h4>
-            <p class="text-gray-600">
-              Sí, puedes congelar tu proceso. Solo debes avisarnos antes para
-              revisar tu caso. Una vez aprobado, puedes congelar hasta por 2
-              meses máximo.
-            </p>
+
+          <!-- FAQ Item 4 -->
+          <div
+            class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+            onclick="toggleFAQ(this)"
+          >
+            <div
+              class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
+            >
+              <h4 class="font-bold text-gray-800 pr-8">
+                ¿Puedo congelar mi mensualidad o mi paquete de clases?
+              </h4>
+              <svg
+                class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-gray-600">
+                Sí, puedes congelar tu proceso. Solo debes avisarnos antes para
+                revisar tu caso. Una vez aprobado, puedes congelar hasta por 2
+                meses máximo.
+              </div>
+            </div>
           </div>
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <h4 class="font-bold text-gray-800 mb-2">
-              ¿Cuánto dura cada clase de un curso grupal?
-            </h4>
-            <p class="text-gray-600">
-              Cada mensualidad incluye 4 clases, de 1 hora y media cada una. Las
-              clases son una vez por semana.
-            </p>
+
+          <!-- FAQ Item 5 -->
+          <div
+            class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+            onclick="toggleFAQ(this)"
+          >
+            <div
+              class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
+            >
+              <h4 class="font-bold text-gray-800 pr-8">
+                ¿Cuánto dura cada clase de un curso grupal?
+              </h4>
+              <svg
+                class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-gray-600">
+                Cada mensualidad incluye 4 clases, de 1 hora y media cada una.
+                Las clases son una vez por semana.
+              </div>
+            </div>
           </div>
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <h4 class="font-bold text-gray-800 mb-2">
-              ¿Necesito llevar pareja?
-            </h4>
-            <p class="text-gray-600">
-              No es necesario. Puedes pagar tu mensualidad individual y, si en
-              clase hay un líder disponible, tomas la sesión con esa persona. Si
-              hace falta, Social Club pone apoyo para que nadie se quede sin
-              bailar.
-            </p>
+
+          <!-- FAQ Item 6 -->
+          <div
+            class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+            onclick="toggleFAQ(this)"
+          >
+            <div
+              class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
+            >
+              <h4 class="font-bold text-gray-800 pr-8">
+                ¿Necesito llevar pareja?
+              </h4>
+              <svg
+                class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-gray-600">
+                No es necesario. Puedes pagar tu mensualidad individual y, si en
+                clase hay un líder disponible, tomas la sesión con esa persona.
+                Si hace falta, Social Club pone apoyo para que nadie se quede
+                sin bailar.
+              </div>
+            </div>
           </div>
-          <div class="bg-white rounded-xl shadow-md p-6">
-            <h4 class="font-bold text-gray-800 mb-2">
-              Si tomo un paquete de clases privadas, ¿puedo ver varios ritmos?
-            </h4>
-            <p class="text-gray-600">
-              Sí puedes, aunque nuestra recomendación es máximo uno o dos ritmos
-              para que puedas trabajar bien la técnica y los pasos básicos sin
-              saturarte.
-            </p>
+
+          <!-- FAQ Item 7 -->
+          <div
+            class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+            onclick="toggleFAQ(this)"
+          >
+            <div
+              class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
+            >
+              <h4 class="font-bold text-gray-800 pr-8">
+                Si tomo un paquete de clases privadas, ¿puedo ver varios ritmos?
+              </h4>
+              <svg
+                class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-gray-600">
+                Sí puedes, aunque nuestra recomendación es máximo uno o dos
+                ritmos para que puedas trabajar bien la técnica y los pasos
+                básicos sin saturarte.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -496,4 +687,30 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
       </a>
     </div>
   </section>
+
+  <script is:inline>
+    function toggleFAQ(element) {
+      // Close other open items in the same section
+      const section = element.closest(".space-y-4");
+      const allItems = section.querySelectorAll(".faq-item");
+
+      allItems.forEach((item) => {
+        if (item !== element && item.classList.contains("active")) {
+          item.classList.remove("active");
+          const answer = item.querySelector(".faq-answer");
+          answer.style.maxHeight = null;
+        }
+      });
+
+      // Toggle current item
+      element.classList.toggle("active");
+      const answer = element.querySelector(".faq-answer");
+
+      if (element.classList.contains("active")) {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      } else {
+        answer.style.maxHeight = null;
+      }
+    }
+  </script>
 </Layout>

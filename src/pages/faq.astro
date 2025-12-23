@@ -4,17 +4,26 @@ import Layout from "../layouts/Layout.astro";
 
 <style>
   .faq-item {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(255, 107, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .faq-item.active {
+    border-color: #ff6b00;
+    box-shadow:
+      0 10px 25px -5px rgba(255, 107, 0, 0.1),
+      0 8px 10px -6px rgba(255, 107, 0, 0.1);
   }
 
   .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .faq-item.active .faq-icon {
@@ -22,7 +31,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .faq-icon {
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
 
@@ -100,6 +109,17 @@ import Layout from "../layouts/Layout.astro";
   <section class="py-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden text-center py-12">
+          <div class="text-6xl mb-4">🔍</div>
+          <h4 class="text-2xl font-bold text-gray-800 mb-2">
+            No encontramos lo que buscas
+          </h4>
+          <p class="text-gray-600">
+            Intenta con otras palabras clave o contáctanos directamente.
+          </p>
+        </div>
+
         <!-- PRECIOS Y PAGOS -->
         <div id="precios" class="mb-12">
           <div class="flex items-center gap-3 mb-6">
@@ -492,4 +512,72 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    function toggleFAQ(element) {
+      // Close other open items in the same section (optional, but usually better UX)
+      const section = element.closest(".space-y-4");
+      const allItems = section.querySelectorAll(".faq-item");
+
+      allItems.forEach((item) => {
+        if (item !== element && item.classList.contains("active")) {
+          item.classList.remove("active");
+          const answer = item.querySelector(".faq-answer");
+          answer.style.maxHeight = null;
+        }
+      });
+
+      // Toggle current item
+      element.classList.toggle("active");
+      const answer = element.querySelector(".faq-answer");
+
+      if (element.classList.contains("active")) {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      } else {
+        answer.style.maxHeight = null;
+      }
+    }
+
+    function filterFAQs() {
+      const input = document.getElementById("searchInput");
+      const filter = input.value.toLowerCase();
+      const faqItems = document.querySelectorAll(".faq-item");
+      const sections = document.querySelectorAll(".mb-12");
+      const noResults = document.getElementById("noResults");
+      let hasVisibleItems = false;
+
+      faqItems.forEach((item) => {
+        const question = item.querySelector("h4").innerText.toLowerCase();
+        const answer = item
+          .querySelector(".faq-answer")
+          .innerText.toLowerCase();
+
+        if (question.includes(filter) || answer.includes(filter)) {
+          item.style.display = "";
+          hasVisibleItems = true;
+        } else {
+          item.style.display = "none";
+        }
+      });
+
+      // Hide sections if no items are visible
+      sections.forEach((section) => {
+        const visibleItems = section.querySelectorAll(
+          '.faq-item[style="display: \'\';"], .faq-item:not([style*="display: none"])',
+        );
+        if (visibleItems.length === 0) {
+          section.style.display = "none";
+        } else {
+          section.style.display = "";
+        }
+      });
+
+      // Show/hide no results message
+      if (hasVisibleItems) {
+        noResults.classList.add("hidden");
+      } else {
+        noResults.classList.remove("hidden");
+      }
+    }
+  </script>
 </Layout>

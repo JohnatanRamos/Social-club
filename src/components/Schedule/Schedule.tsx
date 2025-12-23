@@ -43,7 +43,7 @@ export const Schedule: React.FC = () => {
     }
 
     const filteredClasses = classes.filter(c => {
-        if (filters.location !== "Todas las sedes" && c.location !== filters.location) return false;
+        if (filters.location && c.location !== filters.location) return false;
         if (filters.genre !== "Todos los géneros" && c.genre !== filters.genre) return false;
         if (filters.level !== "Todos los niveles" && c.level !== filters.level && c.level !== "Todos") return false;
         if (filters.day !== "Todos los días" && c.day !== filters.day) return false;

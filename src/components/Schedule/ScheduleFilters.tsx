@@ -14,9 +14,15 @@ export const ScheduleFilters: React.FC = () => {
     // Derived filter options
     const genres = ["Todos los géneros", ...new Set(classes.map(c => c.genre).filter(Boolean) as string[])];
     const levels = ["Todos los niveles", ...new Set(classes.map(c => c.level).filter(Boolean) as string[])];
-    const locations = ["Todas las sedes", ...new Set(classes.map(c => c.location).filter(Boolean) as string[])];
+    const locations = [...new Set(classes.map(c => c.location).filter(Boolean) as string[])];
     const instructors = ["Todos los profesores", ...new Set(classes.map(c => c.instructor).filter(Boolean) as string[])];
     const days = ["Todos los días", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+
+    React.useEffect(() => {
+        if (locations.length > 0 && !filters.location) {
+            setFilter('location', locations[0]);
+        }
+    }, [locations, filters.location]);
 
     return (
         <section

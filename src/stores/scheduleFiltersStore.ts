@@ -9,7 +9,7 @@ export interface ScheduleFilters {
 }
 
 export const initialFilters: ScheduleFilters = {
-  location: "Todas las sedes",
+  location: "",
   genre: "Todos los géneros",
   level: "Todos los niveles",
   day: "Todos los días",

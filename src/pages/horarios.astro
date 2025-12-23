@@ -39,6 +39,24 @@ import { ScheduleFilters } from "../components/Schedule/ScheduleFilters";
   .faq-icon {
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ff6b00;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #e65a00;
+  }
 </style>
 
 <Layout>

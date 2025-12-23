@@ -6,15 +6,13 @@ import { CourseCard } from '../UI/CourseCard';
 import { addToCart } from '../../stores/cartStore';
 import { FloatingCartButton } from '../UI/FloatingCartButton';
 
-const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+const ALL_DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
 export const Schedule: React.FC = () => {
     const classes = useStore(classesStore);
     const loading = useStore(isLoading);
     const error = useStore(errorStore);
     const filters = useStore(filtersStore);
-
-    const TIME_SLOTS = [...new Set(classes.map(c => c.time?.toUpperCase()).filter(Boolean) as string[])].sort();
 
     useEffect(() => {
         fetchClasses();
@@ -51,58 +49,72 @@ export const Schedule: React.FC = () => {
         return true;
     });
 
-    const getClassForSlot = (day: string, time: string) => {
-        return filteredClasses.find(c => c.day === day && c.time?.toUpperCase() === time);
-    };
+    const ACTIVE_DAYS = ALL_DAYS.filter(day =>
+        filteredClasses.some(c => c.day === day)
+    );
 
     return (
         <div>
-            {/* Desktop Schedule Table */}
-            <div className="hidden md:block overflow-x-auto bg-white rounded-2xl shadow-lg">
-                <table className="w-full">
-                    <thead className="bg-linear-to-br from-[#f05123] to-[#ff6b3d] text-white">
-                        <tr>
-                            <th className="py-4 px-6 text-left">HORARIO</th>
-                            {DAYS.map(day => (
-                                <th key={day} className="py-4 px-6 text-center uppercase">{day}</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {TIME_SLOTS.map((time) => (
-                            <tr key={time} className="border-b border-gray-100 last:border-0">
-                                <td className="py-4 px-6 font-bold text-gray-700">{time}</td>
-                                {DAYS.map((day) => {
-                                    const classSession = getClassForSlot(day, time);
-                                    return (
-                                        <td key={`${day}-${time}`} className="py-4 px-6 min-w-[200px]">
-                                            {classSession ? (
-                                                <CourseCard
-                                                    location={classSession.location}
-                                                    capacity={classSession.capacity}
-                                                    promotion={classSession.promotion}
-                                                    name={classSession.name}
-                                                    instructor={classSession.instructor}
-                                                    duration={classSession.duration}
-                                                    price={classSession.price}
-                                                    color={classSession.color}
-                                                    buttonText={classSession.buttonText}
-                                                    id={classSession.id}
-                                                    availableSlots={classSession.availableSlots}
-                                                    onAdd={() => addToCart(classSession)}
-                                                />
-                                            ) : (
-                                                <div className="h-full min-h-[140px] flex items-center justify-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-sm">
-                                                    Sin clase
-                                                </div>
-                                            )}
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            {/* Desktop Schedule - Day Columns */}
+            <div className="hidden md:grid grid-flow-col auto-cols-fr gap-4 overflow-x-auto pb-6 custom-scrollbar">
+                {ACTIVE_DAYS.map((day) => (
+                    <div key={day} className="flex flex-col bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
+                        <div className="bg-linear-to-br from-[#f05123] to-[#ff6b3d] p-4 text-center">
+                            <h4 className="text-white font-bold uppercase tracking-wider">{day}</h4>
+                        </div>
+                        <div className="p-4 space-y-4 bg-gray-50/50 flex-1">
+                            {filteredClasses
+                                .filter(c => c.day === day)
+                                .sort((a, b) => {
+                                    const parseTime = (t: string) => {
+                                        const match = t.match(/(\d+):(\d+)\s*(AM|PM)?/i);
+                                        if (!match) return 0;
+                                        let [_, hours, minutes, period] = match;
+                                        let h = parseInt(hours);
+                                        const m = parseInt(minutes);
+                                        if (period?.toUpperCase() === 'PM' && h < 12) h += 12;
+                                        if (period?.toUpperCase() === 'AM' && h === 12) h = 0;
+                                        return h * 60 + m;
+                                    };
+                                    return parseTime(a.time || "") - parseTime(b.time || "");
+                                })
+                                .map((classSession) => (
+                                    <div key={classSession.id} className="relative group">
+                                        <div className="absolute -left-2 top-4 w-1 h-12 bg-sc-orange rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <div className="mb-1 flex items-center gap-2">
+                                            <span className="text-xs font-bold text-sc-orange bg-orange-50 px-2 py-0.5 rounded-full">
+                                                {classSession.time?.toUpperCase()}
+                                            </span>
+                                        </div>
+                                        <CourseCard
+                                            location={classSession.location}
+                                            capacity={classSession.capacity}
+                                            promotion={classSession.promotion}
+                                            name={classSession.name}
+                                            instructor={classSession.instructor}
+                                            duration={classSession.duration}
+                                            price={classSession.price}
+                                            color={classSession.color}
+                                            buttonText={classSession.buttonText}
+                                            id={classSession.id}
+                                            availableSlots={classSession.availableSlots}
+                                            onAdd={() => addToCart(classSession)}
+                                        />
+                                    </div>
+                                ))}
+
+                            {/* Private Class CTA */}
+                            <div className="mt-auto pt-4 border-t border-dashed border-gray-200">
+                                <div className="bg-white/60 border border-dashed border-gray-300 rounded-xl p-4 text-center group hover:border-sc-orange transition-colors">
+                                    <p className="text-sm font-medium text-gray-500 group-hover:text-sc-orange transition-colors">
+                                        ✨ Clase privada disponible
+                                    </p>
+                                    <p className="text-[10px] text-gray-400 mt-1">Agenda tu horario personalizado</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             {/* Mobile Schedule Cards */}

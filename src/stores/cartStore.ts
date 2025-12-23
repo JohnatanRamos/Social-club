@@ -24,7 +24,7 @@ export const addToCart = (course: CourseCardProps) => {
   if (currentCart.length > 0) {
     const cartLocation = currentCart[0].location;
     if (course.location && cartLocation && course.location !== cartLocation) {
-      toast.error(`No puedes agregar cursos de diferentes sedes en una misma compra. Tu carrito actual contiene cursos de: ${cartLocation}. Por favor, finaliza tu compra actual o vacía el carrito para agregar cursos de otra sede.`, {
+      toast.warning(`Debes agregar cursos de la misma sede en una misma compra. Tu carrito actual contiene cursos de: ${cartLocation}. Por favor, finaliza tu compra actual o vacía el carrito para agregar cursos de otra sede.`, {
         position: 'top-right',
       });
       return;

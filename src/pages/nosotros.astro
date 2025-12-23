@@ -1,5 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import img1 from "../assets/gallery/IMG_0508.webp";
+import img2 from "../assets/gallery/IMG_0905.webp";
+import img3 from "../assets/gallery/IMG_0999.webp";
+import img4 from "../assets/gallery/IMG_1202.webp";
+import img5 from "../assets/gallery/IMG_1293.webp";
+import img6 from "../assets/gallery/IMG_1389.webp";
+import img7 from "../assets/gallery/IMG_1401.webp";
+import img8 from "../assets/gallery/IMG_0896.webp";
 ---
 
 <style>
@@ -423,57 +433,57 @@ import Layout from "../layouts/Layout.astro";
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img8}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />
         </div>
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img7}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />
         </div>
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img6}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />
         </div>
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img5}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />
         </div>
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img4}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />
         </div>
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img3}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />
         </div>
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img2}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />
         </div>
         <div class="aspect-square overflow-hidden rounded-xl">
-          <img
-            src="/api/placeholder/400/400"
+          <Image
+            src={img1}
             alt="Galería"
             class="w-full h-full object-cover hover:scale-110 transition duration-300"
           />

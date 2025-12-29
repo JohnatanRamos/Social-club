@@ -65,13 +65,17 @@ export default function Checkout() {
         body: JSON.stringify(payload)
       });
 
+      if (response.status === 400) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
       if (!response.ok) {
         throw new Error('Error creating booking');
       }
 
       return await response.json();
     } catch (error) {
-      console.error('Booking error:', error);
       throw error;
     }
   };
@@ -138,16 +142,14 @@ export default function Checkout() {
     try {
       const bookingData = await sendBookingData();
 
-      console.log(bookingData);
-
       if (isPromptPayment) {
         await handleWompiWidget(bookingData.reservationId, bookingData.payment.publicKey, bookingData.payment.signature);
       } else {
         // If not paying immediately (not prompt payment), redirect to success page
         window.location.href = '/success';
       }
-    } catch (error) {
-      toast.error("Hubo un error al procesar tu inscripción. Por favor intenta nuevamente.", {
+    } catch (error: any) {
+      toast.error(error.message, {
         position: 'top-right',
       });
     } finally {

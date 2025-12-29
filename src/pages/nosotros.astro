@@ -1,15 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
+import profesores from "../data/profesores.json";
+import testimonios from "../data/testimonios.json";
+import galeria from "../data/galeria.json";
 
-import img1 from "../assets/gallery/IMG_0508.webp";
-import img2 from "../assets/gallery/IMG_0905.webp";
-import img3 from "../assets/gallery/IMG_0999.webp";
-import img4 from "../assets/gallery/IMG_1202.webp";
-import img5 from "../assets/gallery/IMG_1293.webp";
-import img6 from "../assets/gallery/IMG_1389.webp";
-import img7 from "../assets/gallery/IMG_1401.webp";
-import img8 from "../assets/gallery/IMG_0896.webp";
+// Gallery Data
+const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/gallery/*.webp",
+  { eager: true },
+);
+
+// Team Data
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/teachers/*.webp",
+  { eager: true },
+);
 ---
 
 <style>
@@ -20,6 +27,23 @@ import img8 from "../assets/gallery/IMG_0896.webp";
   .testimonial-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Swiper styles */
+  .professors-carousel,
+  .testimonials-carousel {
+    padding: 2rem 1rem 4rem 1rem !important;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: var(--color-sc-orange, #f05123) !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+  }
+
+  .swiper-pagination-bullet-active {
+    background: var(--color-sc-orange, #f05123) !important;
   }
 </style>
 
@@ -76,11 +100,11 @@ import img8 from "../assets/gallery/IMG_0896.webp";
             </div>
           </div>
           <div class="relative">
-            <img
+            <!-- <img
               src="/api/placeholder/600/400"
               alt="Historia Social Club"
               class="rounded-2xl shadow-2xl"
-            />
+            /> -->
             <div
               class="absolute -bottom-6 -right-6 bg-sc-orange text-white rounded-2xl p-6 shadow-xl"
             >
@@ -98,11 +122,11 @@ import img8 from "../assets/gallery/IMG_0896.webp";
       <div class="max-w-5xl mx-auto">
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div class="relative">
-            <img
+            <!-- <img
               src="/api/placeholder/600/400"
               alt="Historia Social Club"
               class="rounded-2xl shadow-2xl"
-            />
+            /> -->
             <div
               class="absolute -bottom-6 -right-6 bg-sc-orange text-white rounded-2xl p-6 shadow-xl"
             >
@@ -259,88 +283,51 @@ import img8 from "../assets/gallery/IMG_0896.webp";
         </p>
       </div>
 
-      <div class="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-        <!-- Professor 1 -->
-        <div class="text-center group">
-          <div class="relative mb-4 overflow-hidden rounded-2xl">
-            <img
-              src="profesor1.jpeg"
-              alt="Profesor"
-              class="w-full group-hover:scale-110 transition duration-300"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4"
-            >
-              <div class="text-white text-sm">+10 años de experiencia</div>
-            </div>
-          </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-1">Juan Pérez</h4>
-          <p class="text-sc-orange font-semibold mb-2">Salsa & Casino</p>
-          <p class="text-sm text-gray-600">Campeón Nacional 2022</p>
-        </div>
+      <div class="professors-carousel swiper max-w-6xl mx-auto overflow-hidden">
+        <div class="swiper-wrapper">
+          {
+            profesores.map((profesor) => {
+              const imagePath = `../assets/teachers/${profesor.image}`;
+              const image = images[imagePath]?.default;
 
-        <!-- Professor 2 -->
-        <div class="text-center group">
-          <div class="relative mb-4 overflow-hidden rounded-2xl">
-            <img
-              src="profesora1.jpeg"
-              alt="Profesora"
-              class="w-full group-hover:scale-110 transition duration-300"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4"
-            >
-              <div class="text-white text-sm">+8 años de experiencia</div>
-            </div>
-          </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-1">María González</h4>
-          <p class="text-sc-orange font-semibold mb-2">Bachata Sensual</p>
-          <p class="text-sm text-gray-600">Instructora Certificada</p>
+              return (
+                <div class="swiper-slide text-center group pb-0">
+                  <div class="relative mb-4 overflow-hidden rounded-2xl mx-auto max-w-[280px]">
+                    {image && (
+                      <Image
+                        src={image}
+                        alt={profesor.name}
+                        class="w-full group-hover:scale-110 transition duration-300 aspect-3/4 object-cover"
+                      />
+                    )}
+                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+                      <div class="text-white text-sm">
+                        {profesor.experience}
+                      </div>
+                    </div>
+                  </div>
+                  <h4 class="text-xl font-bold text-gray-800 mb-1">
+                    {profesor.name}
+                  </h4>
+                  <p class="text-sc-orange font-semibold mb-2">
+                    {profesor.specialty}
+                  </p>
+                </div>
+              );
+            })
+          }
         </div>
-
-        <!-- Professor 3 -->
-        <div class="text-center group">
-          <div class="relative mb-4 overflow-hidden rounded-2xl">
-            <img
-              src="profesor2.webp"
-              alt="Profesor"
-              class="w-full group-hover:scale-110 transition duration-300"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4"
-            >
-              <div class="text-white text-sm">+12 años de experiencia</div>
-            </div>
-          </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-1">Carlos Rodríguez</h4>
-          <p class="text-sc-orange font-semibold mb-2">Merengue & Kizomba</p>
-          <p class="text-sm text-gray-600">Juez Internacional</p>
-        </div>
-
-        <!-- Professor 4 -->
-        <div class="text-center group">
-          <div class="relative mb-4 overflow-hidden rounded-2xl">
-            <img
-              src="profesora2.webp"
-              alt="Profesora"
-              class="w-full group-hover:scale-110 transition duration-300"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4"
-            >
-              <div class="text-white text-sm">+6 años de experiencia</div>
-            </div>
-          </div>
-          <h4 class="text-xl font-bold text-gray-800 mb-1">Ana Martínez</h4>
-          <p class="text-sc-orange font-semibold mb-2">Tango & Salsa</p>
-          <p class="text-sm text-gray-600">Bailarina Profesional</p>
-        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-next hidden md:flex"></div>
+        <div class="swiper-button-prev hidden md:flex"></div>
       </div>
     </div>
   </section>
 
   <!-- Testimonials Section -->
-  <section class="py-20 bg-gradient-to-br from-orange-50 to-red-50">
+  <section class="py-20 bg-linear-to-br from-orange-50 to-red-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
         <h3 class="text-4xl font-bold text-gray-800 mb-4">
@@ -349,74 +336,40 @@ import img8 from "../assets/gallery/IMG_0896.webp";
         <p class="text-gray-600">Testimonios reales de nuestra comunidad</p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <!-- Testimonial 1 -->
-        <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg">
-          <div class="flex items-center gap-1 mb-4">
-            <span class="text-yellow-400 text-2xl">★★★★★</span>
-          </div>
-          <p class="text-gray-600 mb-6 italic leading-relaxed">
-            "Llegué sin saber bailar nada y ahora no puedo parar. Los profesores
-            son increíbles y el ambiente es súper acogedor. ¡He hecho amigos
-            increíbles!"
-          </p>
-          <div class="flex items-center gap-4">
-            <img
-              src="/api/placeholder/60/60"
-              alt="Estudiante"
-              class="w-12 h-12 rounded-full"
-            />
-            <div>
-              <div class="font-bold text-gray-800">Carolina Ruiz</div>
-              <div class="text-sm text-gray-600">Estudiante desde 2023</div>
-            </div>
-          </div>
+      <div
+        class="testimonials-carousel swiper max-w-6xl mx-auto overflow-hidden"
+      >
+        <div class="swiper-wrapper">
+          {
+            testimonios.map((testimonio) => (
+              <div class="swiper-slide h-auto">
+                <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg h-full flex flex-col">
+                  <div class="flex items-center gap-1 mb-4">
+                    {Array.from({ length: testimonio.rating }).map(() => (
+                      <span class="text-yellow-400 text-2xl">★</span>
+                    ))}
+                  </div>
+                  <p class="text-gray-600 mb-6 italic leading-relaxed grow">
+                    "{testimonio.text}"
+                  </p>
+                  <div class="flex items-center gap-4 mt-auto">
+                    <div class="text-left">
+                      <div class="font-bold text-gray-800">
+                        {testimonio.name}
+                      </div>
+                      <div class="text-sm text-gray-600">{testimonio.role}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
         </div>
-
-        <!-- Testimonial 2 -->
-        <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg">
-          <div class="flex items-center gap-1 mb-4">
-            <span class="text-yellow-400 text-2xl">★★★★★</span>
-          </div>
-          <p class="text-gray-600 mb-6 italic leading-relaxed">
-            "Más que una academia, es una familia. Los fines de semana son
-            espectaculares, la comida deliciosa y la música siempre está de 10."
-          </p>
-          <div class="flex items-center gap-4">
-            <img
-              src="/api/placeholder/60/60"
-              alt="Estudiante"
-              class="w-12 h-12 rounded-full"
-            />
-            <div>
-              <div class="font-bold text-gray-800">Andrés Gómez</div>
-              <div class="text-sm text-gray-600">Estudiante desde 2022</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 3 -->
-        <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg">
-          <div class="flex items-center gap-1 mb-4">
-            <span class="text-yellow-400 text-2xl">★★★★★</span>
-          </div>
-          <p class="text-gray-600 mb-6 italic leading-relaxed">
-            "El mejor lugar para aprender a bailar en Medellín. Los profes
-            tienen mucha paciencia y las clases son muy dinámicas. 100%
-            recomendado."
-          </p>
-          <div class="flex items-center gap-4">
-            <img
-              src="/api/placeholder/60/60"
-              alt="Estudiante"
-              class="w-12 h-12 rounded-full"
-            />
-            <div>
-              <div class="font-bold text-gray-800">Laura Morales</div>
-              <div class="text-sm text-gray-600">Estudiante desde 2024</div>
-            </div>
-          </div>
-        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-next hidden md:flex"></div>
+        <div class="swiper-button-prev hidden md:flex"></div>
       </div>
     </div>
   </section>
@@ -432,62 +385,24 @@ import img8 from "../assets/gallery/IMG_0896.webp";
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img8}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img7}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img6}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img5}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img4}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img3}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img2}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
-        <div class="aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={img1}
-            alt="Galería"
-            class="w-full h-full object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
+        {
+          galeria.map((item) => {
+            const imagePath = `../assets/gallery/${item.image}`;
+            const image = galleryImages[imagePath]?.default;
+
+            return (
+              <div class="aspect-square overflow-hidden rounded-xl">
+                {image && (
+                  <Image
+                    src={image}
+                    alt={item.alt}
+                    class="w-full h-full object-cover hover:scale-110 transition duration-300"
+                  />
+                )}
+              </div>
+            );
+          })
+        }
       </div>
     </div>
   </section>
@@ -519,3 +434,70 @@ import img8 from "../assets/gallery/IMG_0896.webp";
     </div>
   </section>
 </Layout>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+
+  new Swiper(".professors-carousel", {
+    modules: [Navigation, Pagination, Autoplay],
+    slidesPerView: 1,
+    spaceBetween: 30,
+    centeredSlides: false,
+    loop: true,
+    autoplay: {
+      delay: 3500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".professors-carousel .swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".professors-carousel .swiper-button-next",
+      prevEl: ".professors-carousel .swiper-button-prev",
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+
+  new Swiper(".testimonials-carousel", {
+    modules: [Navigation, Pagination, Autoplay],
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".testimonials-carousel .swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".testimonials-carousel .swiper-button-next",
+      prevEl: ".testimonials-carousel .swiper-button-prev",
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+</script>

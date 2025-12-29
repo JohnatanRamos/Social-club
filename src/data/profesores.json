@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "Angie Madrid",
+    "image": "AngieMadrid.webp",
+    "experience": "+8 años de experiencia",
+    "specialty": "Bachata & Salsa"
+  },
+  {
+    "id": 2,
+    "name": "Carlos Jaramillo",
+    "image": "CarlosJaramillo.webp",
+    "experience": "+10 años de experiencia",
+    "specialty": "Salsa & Casino"
+  },
+  {
+    "id": 3,
+    "name": "Catalina Arboleda",
+    "image": "CatalinaArboleda.webp",
+    "experience": "+12 años de experiencia",
+    "specialty": "Tango & Milonga"
+  },
+  {
+    "id": 4,
+    "name": "Edwin Cano",
+    "image": "EdwinCano.webp",
+    "experience": "+6 años de experiencia",
+    "specialty": "Merengue & Kizomba"
+  },
+  {
+    "id": 5,
+    "name": "Ivan Hernandez",
+    "image": "IvanHernandez.webp",
+    "experience": "+15 años de experiencia",
+    "specialty": "Salsa & Bachata"
+  },
+  {
+    "id": 6,
+    "name": "Kelly Palacios",
+    "image": "Kellypalacios.webp",
+    "experience": "+7 años de experiencia",
+    "specialty": "Bachata Sensual"
+  },
+  {
+    "id": 7,
+    "name": "Manuela Mendoza",
+    "image": "ManuelaMendoza.webp",
+    "experience": "+5 años de experiencia",
+    "specialty": "Salsa Ladies Style"
+  },
+  {
+    "id": 8,
+    "name": "Mauricio Zambrano",
+    "image": "MauricioZambrano.webp",
+    "experience": "+10 años de experiencia",
+    "specialty": "Casino & Rueda"
+  },
+  {
+    "id": 9,
+    "name": "Miguel Reyes",
+    "image": "MiguelReyes.webp",
+    "experience": "+12 años de experiencia",
+    "specialty": "Tango & Salsa"
+  },
+  {
+    "id": 10,
+    "name": "Sareth Sareth",
+    "image": "SarethSareth.webp",
+    "experience": "+8 años de experiencia",
+    "specialty": "Bachata & Salsa"
+  },
+  {
+    "id": 11,
+    "name": "Yuliana Urrego",
+    "image": "YulianaUrrego.webp",
+    "experience": "+9 años de experiencia",
+    "specialty": "Salsa & Bachata"
+  }
+]

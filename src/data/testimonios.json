@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Carolina Ruiz",
+    "role": "Estudiante desde 2023",
+    "text": "Llegue sin saber bailar nada y ahora no puedo parar. Los profesores son increíbles y el ambiente es súper acogedor. ¡He hecho amigos increíbles!",
+    "rating": 5
+  },
+  {
+    "id": 2,
+    "name": "Andrés Gómez",
+    "role": "Estudiante desde 2022",
+    "text": "Más que una academia, es una familia. Los fines de semana son espectaculares, la comida deliciosa y la música siempre está de 10.",
+    "rating": 5
+  },
+  {
+    "id": 3,
+    "name": "Laura Morales",
+    "role": "Estudiante desde 2024",
+    "text": "El mejor lugar para aprender a bailar en Medellín. Los profes tienen mucha paciencia y las clases son muy dinámicas. 100% recomendado.",
+    "rating": 5
+  },
+  {
+    "id": 4,
+    "name": "Juan David Ospina",
+    "role": "Estudiante desde 2023",
+    "text": "Excelente metodología. Empecé por hobby y ahora es mi pasión. La comunidad es lo mejor de Social Club.",
+    "rating": 5
+  }
+]

@@ -295,6 +295,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                   <div class="relative mb-4 overflow-hidden rounded-2xl mx-auto max-w-[280px]">
                     {image && (
                       <Image
+                        loading="lazy"
                         src={image}
                         alt={profesor.name}
                         class="w-full group-hover:scale-110 transition duration-300 aspect-3/4 object-cover"
@@ -393,6 +394,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
               <div class="aspect-square overflow-hidden rounded-xl">
                 {image && (
                   <Image
+                    loading="lazy"
                     src={image}
                     alt={item.alt}
                     class="w-full h-full object-cover hover:scale-110 transition duration-300"

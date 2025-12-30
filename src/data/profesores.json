@@ -3,77 +3,77 @@
     "id": 1,
     "name": "Angie Madrid",
     "image": "AngieMadrid.webp",
-    "experience": "+8 años de experiencia",
-    "specialty": "Bachata & Salsa"
+    "experience": "+7 años de experiencia",
+    "specialty": "Salsa en línea, Cubana, Afrocubano o guanguanco, Bachata dominicana, sensual y estilo femenino, Merengue"
   },
   {
     "id": 2,
     "name": "Carlos Jaramillo",
     "image": "CarlosJaramillo.webp",
-    "experience": "+10 años de experiencia",
-    "specialty": "Salsa & Casino"
+    "experience": "+12 años de experiencia",
+    "specialty": "Bachata,Kizomba,merengue,porro,Salsa estilo cubano, rueda de casino, Salsa línea On1, Salsa Caleña y urbano"
   },
   {
     "id": 3,
     "name": "Catalina Arboleda",
     "image": "CatalinaArboleda.webp",
-    "experience": "+12 años de experiencia",
-    "specialty": "Tango & Milonga"
+    "experience": "+9 años de experiencia",
+    "specialty": "Salsa estilo femenino, bachata sensual, bachata estilo femenino, sexy dance, porro"
   },
   {
     "id": 4,
     "name": "Edwin Cano",
     "image": "EdwinCano.webp",
-    "experience": "+6 años de experiencia",
-    "specialty": "Merengue & Kizomba"
+    "experience": "+20 años de experiencia",
+    "specialty": "Salsa en línea On1, Porro,bolero,paso doble, Salsa Estilo cubano, Merengue,urbano, folclor"
   },
   {
     "id": 5,
     "name": "Ivan Hernandez",
     "image": "IvanHernandez.webp",
-    "experience": "+15 años de experiencia",
-    "specialty": "Salsa & Bachata"
+    "experience": "+7 años de experiencia",
+    "specialty": "Bachata Tradicional, sensual y moderna"
   },
   {
     "id": 6,
     "name": "Kelly Palacios",
-    "image": "Kellypalacios.webp",
-    "experience": "+7 años de experiencia",
-    "specialty": "Bachata Sensual"
+    "image": "KellyPalacios.webp",
+    "experience": "",
+    "specialty": ""
   },
   {
     "id": 7,
     "name": "Manuela Mendoza",
     "image": "ManuelaMendoza.webp",
-    "experience": "+5 años de experiencia",
-    "specialty": "Salsa Ladies Style"
+    "experience": "",
+    "specialty": ""
   },
   {
     "id": 8,
     "name": "Mauricio Zambrano",
     "image": "MauricioZambrano.webp",
-    "experience": "+10 años de experiencia",
-    "specialty": "Casino & Rueda"
+    "experience": "",
+    "specialty": ""
   },
   {
     "id": 9,
     "name": "Miguel Reyes",
     "image": "MiguelReyes.webp",
-    "experience": "+12 años de experiencia",
-    "specialty": "Tango & Salsa"
+    "experience": "+17 años de experiencia",
+    "specialty": "Salsa Cubana, Salsa en línea (on1-on2),bachata sensual, bachata moderna, merengue, reparto cubano, rumba cubana, son cubano"
   },
   {
     "id": 10,
     "name": "Sareth Sareth",
     "image": "SarethSareth.webp",
-    "experience": "+8 años de experiencia",
-    "specialty": "Bachata & Salsa"
+    "experience": "",
+    "specialty": ""
   },
   {
     "id": 11,
     "name": "Yuliana Urrego",
     "image": "YulianaUrrego.webp",
-    "experience": "+9 años de experiencia",
-    "specialty": "Salsa & Bachata"
+    "experience": "",
+    "specialty": ""
   }
 ]

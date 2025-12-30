@@ -77,7 +77,16 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
 
                     <div className="border-t border-slate-100 pt-4 space-y-3">
                         {/* Opciones de Pago */}
-                        <div className="flex items-center justify-between py-2">
+                        <div className="flex gap-2 flex-col justify-between py-2">
+                            <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
+                                <input
+                                    type="checkbox"
+                                    checked={!isPromptPayment}
+                                    onChange={onTogglePromptPayment}
+                                    className="w-4 h-4 text-orange-600 rounded border-slate-300 focus:ring-orange-500"
+                                />
+                                <span>Pagar en efectivo (0%)</span>
+                            </label>
                             <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
                                 <input
                                     type="checkbox"

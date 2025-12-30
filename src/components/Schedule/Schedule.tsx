@@ -98,6 +98,7 @@ export const Schedule: React.FC = () => {
                                             buttonText={classSession.buttonText}
                                             id={classSession.id}
                                             availableSlots={classSession.availableSlots}
+                                            startDate={classSession.startDate}
                                             onAdd={() => addToCart(classSession)}
                                         />
                                     </div>
@@ -142,6 +143,12 @@ export const Schedule: React.FC = () => {
                                     <span>📍</span>
                                     <span>{classSession.location}</span>
                                 </div>
+                                {classSession.startDate && (
+                                    <div className="flex items-center gap-2 text-sm font-semibold text-sc-orange">
+                                        <span>📅 Inicio:</span>
+                                        <span>{classSession.startDate}</span>
+                                    </div>
+                                )}
                             </div>
                             <button
                                 disabled={classSession.availableSlots === 0}

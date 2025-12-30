@@ -54,6 +54,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     color = "red",
     buttonText = "Inscribirme",
     availableSlots,
+    startDate,
     onAdd
 }) => {
     const styles = colorMap[color];
@@ -67,6 +68,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <div className="text-sm text-gray-600 mt-1">{instructor}</div>
             <div className="text-xs text-gray-500 mt-1">{duration}</div>
             <div className="text-xs text-gray-500 mt-1">📍 {location}</div>
+            {startDate && (
+                <div className="text-xs text-gray-500 mt-2">
+                    📅 <span className="font-semibold">Inicia:</span> {startDate}
+                </div>
+            )}
             <button
                 disabled={isFull}
                 onClick={(e) => {

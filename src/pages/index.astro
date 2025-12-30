@@ -26,26 +26,45 @@ import { Image } from "astro:assets";
 
     <div class="container mx-auto px-4 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          ¡El Mejor Parche de <span class="text-yellow-300">Medellín!</span>
-        </h2>
-        <p class="text-xl md:text-2xl mb-8 text-white/90">
-          Baila • Come • Rumba • Trabaja
-        </p>
-        <p class="text-lg mb-10 max-w-2xl mx-auto text-white/80">
-          Academia de baile entre semana, discoteca y restaurante los fines de
-          semana. Dos sedes para que vivas la mejor experiencia.
-        </p>
+        <!-- Text Carousel -->
+        <div class="swiper hero-carousel mb-8">
+          <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+              <h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                El puente más
+                <span class="text-yellow-300">Chimba</span> de Medellín
+              </h2>
+              <p class="text-lg mb-2 max-w-2xl mx-auto text-white/80">
+                Donde se baila sin para, se come deliciosos y conoces personas
+                auténticas
+              </p>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+              <h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Una casa <span class="text-yellow-300">cartagenera</span> en pleno
+                Envigado
+              </h2>
+              <p class="text-lg mb-4 max-w-2xl mx-auto text-white/80">
+                Donde el trabaja Fluye,la comida inspira, la música te mueve y
+                las conexiones son reales
+              </p>
+            </div>
+          </div>
+          <!-- Optional: Pagination if needed, but keeping it clean for now -->
+          <div class="swiper-pagination static! mt-4"></div>
+        </div>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="/horarios.html"
+            href="/horarios"
             class="bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
           >
             Ver Horarios de Clases
           </a>
           <a
-            href="eventos.html"
+            href="eventos"
             class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sc-orange transition"
           >
             Próximos Eventos
@@ -78,7 +97,7 @@ import { Image } from "astro:assets";
             Del básico al pro: ven a mover el cuerpo como nunca.
           </p>
           <a
-            href="horarios.html"
+            href="horarios"
             class="text-sc-orange font-semibold hover:underline"
             >Ver horarios →</a
           >
@@ -243,7 +262,7 @@ import { Image } from "astro:assets";
                 Cómo llegar
               </a>
               <a
-                href="https://wa.me/573009853900"
+                href="https://wa.me/573017010701"
                 target="_blank"
                 class="flex-1 border-2 border-sc-orange text-sc-orange text-center py-3 rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
               >
@@ -347,7 +366,7 @@ import { Image } from "astro:assets";
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="horarios.html"
+          href="horarios"
           class="bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl"
         >
           Ver Clases Disponibles
@@ -363,3 +382,46 @@ import { Image } from "astro:assets";
     </div>
   </section>
 </Layout>
+
+<style>
+  .hero-carousel {
+    width: 100%;
+    padding: 0;
+  }
+  .hero-carousel .swiper-pagination-bullet {
+    background: white !important;
+    opacity: 0.5;
+  }
+  .hero-carousel .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #ffec3d !important; /* Yellow theme color */
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".hero-carousel", {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      effect: "fade",
+      fadeEffect: {
+        crossFade: true,
+      },
+    });
+  });
+</script>

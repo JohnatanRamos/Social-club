@@ -1,6 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import UpcomingEvents from "../components/Events/UpcomingEvents";
+
+import socialClubLogo from "../assets/ÍCONO_SOCIAL_CLUB_.svg";
+import ritmoVivoLogo from "../assets/ÍCONO_RITMOVIVO_.svg";
+import { Image } from "astro:assets";
 ---
 
 <Layout>
@@ -185,10 +189,11 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
           </div>
           <div class="p-8">
             <div class="flex items-start gap-4 mb-4">
-              <img
-                src="logo-social.png"
+              <Image
+                src={socialClubLogo}
                 alt="Social Club"
                 class="h-16 w-16 rounded-full"
+                loading="lazy"
               />
               <div>
                 <h4 class="text-2xl font-bold text-gray-800">Social Club</h4>
@@ -222,7 +227,7 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
                 <div>
                   <p class="font-semibold text-gray-800">WhatsApp</p>
                   <a
-                    href="https://wa.me/573XXXXXXXXX"
+                    href="https://wa.me/573009853900"
                     class="text-sc-orange hover:underline">+57 3017010701</a
                   >
                 </div>
@@ -231,14 +236,14 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
 
             <div class="flex gap-3">
               <a
-                href="https://maps.google.com"
+                href="https://maps.app.goo.gl/PPZeCGngJjxaL5eh7"
                 target="_blank"
                 class="flex-1 gradient-bg text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
               >
                 Cómo llegar
               </a>
               <a
-                href="https://wa.me/573XXXXXXXXX"
+                href="https://wa.me/573009853900"
                 target="_blank"
                 class="flex-1 border-2 border-sc-orange text-sc-orange text-center py-3 rounded-xl font-semibold hover:bg-sc-orange hover:text-white transition"
               >
@@ -252,7 +257,7 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
         <div class="bg-white rounded-2xl overflow-hidden shadow-xl">
           <div class="h-64 bg-gray-300">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0!2d-75.5636!3d6.2084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzAuMiJOIDc1wrAzMyc0OS4wIlc!5e0!3m2!1ses!2sco!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.7250116850278!2d-75.58978942613786!3d6.167566627199561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e468365345842ad%3A0xfd98cf5ddbc642d!2sRitmo%20Vivo%20Caf%C3%A9-Bar%20%26%20Coworking!5e0!3m2!1ses!2sco!4v1767125081466!5m2!1ses!2sco"
               class="w-full h-full border-0"
               loading="lazy"
             >
@@ -260,10 +265,11 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
           </div>
           <div class="p-8">
             <div class="flex items-start gap-4 mb-4">
-              <img
-                src="logo-ritmo.png"
+              <Image
+                src={ritmoVivoLogo}
                 alt="Ritmo Vivo"
                 class="h-16 w-16 rounded-full"
+                loading="lazy"
               />
               <div>
                 <h4 class="text-2xl font-bold text-gray-800">Ritmo Vivo</h4>
@@ -276,8 +282,8 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
                 <span class="text-rv-aqua text-xl">📍</span>
                 <div>
                   <p class="font-semibold text-gray-800">Dirección</p>
-                  <p class="text-gray-600">[Dirección de Ritmo Vivo]</p>
-                  <p class="text-gray-600">[Barrio, Medellín]</p>
+                  <p class="text-gray-600">Calle 39 sur # 40-55</p>
+                  <p class="text-gray-600">Barrio Envigado</p>
                 </div>
               </div>
 
@@ -301,7 +307,7 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
                 <div>
                   <p class="font-semibold text-gray-800">WhatsApp</p>
                   <a
-                    href="https://wa.me/573XXXXXXXXX"
+                    href="https://wa.me/573009853900"
                     class="text-rv-aqua hover:underline">+57 3009853900</a
                   >
                 </div>
@@ -310,14 +316,14 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
 
             <div class="flex gap-3">
               <a
-                href="https://maps.google.com"
+                href="https://maps.app.goo.gl/GQXSrEkiDUpPMt3o9"
                 target="_blank"
                 class="flex-1 gradient-rv text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg transition"
               >
                 Cómo llegar
               </a>
               <a
-                href="https://wa.me/573XXXXXXXXX"
+                href="https://wa.me/573009853900"
                 target="_blank"
                 class="flex-1 border-2 border-rv-aqua text-rv-aqua text-center py-3 rounded-xl font-semibold hover:bg-rv-aqua hover:text-white transition"
               >
@@ -347,7 +353,7 @@ import UpcomingEvents from "../components/Events/UpcomingEvents";
           Ver Clases Disponibles
         </a>
         <a
-          href="https://wa.me/573XXXXXXXXX"
+          href="https://wa.me/573009853900"
           target="_blank"
           class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-sc-orange transition"
         >

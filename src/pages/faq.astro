@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import faqs from "../data/faqs.json";
 ---
 
 <style>
@@ -16,8 +17,8 @@ import Layout from "../layouts/Layout.astro";
   .faq-item.active {
     border-color: #ff6b00;
     box-shadow:
-      0 10px 25px -5px rgba(255, 107, 0, 0.1),
-      0 8px 10px -6px rgba(255, 107, 0, 0.1);
+      0 10px 25px -5px rgba(255, 107, 0, 10%),
+      0 8px 10px -6px rgba(255, 107, 0, 10%);
   }
 
   .faq-answer {
@@ -83,24 +84,16 @@ import Layout from "../layouts/Layout.astro";
   <section class="py-8 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap justify-center gap-4">
-        <a
-          href="#precios"
-          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
-        >
-          💰 Precios y Pagos
-        </a>
-        <a
-          href="#ubicacion"
-          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
-        >
-          📍 Ubicación y Horarios
-        </a>
-        <a
-          href="#eventos"
-          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
-        >
-          🎉 Eventos y Discoteca
-        </a>
+        {
+          faqs.map((section) => (
+            <a
+              href={`#${section.id}`}
+              class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition font-semibold text-gray-700 hover:text-sc-orange"
+            >
+              {section.icon} {section.category}
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -120,368 +113,55 @@ import Layout from "../layouts/Layout.astro";
           </p>
         </div>
 
-        <!-- PRECIOS Y PAGOS -->
-        <div id="precios" class="mb-12">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-4xl">💰</span>
-            <h3 class="text-3xl font-bold text-gray-800">Precios y Pagos</h3>
-          </div>
-
-          <div class="space-y-4">
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Cuáles son los métodos de pago aceptados?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
+        {
+          faqs.map((section) => (
+            <div id={section.id} class="mb-12">
+              <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">{section.icon}</span>
+                <h3 class="text-3xl font-bold text-gray-800">
+                  {section.category}
+                </h3>
               </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Efectivo, transferencia, tarjeta (debito y credito), Link de
-                  pago
-                </div>
+
+              <div class="space-y-4">
+                {section.items.map((faq) => (
+                  <div
+                    class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
+                    onclick="toggleFAQ(this)"
+                  >
+                    <div class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition">
+                      <h4 class="font-bold text-gray-800 pr-8">
+                        {faq.question}
+                      </h4>
+                      <svg
+                        class="faq-icon w-6 h-6 text-sc-orange shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
+                    <div class="faq-answer">
+                      <div
+                        class="px-6 pb-6 text-gray-600"
+                        set:html={faq.answer}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Hay descuentos disponibles?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Contamos con algunos descuentos autorizadas, Si celebras tu
-                  cumpleaños con nosotros te damos un bono del 20% para las
-                  clases, por referir a alguien a nuestros clases, por pronto
-                  pago y promociones en algunos de nuestros cursos
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">¿Hacen reembolso?</h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Se realiza un reembolso si por nuestra parte no se puede
-                  cumplir con el servicio comprado, o luego de evaluar por que
-                  deseas realizar el reembolso y este tiene un tiempo de
-                  respuesta de 15 días hábiles
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- UBICACIÓN Y HORARIOS -->
-        <div id="ubicacion" class="mb-12">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-4xl">📍</span>
-            <h3 class="text-3xl font-bold text-gray-800">
-              Ubicación y Horarios
-            </h3>
-          </div>
-
-          <div class="space-y-4">
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Dónde están ubicados?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Ritmo vivo:📍Estamos ubicados en: Cl. 39 Sur #40-55, Zona 9,
-                  Envigado, Antioquia Al lado de la Cámara de comercio Social
-                  Club: 📍Social Club Academia de Danza Estamos ubicados en los
-                  bajos del puente de la Aguacatala Calle 12 sur # 48 - 01 local
-                  102
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Hay parqueaderos disponibles?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Ritmo vivo: No cuenta con parqueadero el más cercano es en la
-                  esquina al lado de la cámara de comercio Social Club: No
-                  contamos con parqueadero propia, sin embargo al lado del
-                  establecimiento encuentran un parqueadero tanto de carros y
-                  motos
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Cómo llegar en transporte público?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  <strong>Ritmo Vivo:</strong> De la estación Envigado tomas un alimentador
-                  que diga Guanteros y te deja en toda la cámara de comercio de Envigado
-                  <strong>Social Club:</strong> Una vez salgas de Estación Aguacatala,
-                  debes dirigirte hacia la zona de la <strong
-                    >glorieta / rotonda de Aguacatala</strong
-                  >, Esa caminata suele tomar unos 5 minutos
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Puedo tomar clases en ambas sedes?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  Claro que sí puedes elegir la sede más cercana para tomar tus
-                  clases
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- EVENTOS -->
-        <div id="eventos" class="mb-12">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-4xl">🎉</span>
-            <h3 class="text-3xl font-bold text-gray-800">
-              Eventos y Discoteca
-            </h3>
-          </div>
-
-          <div class="space-y-4">
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿Es necesario reservar una mesa?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  No es necesario, sin embargo por nuestra parte recomendamos
-                  realizar la reserva si deseas asegurar un espacio cómodo o
-                  deseas llegar después de las 8:00pm
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">
-                  ¿En qué horario son las clases gratis?
-                </h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  En Ritmo vivo contamos con clases gratis de Lunes a viernes de
-                  7:00 a 8:00pm y sábado de 8:00 a 9:00pm En Social club
-                  nuestras clases son los Jueves, viernes y sábado de 8:00 a
-                  9:00pm cada semana es un Ritmo diferente No necesitas
-                  inscripción
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="faq-item bg-white rounded-xl shadow-md overflow-hidden"
-              onclick="toggleFAQ(this)"
-            >
-              <div
-                class="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition"
-              >
-                <h4 class="font-bold text-gray-800 pr-8">¿Tiene cover?</h4>
-                <svg
-                  class="faq-icon w-6 h-6 text-sc-orange shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div class="faq-answer">
-                <div class="px-6 pb-6 text-gray-600">
-                  En ninguno de nuestros establecimientos se maneja un cover,
-                  esto solo si es un evento especial y será anunciado con
-                  anticipación por nuestras redes sociales
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          ))
+        }
       </div>
     </div>
   </section>
-
   <!-- Still Have Questions CTA -->
   <section class="py-16 bg-linear-to-br from-orange-100 to-red-100">
     <div class="container mx-auto px-4 text-center">
@@ -515,7 +195,7 @@ import Layout from "../layouts/Layout.astro";
 
   <script is:inline>
     function toggleFAQ(element) {
-      // Close other open items in the same section (optional, but usually better UX)
+      // Close other open items in the same section
       const section = element.closest(".space-y-4");
       const allItems = section.querySelectorAll(".faq-item");
 

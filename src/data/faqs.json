@@ -1,0 +1,63 @@
+[
+    {
+        "id": "precios",
+        "category": "Precios y Pagos",
+        "icon": "💰",
+        "items": [
+            {
+                "question": "¿Cuáles son los métodos de pago aceptados?",
+                "answer": "Efectivo, transferencia, tarjeta (debito y credito), Link de pago"
+            },
+            {
+                "question": "¿Hay descuentos disponibles?",
+                "answer": "Contamos con algunos descuentos autorizadas, Si celebras tu cumpleaños con nosotros te damos un bono del 20% para las clases, por referir a alguien a nuestros clases, por pronto pago y promociones en algunos de nuestros cursos"
+            },
+            {
+                "question": "¿Hacen reembolso?",
+                "answer": "Se realiza un reembolso si por nuestra parte no se puede cumplir con el servicio comprado, o luego de evaluar por que deseas realizar el reembolso y este tiene un tiempo de respuesta de 15 días hábiles"
+            }
+        ]
+    },
+    {
+        "id": "ubicacion",
+        "category": "Ubicación y Horarios",
+        "icon": "📍",
+        "items": [
+            {
+                "question": "¿Dónde están ubicados?",
+                "answer": "Ritmo vivo:📍Estamos ubicados en: Cl. 39 Sur #40-55, Zona 9, Envigado, Antioquia Al lado de la Cámara de comercio Social Club: 📍Social Club Academia de Danza Estamos ubicados en los bajos del puente de la Aguacatala Calle 12 sur # 48 - 01 local 102"
+            },
+            {
+                "question": "¿Hay parqueaderos disponibles?",
+                "answer": "Ritmo vivo: No cuenta con parqueadero el más cercano es en la esquina al lado de la cámara de comercio Social Club: No contamos con parqueadero propia, sin embargo al lado del establecimiento encuentran un parqueadero tanto de carros y motos"
+            },
+            {
+                "question": "¿Cómo llegar en transporte público?",
+                "answer": "<strong>Ritmo Vivo:</strong> De la estación Envigado tomas un alimentador que diga Guanteros y te deja en toda la cámara de comercio de Envigado <strong>Social Club:</strong> Una vez salgas de Estación Aguacatala, debes dirigirte hacia la zona de la <strong>glorieta / rotonda de Aguacatala</strong>, Esa caminata suele tomar unos 5 minutos"
+            },
+            {
+                "question": "¿Puedo tomar clases en ambas sedes?",
+                "answer": "Claro que sí puedes elegir la sede más cercana para tomar tus clases"
+            }
+        ]
+    },
+    {
+        "id": "eventos",
+        "category": "Eventos y Discoteca",
+        "icon": "🎉",
+        "items": [
+            {
+                "question": "¿Es necesario reservar una mesa?",
+                "answer": "No es necesario, sin embargo por nuestra parte recomendamos realizar la reserva si deseas asegurar un espacio cómodo o deseas llegar después de las 8:00pm"
+            },
+            {
+                "question": "¿En qué horario son las clases gratis?",
+                "answer": "En Ritmo vivo contamos con clases gratis de Lunes a viernes de 7:00 a 8:00pm y sábado de 8:00 a 9:00pm En Social club nuestras clases son los Jueves, viernes y sábado de 8:00 a 9:00pm cada semana es un Ritmo diferente No necesitas inscripción"
+            },
+            {
+                "question": "¿Tiene cover?",
+                "answer": "En ninguno de nuestros establecimientos se maneja un cover, esto solo si es un evento especial y será anunciado con anticipación por nuestras redes sociales"
+            }
+        ]
+    }
+]

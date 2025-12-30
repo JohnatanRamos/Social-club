@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { classesStore, isLoading, errorStore, fetchClasses } from '../../stores/classesStore';
 import { filtersStore } from '../../stores/scheduleFiltersStore';
@@ -13,9 +13,11 @@ export const Schedule: React.FC = () => {
     const loading = useStore(isLoading);
     const error = useStore(errorStore);
     const filters = useStore(filtersStore);
+    const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
         fetchClasses();
+        setHasMounted(true);
     }, []);
 
     if (loading && classes.length === 0) {
@@ -172,7 +174,7 @@ export const Schedule: React.FC = () => {
                     </div>
                 )}
             </div>
-            <FloatingCartButton />
+            {hasMounted && <FloatingCartButton />}
         </div>
     );
 };

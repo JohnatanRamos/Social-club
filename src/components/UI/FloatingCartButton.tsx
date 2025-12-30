@@ -5,8 +5,13 @@ import { cartStore } from '../../stores/cartStore';
 
 export const FloatingCartButton: React.FC = () => {
     const cart = useStore(cartStore);
+    const [hasMounted, setHasMounted] = React.useState(false);
 
-    if (cart.length === 0) return null;
+    React.useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
+    if (!hasMounted || cart.length === 0) return null;
 
     return (
         <a

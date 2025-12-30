@@ -5,6 +5,10 @@ import profesores from "../data/profesores.json";
 import testimonios from "../data/testimonios.json";
 import galeria from "../data/galeria.json";
 
+// Location Images
+import SocialClub from "../assets/locations/SocialClub.webp";
+import RitmoVivo from "../assets/locations/RitmoVivo.webp";
+
 // Gallery Data
 const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
   "../assets/gallery/*.webp",
@@ -12,7 +16,6 @@ const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
 );
 
 // Team Data
-
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "../assets/teachers/*.webp",
   { eager: true },
@@ -100,11 +103,12 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
             </div>
           </div>
           <div class="relative">
-            <!-- <img
-              src="/api/placeholder/600/400"
+            <Image
+              loading="lazy"
+              src={SocialClub}
               alt="Historia Social Club"
               class="rounded-2xl shadow-2xl"
-            /> -->
+            />
             <div
               class="absolute -bottom-6 -right-6 bg-sc-orange text-white rounded-2xl p-6 shadow-xl"
             >
@@ -122,11 +126,12 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
       <div class="max-w-5xl mx-auto">
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div class="relative">
-            <!-- <img
-              src="/api/placeholder/600/400"
+            <Image
+              loading="lazy"
+              src={RitmoVivo}
               alt="Historia Social Club"
               class="rounded-2xl shadow-2xl"
-            /> -->
+            />
             <div
               class="absolute -bottom-6 -right-6 bg-sc-orange text-white rounded-2xl p-6 shadow-xl"
             >

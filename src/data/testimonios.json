@@ -1,30 +1,62 @@
 [
   {
-    "id": 1,
-    "name": "Carolina Ruiz",
-    "role": "Estudiante desde 2023",
-    "text": "Llegue sin saber bailar nada y ahora no puedo parar. Los profesores son increíbles y el ambiente es súper acogedor. ¡He hecho amigos increíbles!",
-    "rating": 5
+    "name": "Ken Owashi",
+    "rating": 5,
+    "tiempo": "hace 2 semanas",
+    "text": "Un gran ambiente para bailar, música muy variada y suficiente espacio"
   },
   {
-    "id": 2,
-    "name": "Andrés Gómez",
-    "role": "Estudiante desde 2022",
-    "text": "Más que una academia, es una familia. Los fines de semana son espectaculares, la comida deliciosa y la música siempre está de 10.",
-    "rating": 5
+    "name": "Kelly Johanna Piedrahita",
+    "rating": 5,
+    "tiempo": "hace un mes",
+    "text": "Sitio para ir a bailar y pasar un rato divertido"
   },
   {
-    "id": 3,
-    "name": "Laura Morales",
-    "role": "Estudiante desde 2024",
-    "text": "El mejor lugar para aprender a bailar en Medellín. Los profes tienen mucha paciencia y las clases son muy dinámicas. 100% recomendado.",
-    "rating": 5
+    "name": "Erick Rolando Palma Alvarado",
+    "rating": 5,
+    "tiempo": "Hace 2 meses",
+    "text": "No pude bailar porque cené muy tarde y no quería arruinar la fiesta, pero seguro que bailaré toda la noche mañana. El mejor sitio para bailar."
   },
   {
-    "id": 4,
-    "name": "Juan David Ospina",
-    "role": "Estudiante desde 2023",
-    "text": "Excelente metodología. Empecé por hobby y ahora es mi pasión. La comunidad es lo mejor de Social Club.",
-    "rating": 5
+    "name": "henry alberto salazar",
+    "rating": 5,
+    "tiempo": "Hace 2 meses",
+    "text": "Excelente lugar para pasar un buen rato con la familia y los amigos, salón social para bailar porro, salsa, bachata, merengue."
+  },
+  {
+    "name": "Carlos Puga",
+    "rating": 5,
+    "tiempo": "Hace 3 meses",
+    "text": "Salsa, bachata, cumbia y merengue toda la noche. Excelentes bailarines. Muy amables y accesibles."
+  },
+  {
+    "name": "Rock Man",
+    "rating": 4,
+    "tiempo": "Hace 3 meses",
+    "text": "Esta bueno para el rato"
+  },
+  {
+    "name": "Alejandro Navarro",
+    "rating": 5,
+    "tiempo": "Hace 3 meses",
+    "text": "Muy buen ambiente. Clase al inicio. Abajo de aguacatal."
+  },
+  {
+    "name": "john osorio",
+    "text": "Una rumba de ciudad en una muy buena zona",
+    "rating": 5,
+    "tiempo": "Hace 3 meses"
+  },
+  {
+    "name": "yees create",
+    "text": "Excelente ambiente! Su ubicación le da un toque ✨",
+    "rating": 5,
+    "tiempo": "Hace 5 meses"
+  },
+  {
+    "name": "Daniel Campo",
+    "text": "excelentes clases y buen ambiente",
+    "rating": 5,
+    "tiempo": "Hace 5 meses"
   }
 ]

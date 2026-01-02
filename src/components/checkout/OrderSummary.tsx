@@ -85,7 +85,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                                     onChange={onTogglePromptPayment}
                                     className="w-4 h-4 text-orange-600 rounded border-slate-300 focus:ring-orange-500"
                                 />
-                                <span>Pagar en efectivo (0%)</span>
+                                <span>Pagar en academia (0%)</span>
                             </label>
                             <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
                                 <input
@@ -94,7 +94,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                                     onChange={onTogglePromptPayment}
                                     className="w-4 h-4 text-orange-600 rounded border-slate-300 focus:ring-orange-500"
                                 />
-                                <span>Pago de contado (-5%)</span>
+                                <span>Pagar en línea (-5%)</span>
                             </label>
                         </div>
 

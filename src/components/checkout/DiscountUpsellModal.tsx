@@ -7,6 +7,7 @@ interface DiscountUpsellModalProps {
     onClose: () => void;
     onContinue: () => void;
     cart: CartCourseItem[];
+    isLoading?: boolean;
 }
 
 export const DiscountUpsellModal: React.FC<DiscountUpsellModalProps> = ({
@@ -14,6 +15,7 @@ export const DiscountUpsellModal: React.FC<DiscountUpsellModalProps> = ({
     onClose,
     onContinue,
     cart,
+    isLoading
 }) => {
     if (!isOpen) return null;
 
@@ -85,10 +87,22 @@ export const DiscountUpsellModal: React.FC<DiscountUpsellModalProps> = ({
                         </button>
 
                         <button
+                            disabled={cart.length === 0 || isLoading}
                             onClick={onContinue}
                             className="w-full py-3 px-4 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 font-medium rounded-xl transition-colors"
                         >
-                            Continuar
+
+                            {isLoading ? (
+                                <>
+                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                    <span>Procesando...</span>
+                                </>
+                            ) : (
+
+                                <>
+                                    <span>Continuar</span>
+                                </>
+                            )}
                         </button>
                     </div>
                 </div>

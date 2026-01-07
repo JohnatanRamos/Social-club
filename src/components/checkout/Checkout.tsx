@@ -264,6 +264,7 @@ export default function Checkout() {
         onClose={() => setIsUpsellModalOpen(false)}
         onContinue={handleContinueToPayment}
         cart={cart}
+        isLoading={isSubmitting}
       />
     </div>
   );

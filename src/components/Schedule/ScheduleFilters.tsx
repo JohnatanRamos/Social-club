@@ -11,18 +11,49 @@ export const ScheduleFilters: React.FC = () => {
         setFilter(key, value);
     };
 
-    // Derived filter options
-    const genres = ["Todos los géneros", ...new Set(classes.map(c => c.genre).filter(Boolean) as string[])];
-    const levels = ["Todos los niveles", ...new Set(classes.map(c => c.level).filter(Boolean) as string[])];
-    const locations = [...new Set(classes.map(c => c.location).filter(Boolean) as string[])];
-    const instructors = ["Todos los profesores", ...new Set(classes.map(c => c.instructor).filter(Boolean) as string[])];
-    const days = ["Todos los días", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+    // Helper to get classes that match all filters except the one being calculated
+    const getFilteredOptions = React.useCallback((excludeKey: keyof typeof filters) => {
+        return classes.filter(c => {
+            const matchesLocation = excludeKey === 'location' || !filters.location || c.location === filters.location;
+            const matchesGenre = excludeKey === 'genre' || filters.genre === "Todos los géneros" || c.genre === filters.genre;
+            const matchesLevel = excludeKey === 'level' || filters.level === "Todos los niveles" || c.level === filters.level;
+            const matchesDay = excludeKey === 'day' || filters.day === "Todos los días" || c.day === filters.day;
+            const matchesInstructor = excludeKey === 'instructor' || filters.instructor === "Todos los profesores" || c.instructor === filters.instructor;
 
+            return matchesLocation && matchesGenre && matchesLevel && matchesDay && matchesInstructor;
+        });
+    }, [classes, filters]);
+
+    // Derived filter options based on current selection of OTHER filters
+    const genres = React.useMemo(() => ["Todos los géneros", ...new Set(getFilteredOptions('genre').map(c => c.genre).filter(Boolean) as string[])], [getFilteredOptions]);
+    const levels = React.useMemo(() => ["Todos los niveles", ...new Set(getFilteredOptions('level').map(c => c.level).filter(Boolean) as string[])], [getFilteredOptions]);
+    const locations = React.useMemo(() => [...new Set(getFilteredOptions('location').map(c => c.location).filter(Boolean) as string[])], [getFilteredOptions]);
+    const instructors = React.useMemo(() => ["Todos los profesores", ...new Set(getFilteredOptions('instructor').map(c => c.instructor).filter(Boolean) as string[])], [getFilteredOptions]);
+
+    const days = React.useMemo(() => {
+        const dayOrder = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+        const availableDays = new Set(getFilteredOptions('day').map(c => c.day));
+        return ["Todos los días", ...dayOrder.filter(d => availableDays.has(d as any))];
+    }, [getFilteredOptions]);
+
+    // Reset filters if current selection is no longer valid due to other filters
     React.useEffect(() => {
-        if (locations.length > 0 && !filters.location) {
+        if (locations.length > 0 && !locations.includes(filters.location)) {
             setFilter('location', locations[0]);
         }
-    }, [locations, filters.location]);
+        if (filters.genre !== "Todos los géneros" && !genres.includes(filters.genre)) {
+            setFilter('genre', "Todos los géneros");
+        }
+        if (filters.level !== "Todos los niveles" && !levels.includes(filters.level)) {
+            setFilter('level', "Todos los niveles");
+        }
+        if (filters.day !== "Todos los días" && !days.includes(filters.day)) {
+            setFilter('day', "Todos los días");
+        }
+        if (filters.instructor !== "Todos los profesores" && !instructors.includes(filters.instructor)) {
+            setFilter('instructor', "Todos los profesores");
+        }
+    }, [locations, genres, levels, days, instructors, filters]);
 
     return (
         <section

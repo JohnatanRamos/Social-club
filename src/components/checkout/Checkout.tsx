@@ -154,15 +154,10 @@ export default function Checkout() {
         window.location.href = '/success';
       }
     } catch (error: any) {
+      setIsSubmitting(false);
       toast.error(error.message, {
         position: 'top-right',
       });
-    } finally {
-      // If we are redirecting or opening Wompi, we might want to keep loading state
-      // But if Wompi opens, it's a modal, so we can stop loading or keep it.
-      // If prompt payment, Wompi opens. If user cancels Wompi, we should probably stop loading.
-      // Since handleWompiWidget is async and returns after opening, we can stop loading here.
-      setIsSubmitting(false);
     }
   };
 

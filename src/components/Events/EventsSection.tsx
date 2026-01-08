@@ -39,6 +39,35 @@ const EventsSection: React.FC = () => {
         fetchEvents();
     }, []);
 
+    // Helper to get events that match all filters except the one being calculated
+    const getFilteredOptions = React.useCallback((excludeKey: 'location' | 'type' | 'month') => {
+        return events.filter(e => {
+            const matchesLocation = excludeKey === 'location' || selectedLocation === "Todas las sedes" || e.location === selectedLocation;
+            const matchesType = excludeKey === 'type' || selectedType === "Todos los tipos" || e.type === selectedType;
+            const matchesMonth = excludeKey === 'month' || selectedMonth === "Todos los meses" || e.month === selectedMonth;
+
+            return matchesLocation && matchesType && matchesMonth;
+        });
+    }, [events, selectedLocation, selectedType, selectedMonth]);
+
+    // Derived filter options based on current selection of OTHER filters
+    const locations = React.useMemo(() => ["Todas las sedes", ...new Set(getFilteredOptions('location').map(e => e.location).filter(Boolean) as string[])], [getFilteredOptions]);
+    const eventTypes = React.useMemo(() => ["Todos los tipos", ...new Set(getFilteredOptions('type').map(e => e.type).filter(Boolean) as string[])], [getFilteredOptions]);
+    const months = React.useMemo(() => ["Todos los meses", ...new Set(getFilteredOptions('month').map(e => e.month).filter(Boolean) as string[])], [getFilteredOptions]);
+
+    // Reset filters if current selection is no longer valid due to other filters
+    useEffect(() => {
+        if (selectedLocation !== "Todas las sedes" && !locations.includes(selectedLocation)) {
+            setSelectedLocation("Todas las sedes");
+        }
+        if (selectedType !== "Todos los tipos" && !eventTypes.includes(selectedType)) {
+            setSelectedType("Todos los tipos");
+        }
+        if (selectedMonth !== "Todos los meses" && !months.includes(selectedMonth)) {
+            setSelectedMonth("Todos los meses");
+        }
+    }, [locations, eventTypes, months, selectedLocation, selectedType, selectedMonth]);
+
     // Update filtered events when events or filters change
     useEffect(() => {
         let result = events;
@@ -55,9 +84,6 @@ const EventsSection: React.FC = () => {
 
         setFilteredEvents(result);
     }, [selectedLocation, selectedType, selectedMonth, events]);
-
-    // Derived filter options
-    const eventTypes = ["Todos los tipos", ...new Set(events.map((e) => e.type).filter(Boolean) as string[])];
 
     return (
         <>
@@ -77,9 +103,9 @@ const EventsSection: React.FC = () => {
                                 onChange={(e) => setSelectedLocation(e.target.value)}
                                 className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                             >
-                                <option>Todas las sedes</option>
-                                <option>Social Club</option>
-                                <option>Ritmo Vivo</option>
+                                {locations.map(loc => (
+                                    <option key={loc} value={loc}>{loc}</option>
+                                ))}
                             </select>
                         </div>
 
@@ -109,10 +135,9 @@ const EventsSection: React.FC = () => {
                                 onChange={(e) => setSelectedMonth(e.target.value)}
                                 className="bg-gray-100 w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-sc-orange focus:outline-none"
                             >
-                                <option>Todos los meses</option>
-                                <option>Noviembre 2025</option>
-                                <option>Diciembre 2025</option>
-                                <option>Enero 2026</option>
+                                {months.map(month => (
+                                    <option key={month} value={month}>{month}</option>
+                                ))}
                             </select>
                         </div>
                     </div>

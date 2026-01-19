@@ -280,6 +280,23 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                 onChange={handleChange}
                                 placeholder="Ej. Juan Pérez"
                             />
+                            <InputField
+                                label="N° Documento"
+                                name="documento"
+                                required
+                                value={formData.documento}
+                                onChange={handleChange}
+                                placeholder="Ej. 1234567890"
+                            />
+                            <InputField
+                                label="Correo electrónico"
+                                name="email"
+                                type="email"
+                                required
+                                value={formData.email}
+                                onChange={handleChange}
+                                placeholder="Ej. juan@example.com"
+                            />
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="flex flex-col space-y-1">

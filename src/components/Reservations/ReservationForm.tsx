@@ -3,6 +3,8 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
 import { InputField } from '../UI/InputField';
+import { parse, sameDay, addHour } from '@formkit/tempo';
+import { toast } from 'sonner';
 
 export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ variant = 'white' }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,8 +31,28 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    const validateReservationTime = () => {
+        if (!formData.fecha || !formData.hora) return true;
+
+        const now = new Date();
+        const selectedDate = parse(`${formData.fecha} ${formData.hora}`, "YYYY-MM-DD HH:mm");
+
+        if (sameDay(selectedDate, now)) {
+            const oneHourLater = addHour(now, 1);
+            if (selectedDate < oneHourLater) {
+                toast.error("Para reservas el día de hoy, la hora debe ser al menos 1 hora después de la hora actual.");
+                return false;
+            }
+        }
+        return true;
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!validateReservationTime()) {
+            return;
+        }
 
         // Format message for WhatsApp
         const message = `*Nueva Reserva*%0A` +

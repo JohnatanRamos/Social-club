@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
+import { InputField } from '../UI/InputField';
 
 export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ variant = 'white' }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -132,8 +133,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                     <option value="Ritmo Vivo">Ritmo Vivo (Medellín)</option>
                                 </select>
                             </div>
-
-                            <input
+                            <InputField
+                                label="Nombre completo"
                                 name="nombreCompleto"
                                 required
                                 value={formData.nombreCompleto}
@@ -142,26 +143,47 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                             />
 
                             <div className="grid grid-cols-2 gap-4">
-                                <input
-                                    ref={dateInputRef}
-                                    name="fecha"
-                                    type="text"
-                                    required
-                                    value={formData.fecha}
-                                    onChange={handleChange}
-                                    placeholder="Selecciona una fecha"
-                                />
-                                <input
-                                    name="hora"
-                                    type="time"
-                                    required
-                                    value={formData.hora}
-                                    onChange={handleChange}
-                                />
+                                <div className="flex flex-col space-y-1">
+                                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        Fecha
+                                    </label>
+                                    <input
+                                        ref={dateInputRef}
+                                        name="fecha"
+                                        type="text"
+                                        required
+                                        value={formData.fecha}
+                                        onChange={handleChange}
+                                        placeholder="Selecciona una fecha"
+                                        className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col space-y-1">
+                                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        Hora
+                                    </label>
+                                    <input
+                                        name="hora"
+                                        type="time"
+                                        required
+                                        value={formData.hora}
+                                        onChange={handleChange}
+                                        onClick={(e) => {
+                                            try {
+                                                e.currentTarget.showPicker();
+                                            } catch (err) {
+                                                console.log("Picker not supported", err);
+                                            }
+                                        }}
+                                        className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full cursor-pointer"
+                                    />
+                                </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
-                                <input
+                                <InputField
+                                    label="N° Personas"
                                     name="numPersonas"
                                     type="number"
                                     min="1"
@@ -170,7 +192,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                     onChange={handleChange}
                                     placeholder="Ej. 4"
                                 />
-                                <input
+                                <InputField
+                                    label="Celular"
                                     name="celular"
                                     type="tel"
                                     required
@@ -201,7 +224,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                             </div>
 
                             {formData.tipoCelebracion !== 'Ninguna' && (
-                                <input
+                                <InputField
+                                    label="Nombre del festejado"
                                     name="nombreFestejado"
                                     value={formData.nombreFestejado}
                                     onChange={handleChange}

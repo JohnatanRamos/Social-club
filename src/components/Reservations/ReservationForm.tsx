@@ -86,7 +86,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 // You can handle the result here without redirecting if you prefer,
                 // but typically for a successful payment you might want to show the success page.
                 if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
-                    window.location.href = '/success';
+                    window.location.href = '/success-reservation';
                 } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
                     toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
                         position: 'top-right',
@@ -162,7 +162,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             return;
         }
         handleFinalizeReservation();
-        setIsOpen(false);
+        // setIsOpen(false);
     };
 
     // Close on Escape key

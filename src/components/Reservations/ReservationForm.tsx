@@ -14,13 +14,15 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         sede: '',
         fecha: '',
         hora: '',
-        numPersonas: '',
+        numPersonas: 0,
         celular: '',
         tipoCelebracion: 'Ninguna',
         nombreFestejado: '',
+        documento: '',
+        email: '',
     });
     const [celebrationTypes, setCelebrationTypes] = useState<string[]>([]);
-    const [isLoadingTypes, setIsLoadingTypes] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const buttonClass = variant === 'white'
         ? "inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl cursor-pointer"
@@ -29,6 +31,112 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+
+    const handleFinalizeReservation = async () => {
+        setIsLoading(true);
+        try {
+            const bookingData = await sendData();
+
+            await handleWompiWidget(bookingData.reservationId, bookingData.payment.publicKey, bookingData.payment.signature);
+
+        } catch (error: any) {
+            setIsLoading(false);
+            toast.error(error.message, {
+                position: 'top-right',
+            });
+        }
+    };
+
+    const handleWompiWidget = async (reference: string, PUBLIC_KEY: string, signature: string) => {
+        try {
+            // Check if the Wompi script is loaded
+            // @ts-ignore
+            if (typeof window.WidgetCheckout === 'undefined') {
+                toast.error("Error: El sistema de pagos no se cargó correctamente. Por favor recarga la página.", {
+                    position: 'top-right',
+                });
+                return;
+            }
+
+            // Configure the checkout
+            // @ts-ignore
+            const checkout = new window.WidgetCheckout({
+                currency: 'COP',
+                amountInCents: Math.round(formData.numPersonas * 25000),
+                reference: reference,
+                publicKey: PUBLIC_KEY,
+                signature: { integrity: signature },
+                redirectUrl: 'https://socialclubritmovivo.com/success', // Opcional
+                customerData: { // Opcional
+                    email: formData.email,
+                    fullName: formData.nombreCompleto,
+                    phoneNumber: formData.celular,
+                    phoneNumberPrefix: '+57',
+                    legalId: formData.documento,
+                    legalIdType: 'CC'
+                },
+            });
+
+            // Open the widget
+            checkout.open(function (result: any) {
+                const transaction = result.transaction;
+
+                // You can handle the result here without redirecting if you prefer,
+                // but typically for a successful payment you might want to show the success page.
+                if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
+                    window.location.href = '/success';
+                } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
+                    toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
+                        position: 'top-right',
+                    });
+                }
+            });
+
+        } catch (error) {
+            console.error("Error initializing Wompi widget:", error);
+            toast.error("Hubo un error iniciando el pago. Por favor intenta nuevamente.", {
+                position: 'top-right',
+            });
+        }
+    };
+
+    const sendData = async () => {
+        const payload = {
+            bookingInfo: {
+                fullName: formData.nombreCompleto,
+                identificationNumber: formData.documento,
+                email: formData.email,
+                phone: formData.celular,
+            },
+            location: formData.sede,
+            amount: Math.round(formData.numPersonas * 25000)
+        };
+
+        try {
+            const API_URL = "https://api.ritmovivosocialclub.com/reservations";
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.status === 400) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+
+            if (!response.ok) {
+                throw new Error('Error creating booking');
+            }
+
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
     };
 
     const validateReservationTime = () => {
@@ -53,19 +161,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         if (!validateReservationTime()) {
             return;
         }
-
-        // Format message for WhatsApp
-        const message = `*Nueva Reserva*%0A` +
-            `*Nombre:* ${formData.nombreCompleto}%0A` +
-            `*Sede:* ${formData.sede}%0A` +
-            `*Fecha:* ${formData.fecha}%0A` +
-            `*Hora:* ${formData.hora}%0A` +
-            `*Personas:* ${formData.numPersonas}%0A` +
-            `*Celular:* ${formData.celular}%0A` +
-            `*Celebración:* ${formData.tipoCelebracion}%0A` +
-            (formData.nombreFestejado ? `*Festejado:* ${formData.nombreFestejado}` : '');
-
-        window.open(`https://wa.me/573009853900?text=${message}`, '_blank');
+        handleFinalizeReservation();
         setIsOpen(false);
     };
 
@@ -80,7 +176,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
 
     useEffect(() => {
         const fetchCelebrationTypes = async () => {
-            setIsLoadingTypes(true);
+            setIsLoading(true);
             try {
                 // Mocking backend response
                 await new Promise(resolve => setTimeout(resolve, 9000));
@@ -88,7 +184,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             } catch (error) {
                 console.error("Error fetching celebration types:", error);
             } finally {
-                setIsLoadingTypes(false);
+                setIsLoading(false);
             }
         };
 
@@ -255,16 +351,12 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                     value={formData.tipoCelebracion}
                                     onChange={handleChange}
                                     className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
-                                    disabled={isLoadingTypes}
+                                    disabled={isLoading}
                                 >
                                     <option value="Ninguna">Ninguna</option>
-                                    {isLoadingTypes ? (
-                                        <option disabled>Cargando opciones...</option>
-                                    ) : (
-                                        celebrationTypes.map(type => (
-                                            <option key={type} value={type}>{type}</option>
-                                        ))
-                                    )}
+                                    {celebrationTypes.map(type => (
+                                        <option key={type} value={type}>{type}</option>
+                                    ))}
                                 </select>
                             </div>
 
@@ -281,14 +373,21 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
 
                             <div className="pt-4 text-center">
                                 <button
-                                    disabled={isLoadingTypes ? true : false}
+                                    disabled={isLoading ? true : false}
                                     type="submit"
                                     className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2"
                                 >
-                                    <span>Pagar</span>
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
+                                    {isLoading ? (
+                                        <>
+                                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                            <span>Procesando...</span>
+                                        </>
+                                    ) : (
+
+                                        <>
+                                            <span>Continuar</span>
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </form>

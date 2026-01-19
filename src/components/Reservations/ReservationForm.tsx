@@ -17,6 +17,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         tipoCelebracion: 'Ninguna',
         nombreFestejado: '',
     });
+    const [celebrationTypes, setCelebrationTypes] = useState<string[]>([]);
+    const [isLoadingTypes, setIsLoadingTypes] = useState(false);
 
     const buttonClass = variant === 'white'
         ? "inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl cursor-pointer"
@@ -53,6 +55,25 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
     }, []);
+
+    useEffect(() => {
+        const fetchCelebrationTypes = async () => {
+            setIsLoadingTypes(true);
+            try {
+                // Mocking backend response
+                await new Promise(resolve => setTimeout(resolve, 9000));
+                setCelebrationTypes(['Cumpleaños', 'Cena', 'Reunión', 'Grado', 'Despedida', 'Otro']);
+            } catch (error) {
+                console.error("Error fetching celebration types:", error);
+            } finally {
+                setIsLoadingTypes(false);
+            }
+        };
+
+        if (isOpen) {
+            fetchCelebrationTypes();
+        }
+    }, [isOpen]);
 
     useEffect(() => {
         if (isOpen && dateInputRef.current) {
@@ -212,14 +233,16 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                     value={formData.tipoCelebracion}
                                     onChange={handleChange}
                                     className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
+                                    disabled={isLoadingTypes}
                                 >
                                     <option value="Ninguna">Ninguna</option>
-                                    <option value="Cumpleaños">Cumpleaños</option>
-                                    <option value="Cena">Cena</option>
-                                    <option value="Reunión">Reunión</option>
-                                    <option value="Grado">Grado</option>
-                                    <option value="Despedida">Despedida</option>
-                                    <option value="Otro">Otro</option>
+                                    {isLoadingTypes ? (
+                                        <option disabled>Cargando opciones...</option>
+                                    ) : (
+                                        celebrationTypes.map(type => (
+                                            <option key={type} value={type}>{type}</option>
+                                        ))
+                                    )}
                                 </select>
                             </div>
 
@@ -236,8 +259,9 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
 
                             <div className="pt-4 text-center">
                                 <button
+                                    disabled={isLoadingTypes ? true : false}
                                     type="submit"
-                                    className="w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2"
+                                    className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2"
                                 >
                                     <span>Pagar</span>
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -32,7 +32,11 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        if (name === 'sede') {
+            setFormData(prev => ({ ...prev, [name]: value, fecha: '' }));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
 
@@ -238,18 +242,14 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 disable: [
                     (date) => {
                         // Disable Sundays (0) if location is Ritmo Vivo
-                        // const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
-                        return formData.sede === 'Ritmo Vivo' && date.getDay() === 0;
+                        const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
+                        return selectedSedeName === 'Ritmo Vivo' && date.getDay() === 0;
                     }
                 ],
                 onChange: (selectedDates, dateStr) => {
                     setFormData(prev => ({ ...prev, fecha: dateStr }));
                 },
             });
-
-            // If the current selected date is a Sunday and the sede is Ritmo Vivo, clear it
-            setFormData(prev => ({ ...prev, fecha: '' }));
-            if (dateInputRef.current) dateInputRef.current.value = '';
 
             return () => {
                 fp.destroy();

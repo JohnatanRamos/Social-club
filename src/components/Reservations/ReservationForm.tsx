@@ -24,6 +24,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     const [celebrationTypes, setCelebrationTypes] = useState<string[]>([]);
     const [sedes, setSedes] = useState<Array<{ id: string; name: string; price: number }>>([]);
     const [maxMonths, setMaxMonths] = useState<number>(3);
+    const [isFetchingData, setIsFetchingData] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const buttonClass = variant === 'white'
@@ -182,7 +183,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
 
     useEffect(() => {
         const fetchBasics = async () => {
-            setIsLoading(true);
+            setIsFetchingData(true);
             try {
                 const response = await fetch("https://social-club-api-dev.onrender.com/basics");
                 const data = await response.json();
@@ -223,7 +224,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 console.error("Error fetching basics:", error);
                 toast.error("Error cargando la información del formulario");
             } finally {
-                setIsLoading(false);
+                setIsFetchingData(false);
             }
         };
 
@@ -233,7 +234,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     }, [isOpen]);
 
     useEffect(() => {
-        if (isOpen && dateInputRef.current) {
+        if (isOpen && !isFetchingData && dateInputRef.current) {
             const fp = flatpickr(dateInputRef.current, {
                 locale: Spanish,
                 dateFormat: 'Y-m-d',
@@ -255,7 +256,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 fp.destroy();
             };
         }
-    }, [isOpen, formData.sede, maxMonths, sedes]);
+    }, [isOpen, isFetchingData, formData.sede, maxMonths, sedes]);
 
     return (
         <>
@@ -285,163 +286,170 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                             <h3 className="text-2xl font-bold">Reserva tu mesa</h3>
                         </div>
 
-                        {/* Form */}
-                        <form onSubmit={handleSubmit} className="p-8 space-y-4 min-h-[80vh] max-h-[80vh] overflow-y-auto custom-scrollbar">
-                            <div className="flex flex-col space-y-1">
-                                <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Sede
-                                </label>
-                                <select
-                                    name="sede"
-                                    required
-                                    value={formData.sede}
-                                    onChange={handleChange}
-                                    className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
-                                >
-                                    <option value="">Selecciona una sede</option>
-                                    {sedes.map(sede => (
-                                        <option key={sede.id} value={sede.id}>
-                                            {sede.name}
-                                        </option>
-                                    ))}
-                                </select>
+                        {/* Loading State or Form */}
+                        {isFetchingData ? (
+                            <div className="min-h-[400px] flex flex-col items-center justify-center space-y-4">
+                                <div className="animate-spin rounded-full h-12 w-12 border-4 border-sc-orange border-t-transparent"></div>
+                                <p className="text-slate-500 font-medium animate-pulse">Cargando disponibilidad...</p>
                             </div>
-                            <InputField
-                                label="Nombre completo"
-                                name="nombreCompleto"
-                                required
-                                value={formData.nombreCompleto}
-                                onChange={handleChange}
-                                placeholder="Ej. Juan Pérez"
-                            />
-                            <InputField
-                                label="N° Documento"
-                                name="documento"
-                                required
-                                value={formData.documento}
-                                onChange={handleChange}
-                                placeholder="Ej. 1234567890"
-                            />
-                            <InputField
-                                label="Correo electrónico"
-                                name="email"
-                                type="email"
-                                required
-                                value={formData.email}
-                                onChange={handleChange}
-                                placeholder="Ej. juan@example.com"
-                            />
-
-                            <div className="grid grid-cols-2 gap-4">
+                        ) : (
+                            <form onSubmit={handleSubmit} className="p-8 space-y-4 min-h-[80vh] max-h-[80vh] overflow-y-auto custom-scrollbar">
                                 <div className="flex flex-col space-y-1">
                                     <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Fecha
+                                        Sede
                                     </label>
-                                    <input
-                                        ref={dateInputRef}
-                                        name="fecha"
-                                        type="text"
+                                    <select
+                                        name="sede"
                                         required
-                                        value={formData.fecha}
+                                        value={formData.sede}
                                         onChange={handleChange}
-                                        placeholder="Selecciona una fecha"
-                                        className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full"
+                                        className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
+                                    >
+                                        <option value="">Selecciona una sede</option>
+                                        {sedes.map(sede => (
+                                            <option key={sede.id} value={sede.id}>
+                                                {sede.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <InputField
+                                    label="Nombre completo"
+                                    name="nombreCompleto"
+                                    required
+                                    value={formData.nombreCompleto}
+                                    onChange={handleChange}
+                                    placeholder="Ej. Juan Pérez"
+                                />
+                                <InputField
+                                    label="N° Documento"
+                                    name="documento"
+                                    required
+                                    value={formData.documento}
+                                    onChange={handleChange}
+                                    placeholder="Ej. 1234567890"
+                                />
+                                <InputField
+                                    label="Correo electrónico"
+                                    name="email"
+                                    type="email"
+                                    required
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="Ej. juan@example.com"
+                                />
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="flex flex-col space-y-1">
+                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                            Fecha
+                                        </label>
+                                        <input
+                                            ref={dateInputRef}
+                                            name="fecha"
+                                            type="text"
+                                            required
+                                            value={formData.fecha}
+                                            onChange={handleChange}
+                                            placeholder="Selecciona una fecha"
+                                            className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col space-y-1">
+                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                            Hora
+                                        </label>
+                                        <input
+                                            name="hora"
+                                            type="time"
+                                            required
+                                            value={formData.hora}
+                                            onChange={handleChange}
+                                            onClick={(e) => {
+                                                try {
+                                                    e.currentTarget.showPicker();
+                                                } catch (err) {
+                                                    console.log("Picker not supported", err);
+                                                }
+                                            }}
+                                            className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full cursor-pointer"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <InputField
+                                        label="N° Personas"
+                                        name="numPersonas"
+                                        type="number"
+                                        min="1"
+                                        required
+                                        value={formData.numPersonas}
+                                        onChange={handleChange}
+                                        placeholder="Ej. 4"
+                                    />
+                                    <InputField
+                                        label="Celular"
+                                        name="celular"
+                                        type="tel"
+                                        required
+                                        value={formData.celular}
+                                        onChange={handleChange}
+                                        placeholder="Ej. 300 123 4567"
                                     />
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
                                     <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Hora
+                                        Tipo de celebración
                                     </label>
-                                    <input
-                                        name="hora"
-                                        type="time"
-                                        required
-                                        value={formData.hora}
+                                    <select
+                                        name="tipoCelebracion"
+                                        value={formData.tipoCelebracion}
                                         onChange={handleChange}
-                                        onClick={(e) => {
-                                            try {
-                                                e.currentTarget.showPicker();
-                                            } catch (err) {
-                                                console.log("Picker not supported", err);
-                                            }
-                                        }}
-                                        className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full cursor-pointer"
-                                    />
+                                        className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
+                                        disabled={isLoading}
+                                    >
+                                        <option value="Ninguna">Ninguna</option>
+                                        {celebrationTypes.map(type => (
+                                            <option key={type} value={type}>{type}</option>
+                                        ))}
+                                    </select>
                                 </div>
-                            </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <InputField
-                                    label="N° Personas"
-                                    name="numPersonas"
-                                    type="number"
-                                    min="1"
-                                    required
-                                    value={formData.numPersonas}
-                                    onChange={handleChange}
-                                    placeholder="Ej. 4"
-                                />
-                                <InputField
-                                    label="Celular"
-                                    name="celular"
-                                    type="tel"
-                                    required
-                                    value={formData.celular}
-                                    onChange={handleChange}
-                                    placeholder="Ej. 300 123 4567"
-                                />
-                            </div>
+                                {formData.tipoCelebracion !== 'Ninguna' && (
+                                    <InputField
+                                        label="Nombre del festejado"
+                                        name="nombreFestejado"
+                                        value={formData.nombreFestejado}
+                                        onChange={handleChange}
+                                        placeholder="¿A quién celebramos?"
+                                        className="animate-in slide-in-from-top-2 duration-200"
+                                    />
+                                )}
 
-                            <div className="flex flex-col space-y-1">
-                                <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Tipo de celebración
-                                </label>
-                                <select
-                                    name="tipoCelebracion"
-                                    value={formData.tipoCelebracion}
-                                    onChange={handleChange}
-                                    className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
-                                    disabled={isLoading}
-                                >
-                                    <option value="Ninguna">Ninguna</option>
-                                    {celebrationTypes.map(type => (
-                                        <option key={type} value={type}>{type}</option>
-                                    ))}
-                                </select>
-                            </div>
+                                <div className="pt-4 text-center">
+                                    <button
+                                        disabled={isLoading ? true : false}
+                                        type="submit"
+                                        className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2"
+                                    >
+                                        {isLoading ? (
+                                            <>
+                                                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                                <span>Procesando...</span>
+                                            </>
+                                        ) : (
 
-                            {formData.tipoCelebracion !== 'Ninguna' && (
-                                <InputField
-                                    label="Nombre del festejado"
-                                    name="nombreFestejado"
-                                    value={formData.nombreFestejado}
-                                    onChange={handleChange}
-                                    placeholder="¿A quién celebramos?"
-                                    className="animate-in slide-in-from-top-2 duration-200"
-                                />
-                            )}
-
-                            <div className="pt-4 text-center">
-                                <button
-                                    disabled={isLoading ? true : false}
-                                    type="submit"
-                                    className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2"
-                                >
-                                    {isLoading ? (
-                                        <>
-                                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                                            <span>Procesando...</span>
-                                        </>
-                                    ) : (
-
-                                        <>
-                                            <span>Continuar</span>
-                                        </>
-                                    )}
-                                </button>
-                            </div>
-                        </form>
+                                            <>
+                                                <span>Continuar</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            </form>
+                        )}
                     </div>
                 </div>
             )}

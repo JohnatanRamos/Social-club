@@ -61,7 +61,7 @@ export default function Checkout() {
     };
 
     try {
-      const API_URL = "https://api.ritmovivosocialclub.com/reservations";
+      const API_URL = import.meta.env.PUBLIC_API + "reservations";
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {

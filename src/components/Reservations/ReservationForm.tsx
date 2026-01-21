@@ -143,7 +143,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         };
 
         try {
-            const API_URL = "https://social-club-api-dev.onrender.com/event-reservations";
+            const API_URL = import.meta.env.PUBLIC_API + "event-reservations";
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
@@ -207,8 +207,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             setIsFetchingData(true);
             try {
                 const [basicsResponse, holidaysResponse] = await Promise.all([
-                    fetch("https://social-club-api-dev.onrender.com/basics"),
-                    fetch("https://social-club-api-dev.onrender.com/holidays/upcoming")
+                    fetch(import.meta.env.PUBLIC_API + "basics"),
+                    fetch(import.meta.env.PUBLIC_API + "holidays/upcoming")
                 ]);
 
                 const data = await basicsResponse.json();

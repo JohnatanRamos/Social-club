@@ -147,8 +147,3 @@ no muestra el titulo de la clase en mobile
 
 Academiainvritmovivo@gmail.com
 auxmarketingritmovivo@gmail.com
-
-
-
-
-  

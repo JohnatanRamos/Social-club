@@ -21,7 +21,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         documento: '',
         email: '',
     });
-    const [celebrationTypes, setCelebrationTypes] = useState<string[]>([]);
+    const [celebrationTypes, setCelebrationTypes] = useState<Array<{ name: string; value: string }>>([]);
     const [sedes, setSedes] = useState<Array<{ id: string; name: string; price: number }>>([]);
     const [holidays, setHolidays] = useState<string[]>([]);
     const [maxMonths, setMaxMonths] = useState<number>(3);
@@ -35,7 +35,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     const calculateTotalAmount = () => {
         const selectedSede = sedes.find(s => s.id === formData.sede);
         const pricePerPerson = selectedSede?.price || 25000;
-        return Math.round(formData.numPersonas * pricePerPerson);
+        return Math.round(Number(formData.numPersonas) * pricePerPerson);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -51,9 +51,9 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     const handleFinalizeReservation = async () => {
         setIsLoading(true);
         try {
-            const bookingData = await sendData();
+            const { wompiData: bookingData } = await sendData();
 
-            await handleWompiWidget(bookingData.reservationId, bookingData.payment.publicKey, bookingData.payment.signature);
+            await handleWompiWidget(bookingData.reference, bookingData.publicKey, bookingData.signature.integrity);
 
         } catch (error: any) {
             setIsLoading(false);
@@ -78,7 +78,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             // @ts-ignore
             const checkout = new window.WidgetCheckout({
                 currency: 'COP',
-                amountInCents: calculateTotalAmount(),
+                amountInCents: Number(`${calculateTotalAmount()}00`),
                 reference: reference,
                 publicKey: PUBLIC_KEY,
                 signature: { integrity: signature },
@@ -117,19 +117,33 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     };
 
     const sendData = async () => {
+        const selectedSede = sedes.find(s => s.id === formData.sede);
+
+        // Find celebration type object
+        const selectedCelebration = celebrationTypes.find(c => c.value === formData.tipoCelebracion);
+
         const payload = {
-            bookingInfo: {
-                fullName: formData.nombreCompleto,
-                identificationNumber: formData.documento,
-                email: formData.email,
-                phone: formData.celular,
-            },
-            location: formData.sede,
-            amount: calculateTotalAmount()
+            personName: formData.nombreCompleto,
+            personIdentification: formData.documento,
+            personEmail: formData.email,
+            personPhone: formData.celular,
+            additionalPerson: formData.nombreFestejado ? {
+                name: formData.nombreFestejado,
+            } : null,
+            amount: calculateTotalAmount(),
+            eventDate: formData.fecha,
+            eventTime: formData.hora,
+            branchName: selectedSede?.name || "",
+            venueId: formData.sede,
+            celebrationType: selectedCelebration ? {
+                value: selectedCelebration.value,
+                name: selectedCelebration.name
+            } : null,
+            numberOfPersons: Number(formData.numPersonas)
         };
 
         try {
-            const API_URL = "https://api.ritmovivosocialclub.com/reservations";
+            const API_URL = "https://social-club-api-dev.onrender.com/event-reservations";
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
@@ -211,7 +225,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 // Process Celebration Types (Code 2)
                 const celebrationData = data[1].items || [];
                 if (celebrationData.length > 0) {
-                    setCelebrationTypes(celebrationData.map((i: any) => i.name));
+                    setCelebrationTypes(celebrationData.map((i: any) => ({ name: i.name, value: i.value })));
                 }
 
                 // Process Max Months (Code 3)
@@ -432,7 +446,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                     >
                                         <option value="Ninguna">Ninguna</option>
                                         {celebrationTypes.map(type => (
-                                            <option key={type} value={type}>{type}</option>
+                                            <option key={type.value} value={type.value}>{type.name}</option>
                                         ))}
                                     </select>
                                 </div>

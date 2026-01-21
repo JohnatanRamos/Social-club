@@ -23,6 +23,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     });
     const [celebrationTypes, setCelebrationTypes] = useState<string[]>([]);
     const [sedes, setSedes] = useState<Array<{ id: string; name: string; price: number }>>([]);
+    const [holidays, setHolidays] = useState<string[]>([]);
     const [maxMonths, setMaxMonths] = useState<number>(3);
     const [isFetchingData, setIsFetchingData] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -191,8 +192,18 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         const fetchBasics = async () => {
             setIsFetchingData(true);
             try {
-                const response = await fetch("https://social-club-api-dev.onrender.com/basics");
-                const data = await response.json();
+                const [basicsResponse, holidaysResponse] = await Promise.all([
+                    fetch("https://social-club-api-dev.onrender.com/basics"),
+                    fetch("https://social-club-api-dev.onrender.com/holidays/upcoming")
+                ]);
+
+                const data = await basicsResponse.json();
+                const holidaysData = await holidaysResponse.json();
+
+                // Process Holidays
+                if (Array.isArray(holidaysData)) {
+                    setHolidays(holidaysData.map((h: any) => h.date.split('T')[0]));
+                }
 
                 // Process Prices (Code 1)
                 const pricesData = data[0].items || [];
@@ -247,6 +258,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 minDate: 'today',
                 maxDate: addMonth(new Date(), maxMonths),
                 disable: [
+                    ...holidays,
                     (date) => {
                         // Disable Sundays (0) if location is Ritmo Vivo
                         const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
@@ -262,7 +274,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 fp.destroy();
             };
         }
-    }, [isOpen, isFetchingData, formData.sede, maxMonths, sedes]);
+    }, [isOpen, isFetchingData, formData.sede, maxMonths, sedes, holidays]);
 
     return (
         <>

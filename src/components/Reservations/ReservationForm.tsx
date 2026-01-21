@@ -367,10 +367,11 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                             name="fecha"
                                             type="text"
                                             required
+                                            disabled={!formData.sede}
                                             value={formData.fecha}
                                             onChange={handleChange}
-                                            placeholder="Selecciona una fecha"
-                                            className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full"
+                                            placeholder={!formData.sede ? "Primero selecciona una sede" : "Selecciona una fecha"}
+                                            className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm w-full disabled:opacity-60 disabled:cursor-not-allowed"
                                         />
                                     </div>
 

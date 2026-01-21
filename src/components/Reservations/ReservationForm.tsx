@@ -31,6 +31,12 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         ? "inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl cursor-pointer"
         : "inline-block gradient-bg text-white px-12 py-4 rounded-full font-bold text-xl hover:shadow-lg transition pulse-glow cursor-pointer";
 
+    const calculateTotalAmount = () => {
+        const selectedSede = sedes.find(s => s.id === formData.sede);
+        const pricePerPerson = selectedSede?.price || 25000;
+        return Math.round(formData.numPersonas * pricePerPerson);
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         if (name === 'sede') {
@@ -71,7 +77,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             // @ts-ignore
             const checkout = new window.WidgetCheckout({
                 currency: 'COP',
-                amountInCents: Math.round(formData.numPersonas * (sedes.find(s => s.id === formData.sede)?.price || 25000)),
+                amountInCents: calculateTotalAmount(),
                 reference: reference,
                 publicKey: PUBLIC_KEY,
                 signature: { integrity: signature },
@@ -118,7 +124,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 phone: formData.celular,
             },
             location: formData.sede,
-            amount: Math.round(formData.numPersonas * (sedes.find(s => s.id === formData.sede)?.price || 25000))
+            amount: calculateTotalAmount()
         };
 
         try {

@@ -3,7 +3,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
 import { InputField } from '../UI/InputField';
-import { parse, sameDay, addHour } from '@formkit/tempo';
+import { parse, sameDay, addHour, addMonth } from '@formkit/tempo';
 import { toast } from 'sonner';
 
 export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ variant = 'white' }) => {
@@ -22,6 +22,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         email: '',
     });
     const [celebrationTypes, setCelebrationTypes] = useState<string[]>([]);
+    const [sedes, setSedes] = useState<Array<{ id: string; name: string; price: number }>>([]);
+    const [maxMonths, setMaxMonths] = useState<number>(3);
     const [isLoading, setIsLoading] = useState(false);
 
     const buttonClass = variant === 'white'
@@ -64,7 +66,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             // @ts-ignore
             const checkout = new window.WidgetCheckout({
                 currency: 'COP',
-                amountInCents: Math.round(formData.numPersonas * 25000),
+                amountInCents: Math.round(formData.numPersonas * (sedes.find(s => s.id === formData.sede)?.price || 25000)),
                 reference: reference,
                 publicKey: PUBLIC_KEY,
                 signature: { integrity: signature },
@@ -111,7 +113,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 phone: formData.celular,
             },
             location: formData.sede,
-            amount: Math.round(formData.numPersonas * 25000)
+            amount: Math.round(formData.numPersonas * (sedes.find(s => s.id === formData.sede)?.price || 25000))
         };
 
         try {
@@ -175,21 +177,54 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
     }, []);
 
     useEffect(() => {
-        const fetchCelebrationTypes = async () => {
+        const fetchBasics = async () => {
             setIsLoading(true);
             try {
-                // Mocking backend response
-                await new Promise(resolve => setTimeout(resolve, 9000));
-                setCelebrationTypes(['Cumpleaños', 'Cena', 'Reunión', 'Grado', 'Despedida', 'Otro']);
+                const response = await fetch("https://social-club-api-dev.onrender.com/basics");
+                const data = await response.json();
+
+                // Process Prices (Code 1)
+                const pricesData = data[0].items || [];
+
+                // Process Celebration Types (Code 2)
+                const celebrationData = data[1].items || [];
+                if (celebrationData.length > 0) {
+                    setCelebrationTypes(celebrationData.map((i: any) => i.name));
+                }
+
+                // Process Max Months (Code 3)
+                const monthsData = data[2].items || [];
+                if (monthsData.length > 0) {
+                    const months = parseInt(monthsData[0].value);
+                    if (!isNaN(months)) setMaxMonths(months);
+                }
+
+                // Process Sedes (Code 4) and merge with prices
+                const sedesData = data[3].items || [];
+                const mergedSedes = sedesData.map((sede: any) => {
+                    const normalizedSedeName = sede.name.toLowerCase().trim();
+                    const priceItem = pricesData.find((p: any) => {
+                        const normalizedPriceName = p.name.toLowerCase().replace('precio', '').trim();
+                        return normalizedPriceName === normalizedSedeName;
+                    });
+                    return {
+                        id: sede.value,
+                        name: sede.name,
+                        price: priceItem ? parseInt(priceItem.value) : 25000
+                    };
+                });
+                setSedes(mergedSedes);
+
             } catch (error) {
-                console.error("Error fetching celebration types:", error);
+                console.error("Error fetching basics:", error);
+                toast.error("Error cargando la información del formulario");
             } finally {
                 setIsLoading(false);
             }
         };
 
         if (isOpen) {
-            fetchCelebrationTypes();
+            fetchBasics();
         }
     }, [isOpen]);
 
@@ -199,9 +234,11 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 locale: Spanish,
                 dateFormat: 'Y-m-d',
                 minDate: 'today',
+                maxDate: addMonth(new Date(), maxMonths),
                 disable: [
                     (date) => {
                         // Disable Sundays (0) if location is Ritmo Vivo
+                        // const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
                         return formData.sede === 'Ritmo Vivo' && date.getDay() === 0;
                     }
                 ],
@@ -211,20 +248,14 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             });
 
             // If the current selected date is a Sunday and the sede is Ritmo Vivo, clear it
-            if (formData.fecha && formData.sede === 'Ritmo Vivo') {
-                const [year, month, day] = formData.fecha.split('-').map(Number);
-                const selectedDate = new Date(year, month - 1, day);
-                if (selectedDate.getDay() === 0) {
-                    setFormData(prev => ({ ...prev, fecha: '' }));
-                    dateInputRef.current.value = '';
-                }
-            }
+            setFormData(prev => ({ ...prev, fecha: '' }));
+            if (dateInputRef.current) dateInputRef.current.value = '';
 
             return () => {
                 fp.destroy();
             };
         }
-    }, [isOpen, formData.sede]);
+    }, [isOpen, formData.sede, maxMonths, sedes]);
 
     return (
         <>
@@ -268,8 +299,11 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                     className="border border-slate-200 rounded-lg px-4 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
                                 >
                                     <option value="">Selecciona una sede</option>
-                                    <option value="Social Club">Social Club (Envigado)</option>
-                                    <option value="Ritmo Vivo">Ritmo Vivo (Medellín)</option>
+                                    {sedes.map(sede => (
+                                        <option key={sede.id} value={sede.id}>
+                                            {sede.name}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                             <InputField

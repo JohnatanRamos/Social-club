@@ -178,6 +178,13 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         const selectedDate = parse(`${formData.fecha} ${formData.hora}`, "YYYY-MM-DD HH:mm");
 
         if (sameDay(selectedDate, now)) {
+            // Check if the selected time is after 2pm (14:00)
+            const [hours] = formData.hora.split(':').map(Number);
+            if (hours >= 14) {
+                toast.error("Solo puedes hacer reservas hasta las 2pm, para el día de hoy", { position: 'top-right' });
+                return false;
+            }
+
             const oneHourLater = addHour(now, 2);
             if (selectedDate < oneHourLater) {
                 toast.error("Para reservas el día de hoy, la hora debe ser al menos 2 hora antes de la hora de reserva.", { position: 'top-right' });
@@ -401,6 +408,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                                             name="hora"
                                             type="time"
                                             required
+                                            max="21:00"
+                                            min="08:00"
                                             value={formData.hora}
                                             onChange={handleChange}
                                             onClick={(e) => {

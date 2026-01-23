@@ -18,7 +18,7 @@ const fetchEvents = async () => {
   try {
     // TODO: Replace with your actual API endpoint
     const API_URL_DEV = "http://72.60.114.240:3000/events";
-    const API_URL = "https://api.ritmovivosocialclub.com/events";
+    const API_URL = import.meta.env.PUBLIC_API + "events";
 
     // Simulating API call
     // await new Promise((resolve) => setTimeout(resolve, 1000));

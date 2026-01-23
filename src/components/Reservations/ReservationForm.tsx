@@ -6,7 +6,7 @@ import { InputField } from '../UI/InputField';
 import { parse, sameDay, addHour, addMonth } from '@formkit/tempo';
 import { toast } from 'sonner';
 
-export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ variant = 'white' }) => {
+export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSuccess?: () => void }> = ({ variant = 'white', onSuccess }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dateInputRef = useRef<HTMLInputElement>(null);
     const [formData, setFormData] = useState({
@@ -97,11 +97,15 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             checkout.open(function (result: any) {
                 const transaction = result.transaction;
 
-                // You can handle the result here without redirecting if you prefer,
-                // but typically for a successful payment you might want to show the success page.
+                // Handle the result without redirecting
                 if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
-                    window.location.href = '/success-reservation';
+                    setIsLoading(false);
+                    setIsOpen(false);
+                    if (onSuccess) {
+                        onSuccess();
+                    }
                 } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
+                    setIsLoading(false);
                     toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
                         position: 'top-right',
                     });
@@ -143,7 +147,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         };
 
         try {
-            const API_URL = "https://social-club-api-dev.onrender.com/event-reservations";
+            const API_URL = import.meta.env.PUBLIC_API + "event-reservations";
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
@@ -174,9 +178,16 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
         const selectedDate = parse(`${formData.fecha} ${formData.hora}`, "YYYY-MM-DD HH:mm");
 
         if (sameDay(selectedDate, now)) {
-            const oneHourLater = addHour(now, 1);
+            // Check if the selected time is after 2pm (14:00)
+            const [hours] = formData.hora.split(':').map(Number);
+            if (hours >= 14) {
+                toast.error("Solo puedes hacer reservas hasta las 2pm, para el día de hoy", { position: 'top-right' });
+                return false;
+            }
+
+            const oneHourLater = addHour(now, 2);
             if (selectedDate < oneHourLater) {
-                toast.error("Para reservas el día de hoy, la hora debe ser al menos 1 hora después de la hora actual.");
+                toast.error("Para reservas el día de hoy, la hora debe ser al menos 2 hora antes de la hora de reserva.", { position: 'top-right' });
                 return false;
             }
         }
@@ -207,8 +218,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             setIsFetchingData(true);
             try {
                 const [basicsResponse, holidaysResponse] = await Promise.all([
-                    fetch("https://social-club-api-dev.onrender.com/basics"),
-                    fetch("https://social-club-api-dev.onrender.com/holidays/upcoming")
+                    fetch(import.meta.env.PUBLIC_API + "basics"),
+                    fetch(import.meta.env.PUBLIC_API + "holidays/upcoming")
                 ]);
 
                 const data = await basicsResponse.json();
@@ -274,9 +285,14 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                 disable: [
                     ...holidays,
                     (date) => {
-                        // Disable Sundays (0) if location is Ritmo Vivo
+                        // Disable Sundays (0) if location is Social Club
                         const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
-                        return selectedSedeName === 'Ritmo Vivo' && date.getDay() === 0;
+
+                        if (selectedSedeName === 'Social Club') {
+                            return date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3;
+                        }
+
+                        return date.getDay() === 0;
                     }
                 ],
                 onChange: (selectedDates, dateStr) => {
@@ -397,6 +413,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
                                             name="hora"
                                             type="time"
                                             required
+                                            max="21:00"
+                                            min="08:00"
                                             value={formData.hora}
                                             onChange={handleChange}
                                             onClick={(e) => {

@@ -178,9 +178,9 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         const selectedDate = parse(`${formData.fecha} ${formData.hora}`, "YYYY-MM-DD HH:mm");
 
         if (sameDay(selectedDate, now)) {
-            const oneHourLater = addHour(now, 1);
+            const oneHourLater = addHour(now, 2);
             if (selectedDate < oneHourLater) {
-                toast.error("Para reservas el día de hoy, la hora debe ser al menos 1 hora después de la hora actual.");
+                toast.error("Para reservas el día de hoy, la hora debe ser al menos 2 hora antes de la hora de reserva.", { position: 'top-right' });
                 return false;
             }
         }
@@ -193,7 +193,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         if (!validateReservationTime()) {
             return;
         }
-        handleFinalizeReservation();
+        // handleFinalizeReservation();
         // setIsOpen(false);
     };
 

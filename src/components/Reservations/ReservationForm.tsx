@@ -285,9 +285,14 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                 disable: [
                     ...holidays,
                     (date) => {
-                        // Disable Sundays (0) if location is Ritmo Vivo
+                        // Disable Sundays (0) if location is Social Club
                         const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
-                        return selectedSedeName === 'Ritmo Vivo' && date.getDay() === 0;
+
+                        if (selectedSedeName === 'Social Club') {
+                            return date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3;
+                        }
+
+                        return date.getDay() === 0;
                     }
                 ],
                 onChange: (selectedDates, dateStr) => {

@@ -6,7 +6,7 @@ import { InputField } from '../UI/InputField';
 import { parse, sameDay, addHour, addMonth } from '@formkit/tempo';
 import { toast } from 'sonner';
 
-export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ variant = 'white' }) => {
+export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSuccess?: () => void }> = ({ variant = 'white', onSuccess }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dateInputRef = useRef<HTMLInputElement>(null);
     const [formData, setFormData] = useState({
@@ -97,11 +97,15 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient' }> = ({ 
             checkout.open(function (result: any) {
                 const transaction = result.transaction;
 
-                // You can handle the result here without redirecting if you prefer,
-                // but typically for a successful payment you might want to show the success page.
+                // Handle the result without redirecting
                 if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
-                    window.location.href = '/success-reservation';
+                    setIsLoading(false);
+                    setIsOpen(false);
+                    if (onSuccess) {
+                        onSuccess();
+                    }
                 } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
+                    setIsLoading(false);
                     toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
                         position: 'top-right',
                     });

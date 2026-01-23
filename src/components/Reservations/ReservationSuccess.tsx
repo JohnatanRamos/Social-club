@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckCircle, Home, Calendar } from 'lucide-react';
 
-export const ReservationSuccess: React.FC = () => {
+export const ReservationSuccess: React.FC<{ onNewReservation?: () => void }> = ({ onNewReservation }) => {
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center p-4">
@@ -44,13 +44,23 @@ export const ReservationSuccess: React.FC = () => {
                         <Home className="w-5 h-5" />
                         Inicio
                     </a>
-                    <a
-                        href="/reservas"
-                        className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-orange-600 text-white font-semibold hover:bg-orange-700 shadow-lg shadow-orange-500/20 transition-all"
-                    >
-                        <Calendar className="w-5 h-5" />
-                        Nueva Reserva
-                    </a>
+                    {onNewReservation ? (
+                        <button
+                            onClick={onNewReservation}
+                            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-orange-600 text-white font-semibold hover:bg-orange-700 shadow-lg shadow-orange-500/20 transition-all"
+                        >
+                            <Calendar className="w-5 h-5" />
+                            Nueva Reserva
+                        </button>
+                    ) : (
+                        <a
+                            href="/reservas"
+                            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-orange-600 text-white font-semibold hover:bg-orange-700 shadow-lg shadow-orange-500/20 transition-all"
+                        >
+                            <Calendar className="w-5 h-5" />
+                            Nueva Reserva
+                        </a>
+                    )}
                 </div>
             </div>
         </div>

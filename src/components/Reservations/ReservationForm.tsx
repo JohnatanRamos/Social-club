@@ -200,7 +200,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         if (!validateReservationTime()) {
             return;
         }
-        // handleFinalizeReservation();
+        handleFinalizeReservation();
         // setIsOpen(false);
     };
 

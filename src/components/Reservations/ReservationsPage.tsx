@@ -115,9 +115,16 @@ export const ReservationsPage: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Pricing */}
                                 <div>
-                                    <h4 className="text-2xl font-bold mb-6 text-gray-800">Precios</h4>
+                                    <h4 className="text-2xl font-bold mb-3 text-gray-800">Precios</h4>
+                                    <div className="mb-6 bg-linear-to-r from-green-500 to-emerald-600 rounded-xl p-4 shadow-lg">
+                                        <div className="flex items-center gap-2 justify-center">
+                                            <span className="text-2xl">💰</span>
+                                            <p className="text-white font-bold text-lg text-center">
+                                                El valor de la reserva es 100% consumible
+                                            </p>
+                                        </div>
+                                    </div>
                                     <div className="space-y-4">
                                         <div className="bg-gray-50 rounded-xl p-4">
                                             <div className="flex justify-between items-center mb-2">
@@ -199,6 +206,10 @@ export const ReservationsPage: React.FC = () => {
                                         <span className="text-green-500 text-xl">✓</span>
                                         <span className="text-gray-700">La ubicación de la reserva es sujeta a disponibilidad</span>
                                     </div>
+                                    <div className="flex items-start gap-3">
+                                        <span className="text-green-500 text-xl">✓</span>
+                                        <span className="text-gray-700">De no llegar a la reserva solo se le hará la devolución del 50%</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -228,6 +239,10 @@ export const ReservationsPage: React.FC = () => {
                                     <div className="flex items-start gap-3">
                                         <span className="text-green-500 text-xl">✓</span>
                                         <span className="text-gray-700">La ubicación de la reserva es sujeta a disponibilidad</span>
+                                    </div>
+                                    <div className="flex items-start gap-3">
+                                        <span className="text-green-500 text-xl">✓</span>
+                                        <span className="text-gray-700">De no llegar a la reserva solo se le hará la devolución del 50%</span>
                                     </div>
                                 </div>
                             </div>

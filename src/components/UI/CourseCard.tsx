@@ -60,6 +60,23 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     const styles = colorMap[color];
     const isFull = availableSlots === 0;
 
+    // Check if the course has already started
+    const isPastDate = React.useMemo(() => {
+        if (!startDate) return false;
+
+        // Parse the date string format "DD-MM-YYYY"
+        const [day, month, year] = startDate.split('-').map(Number);
+        const courseStartDate = new Date(year, month - 1, day); // month is 0-indexed
+
+        // Get current date at midnight for accurate comparison
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        return courseStartDate.getTime() < today.getTime();
+    }, [startDate]);
+
+    const isDisabled = isFull || isPastDate;
+
     return (
         <div
             className={`class-cell border-2 rounded-xl p-4 ${styles.bg} ${styles.border} transition-all duration-300 ease-in-out cursor-pointer hover:scale-105 hover:shadow-xl`}
@@ -74,17 +91,17 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                 </div>
             )}
             <button
-                disabled={isFull}
+                disabled={isDisabled}
                 onClick={(e) => {
                     e.stopPropagation();
-                    if (!isFull) onAdd?.();
+                    if (!isDisabled) onAdd?.();
                 }}
-                className={`mt-2 w-full text-white py-1 px-3 rounded-lg text-sm font-semibold transition ${isFull
+                className={`mt-2 w-full text-white py-1 px-3 rounded-lg text-sm font-semibold transition ${isDisabled
                     ? "bg-gray-400 cursor-not-allowed"
                     : `${styles.btn} ${styles.btnHover}`
                     }`}
             >
-                {isFull ? "Cupo lleno" : buttonText}
+                {isDisabled ? "Cupo llenos" : buttonText}
             </button>
         </div>
     );

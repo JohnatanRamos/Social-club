@@ -93,6 +93,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                 integritySignature: signature,
                 description: 'Reserva',
                 customerData: JSON.stringify(customerData),
+                redirectionUrl: 'https://www.ritmovivosocialclub.com/success-reservation'
             });
 
             // Open the widget

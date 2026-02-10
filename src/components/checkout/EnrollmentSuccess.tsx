@@ -26,10 +26,17 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
         const urlParams = new URLSearchParams(window.location.search);
         const urlOrderId = urlParams.get('bold-order-id');
         const urlTxStatus = urlParams.get('bold-tx-status');
+        const internalStatus = urlParams.get('internal-status');
+        const internalId = urlParams.get('internal-id');
 
         if (urlOrderId || urlTxStatus) {
             setOrderId(urlOrderId);
             setTxStatus(urlTxStatus);
+        }
+
+        if (internalStatus || internalId) {
+            setOrderId(internalId);
+            setTxStatus(internalStatus);
         }
 
         return () => {

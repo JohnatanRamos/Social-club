@@ -114,7 +114,7 @@ export default function Checkout() {
         integritySignature: signature,
         description: 'Curso(s)',
         customerData: JSON.stringify(customerData),
-        redirectionUrl: 'https://www.ritmovivosocialclub.com/success'
+        redirectionUrl: import.meta.env.PUBLIC_DOMAIN + '/success'
       });
 
       checkout.open();

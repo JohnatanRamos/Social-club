@@ -1,29 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ReservationForm } from './ReservationForm';
-import { ReservationSuccess } from './ReservationSuccess';
+
 
 export const ReservationsPage: React.FC = () => {
-    const [showSuccess, setShowSuccess] = useState(false);
-
-    const handleSuccess = () => {
-        setShowSuccess(true);
-        // Scroll to top to show success message
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    const handleNewReservation = () => {
-        setShowSuccess(false);
-    };
-
-    if (showSuccess) {
-        return (
-            <section className="py-20 bg-linear-to-br from-orange-100 to-red-100">
-                <div className="container mx-auto px-4">
-                    <ReservationSuccess onNewReservation={handleNewReservation} />
-                </div>
-            </section>
-        );
-    }
 
     return (
         <>
@@ -159,7 +138,7 @@ export const ReservationsPage: React.FC = () => {
                                 <p className="text-gray-600 mb-6">
                                     Aquí siempre pasa algo brutal. Aquí la rumba está asegurada.
                                 </p>
-                                <ReservationForm variant="gradient" onSuccess={handleSuccess} />
+                                <ReservationForm variant="gradient" />
                             </div>
                         </div>
                     </div>
@@ -258,7 +237,7 @@ export const ReservationsPage: React.FC = () => {
                         Aquí la rumba está asegurada.
                     </h3>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <ReservationForm variant="white" onSuccess={handleSuccess} />
+                        <ReservationForm variant="white" />
                         <a
                             href="eventos"
                             className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-orange-600 transition"

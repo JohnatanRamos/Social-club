@@ -51,9 +51,9 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
     const handleFinalizeReservation = async () => {
         setIsLoading(true);
         try {
-            const { wompiData: bookingData } = await sendData();
+            const { boldData: bookingData } = await sendData();
 
-            await handleWompiWidget(bookingData.reference, bookingData.publicKey, bookingData.signature.integrity);
+            await handleBoldWidget(bookingData.reference, bookingData.identityKey, bookingData.signature);
 
         } catch (error: any) {
             setIsLoading(false);
@@ -63,54 +63,40 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         }
     };
 
-    const handleWompiWidget = async (reference: string, PUBLIC_KEY: string, signature: string) => {
+    const handleBoldWidget = async (reference: string, PUBLIC_KEY: string, signature: string) => {
         try {
-            // Check if the Wompi script is loaded
+            // Check if the Bold script is loaded
             // @ts-ignore
-            if (typeof window.WidgetCheckout === 'undefined') {
+            if (typeof window.BoldCheckout === 'undefined') {
                 toast.error("Error: El sistema de pagos no se cargó correctamente. Por favor recarga la página.", {
                     position: 'top-right',
                 });
                 return;
             }
 
+            const customerData = { // Opcional
+                email: formData.email,
+                fullName: formData.nombreCompleto,
+                phoneNumber: formData.celular,
+                phoneNumberPrefix: '+57',
+                legalId: formData.documento,
+                legalIdType: 'CC'
+            };
+
             // Configure the checkout
             // @ts-ignore
-            const checkout = new window.WidgetCheckout({
+            const checkout = new window.BoldCheckout({
                 currency: 'COP',
-                amountInCents: Number(`${calculateTotalAmount()}00`),
-                reference: reference,
-                publicKey: PUBLIC_KEY,
-                signature: { integrity: signature },
-                redirectUrl: 'https://socialclubritmovivo.com/success', // Opcional
-                customerData: { // Opcional
-                    email: formData.email,
-                    fullName: formData.nombreCompleto,
-                    phoneNumber: formData.celular,
-                    phoneNumberPrefix: '+57',
-                    legalId: formData.documento,
-                    legalIdType: 'CC'
-                },
+                amount: calculateTotalAmount(),
+                orderId: reference,
+                apiKey: PUBLIC_KEY,
+                integritySignature: signature,
+                description: 'Reserva',
+                customerData: JSON.stringify(customerData),
             });
 
             // Open the widget
-            checkout.open(function (result: any) {
-                const transaction = result.transaction;
-
-                // Handle the result without redirecting
-                if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
-                    setIsLoading(false);
-                    setIsOpen(false);
-                    if (onSuccess) {
-                        onSuccess();
-                    }
-                } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
-                    setIsLoading(false);
-                    toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
-                        position: 'top-right',
-                    });
-                }
-            });
+            checkout.open()
 
         } catch (error) {
             console.error("Error initializing Wompi widget:", error);

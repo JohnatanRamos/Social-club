@@ -123,51 +123,70 @@ export const Schedule: React.FC = () => {
             {/* Mobile Schedule Cards */}
             <div className="md:hidden space-y-4">
                 {filteredClasses.length > 0 ? (
-                    filteredClasses.map((classSession) => (
-                        <div key={classSession.id} className="bg-white rounded-2xl shadow-lg p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <h4 className="font-bold text-lg">{classSession.name}</h4>
-                            </div>
-                            <div className="space-y-2 mb-4">
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <span>📅</span>
-                                    <span>{classSession.day} {classSession.time?.toUpperCase()}</span>
+                    filteredClasses.map((classSession) => {
+                        // Check if the course has already started
+                        let isPastDate = false;
+                        if (classSession.startDate) {
+                            // Parse the date string format "DD-MM-YYYY"
+                            const [day, month, year] = classSession.startDate.split('-').map(Number);
+                            const courseStartDate = new Date(year, month - 1, day); // month is 0-indexed
+
+                            // Get current date at midnight for accurate comparison
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+
+                            isPastDate = courseStartDate.getTime() < today.getTime();
+                        }
+
+                        const isFull = classSession.availableSlots === 0;
+                        const isDisabled = isFull || isPastDate;
+
+                        return (
+                            <div key={classSession.id} className="bg-white rounded-2xl shadow-lg p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h4 className="font-bold text-lg">{classSession.name}</h4>
                                 </div>
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <span>👨‍🏫</span>
-                                    <span>{classSession.instructor}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <span>⏱️</span>
-                                    <span>{classSession.duration}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <span>📍</span>
-                                    <span>{classSession.location}</span>
-                                </div>
-                                {classSession.startDate && (
-                                    <div className="flex items-center gap-2 text-sm font-semibold text-sc-orange">
-                                        <span>📅 Inicio:</span>
-                                        <span>{classSession.startDate}</span>
+                                <div className="space-y-2 mb-4">
+                                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                                        <span>📅</span>
+                                        <span>{classSession.day} {classSession.time?.toUpperCase()}</span>
                                     </div>
-                                )}
+                                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                                        <span>👨‍🏫</span>
+                                        <span>{classSession.instructor}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                                        <span>⏱️</span>
+                                        <span>{classSession.duration}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                                        <span>📍</span>
+                                        <span>{classSession.location}</span>
+                                    </div>
+                                    {classSession.startDate && (
+                                        <div className="flex items-center gap-2 text-sm font-semibold text-sc-orange">
+                                            <span>📅 Inicio:</span>
+                                            <span>{classSession.startDate}</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <button
+                                    disabled={isDisabled}
+                                    onClick={() => {
+                                        if (!isDisabled) {
+                                            addToCart(classSession);
+                                        }
+                                    }}
+                                    className={`w-full py-3 rounded-xl font-semibold transition ${isDisabled
+                                        ? "bg-gray-400 text-white cursor-not-allowed"
+                                        : "gradient-bg text-white hover:shadow-lg"
+                                        }`}
+                                >
+                                    {isDisabled ? "Cupo lleno" : (classSession.buttonText || "Reservar Clase")}
+                                </button>
                             </div>
-                            <button
-                                disabled={classSession.availableSlots === 0}
-                                onClick={() => {
-                                    if (classSession.availableSlots !== 0) {
-                                        addToCart(classSession);
-                                    }
-                                }}
-                                className={`w-full py-3 rounded-xl font-semibold transition ${classSession.availableSlots === 0
-                                    ? "bg-gray-400 text-white cursor-not-allowed"
-                                    : "gradient-bg text-white hover:shadow-lg"
-                                    }`}
-                            >
-                                {classSession.availableSlots === 0 ? "Cupo lleno" : (classSession.buttonText || "Reservar Clase")}
-                            </button>
-                        </div>
-                    ))
+                        );
+                    })
                 ) : (
                     <div className="text-center py-10 text-gray-500">
                         No se encontraron clases con los filtros seleccionados.

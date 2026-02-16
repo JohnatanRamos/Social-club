@@ -101,7 +101,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                     : `${styles.btn} ${styles.btnHover}`
                     }`}
             >
-                {isDisabled ? "Cupo llenos" : buttonText}
+                {isDisabled ? "Cupo lleno" : buttonText}
             </button>
         </div>
     );

@@ -27,6 +27,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
     const [maxMonths, setMaxMonths] = useState<number>(3);
     const [isFetchingData, setIsFetchingData] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [acceptedPolicies, setAcceptedPolicies] = useState(false);
 
     const buttonClass = variant === 'white'
         ? "inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl cursor-pointer"
@@ -143,7 +144,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                 body: JSON.stringify(payload)
             });
 
-            if (response.status === 400) {
+            if (response.status === 400 || response.status === 409) {
                 const errorData = await response.json();
                 throw new Error(errorData.message);
             }
@@ -482,11 +483,34 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                                     />
                                 )}
 
-                                <div className="pt-4 text-center">
+                                {/* Accept policies checkbox */}
+                                <label className="flex items-start gap-3 cursor-pointer group">
+                                    <input
+                                        id="acceptedPolicies"
+                                        type="checkbox"
+                                        checked={acceptedPolicies}
+                                        onChange={(e) => setAcceptedPolicies(e.target.checked)}
+                                        className="mt-0.5 h-4 w-4 rounded border-slate-300 accent-orange-500 cursor-pointer shrink-0"
+                                    />
+                                    <span className="text-xs text-slate-600 group-hover:text-slate-800 transition-colors">
+                                        He leído y acepto los{' '}
+                                        <a
+                                            href="/terminos-y-condiciones"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-sc-orange underline font-semibold hover:text-orange-600"
+                                        >
+                                            Términos y Condiciones
+                                        </a>
+                                        {' '}de Social Club y Ritmo Vivo.
+                                    </span>
+                                </label>
+
+                                <div className="pt-2 text-center">
                                     <button
-                                        disabled={isLoading ? true : false}
+                                        disabled={isLoading || !acceptedPolicies}
                                         type="submit"
-                                        className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2"
+                                        className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sc-orange"
                                     >
                                         {isLoading ? (
                                             <>

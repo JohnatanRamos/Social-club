@@ -163,11 +163,26 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
 
         const now = new Date();
         const selectedDate = parse(`${formData.fecha} ${formData.hora}`, "YYYY-MM-DD HH:mm");
+        const [selectedHour, selectedMinute] = formData.hora.split(':').map(Number);
+        const selectedTotalMinutes = selectedHour * 60 + selectedMinute;
+        const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
+
+        // Validate time range based on sede
+        if (selectedSedeName === 'Social Club') {
+            if (selectedTotalMinutes < 17 * 60 || selectedTotalMinutes > 21 * 60) {
+                toast.error("Para Social Club, el horario de reservas es entre las 5:00pm y las 9:00pm.", { position: 'top-right' });
+                return false;
+            }
+        } else if (selectedSedeName === 'Ritmo Vivo') {
+            if (selectedTotalMinutes < 8 * 60 || selectedTotalMinutes > 21 * 60) {
+                toast.error("Para Ritmo Vivo, el horario de reservas es entre las 8:00am y las 9:00pm.", { position: 'top-right' });
+                return false;
+            }
+        }
 
         if (sameDay(selectedDate, now)) {
-            // Check if the selected time is after 2pm (14:00)
-            const [hours] = formData.hora.split(':').map(Number);
-            if (hours >= 14) {
+            // Block same-day reservations if the current time is already at or past 2pm (14:00)
+            if (now.getHours() >= 14) {
                 toast.error("Solo puedes hacer reservas hasta las 2pm, para el día de hoy", { position: 'top-right' });
                 return false;
             }

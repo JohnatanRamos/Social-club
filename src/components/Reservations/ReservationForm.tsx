@@ -92,10 +92,10 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
             const customerData = { // Opcional
                 email: formData.email,
                 fullName: formData.nombreCompleto,
-                phoneNumber: formData.celular,
-                phoneNumberPrefix: formData.indicative,
-                legalId: formData.documento,
-                legalIdType: 'CC'
+                phone: formData.celular,
+                dialCode: formData.indicative,
+                documentNumber: formData.documento,
+                documentType: 'CC'
             };
 
             // Configure the checkout

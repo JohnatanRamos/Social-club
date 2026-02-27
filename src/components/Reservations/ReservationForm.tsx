@@ -6,6 +6,19 @@ import { InputField } from '../UI/InputField';
 import { parse, sameDay, addHour, addMonth } from '@formkit/tempo';
 import { toast } from 'sonner';
 
+const COUNTRY_CODES = [
+    { label: '🇨🇴 +57', value: '+57' },
+    { label: '🇺🇸 +1', value: '+1' },
+    { label: '🇲🇽 +52', value: '+52' },
+    { label: '🇦🇷 +54', value: '+54' },
+    { label: '🇨🇱 +56', value: '+56' },
+    { label: '🇪🇨 +593', value: '+593' },
+    { label: '🇵🇪 +51', value: '+51' },
+    { label: '🇻🇪 +58', value: '+58' },
+    { label: '🇧🇷 +55', value: '+55' },
+    { label: '🇪🇸 +34', value: '+34' },
+];
+
 export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSuccess?: () => void }> = ({ variant = 'white', onSuccess }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dateInputRef = useRef<HTMLInputElement>(null);
@@ -15,6 +28,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         fecha: '',
         hora: '',
         numPersonas: 0,
+        indicative: '+57',
         celular: '',
         tipoCelebracion: 'Ninguna',
         nombreFestejado: '',
@@ -79,7 +93,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                 email: formData.email,
                 fullName: formData.nombreCompleto,
                 phoneNumber: formData.celular,
-                phoneNumberPrefix: '+57',
+                phoneNumberPrefix: formData.indicative,
                 legalId: formData.documento,
                 legalIdType: 'CC'
             };
@@ -118,7 +132,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
             personName: formData.nombreCompleto,
             personIdentification: formData.documento,
             personEmail: formData.email,
-            personPhone: formData.celular,
+            personPhone: `${formData.indicative}${formData.celular}`,
             additionalPerson: formData.nombreFestejado ? {
                 name: formData.nombreFestejado,
             } : null,
@@ -373,14 +387,6 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                                     placeholder="Ej. Juan Pérez"
                                 />
                                 <InputField
-                                    label="N° Documento"
-                                    name="documento"
-                                    required
-                                    value={formData.documento}
-                                    onChange={handleChange}
-                                    placeholder="Ej. 1234567890"
-                                />
-                                <InputField
                                     label="Correo electrónico"
                                     name="email"
                                     type="email"
@@ -434,6 +440,15 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <InputField
+                                        label="N° Documento"
+                                        name="documento"
+                                        required
+                                        value={formData.documento}
+                                        onChange={handleChange}
+                                        placeholder="Ej. 1234567890"
+                                    />
+
+                                    <InputField
                                         label="N° Personas"
                                         name="numPersonas"
                                         type="number"
@@ -443,15 +458,36 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                                         onChange={handleChange}
                                         placeholder="Ej. 4"
                                     />
-                                    <InputField
-                                        label="Celular"
-                                        name="celular"
-                                        type="tel"
-                                        required
-                                        value={formData.celular}
-                                        onChange={handleChange}
-                                        placeholder="Ej. 300 123 4567"
-                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-4">
+                                    {/* Celular with indicative */}
+                                    <div className="flex flex-col space-y-1">
+                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                            Celular
+                                        </label>
+                                        <div className="flex gap-2">
+                                            <select
+                                                name="indicative"
+                                                value={formData.indicative}
+                                                onChange={handleChange}
+                                                className="border border-slate-200 rounded-lg px-2 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm shrink-0"
+                                            >
+                                                {COUNTRY_CODES.map(c => (
+                                                    <option key={c.value} value={c.value}>{c.label}</option>
+                                                ))}
+                                            </select>
+                                            <input
+                                                name="celular"
+                                                type="tel"
+                                                required
+                                                value={formData.celular}
+                                                onChange={handleChange}
+                                                placeholder="300 123 4567"
+                                                className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="flex flex-col space-y-1">

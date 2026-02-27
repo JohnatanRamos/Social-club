@@ -9,6 +9,7 @@ export const useCheckout = () => {
   const [mainUser, setMainUser] = useState<User>({
     fullName: '',
     cedula: '',
+    indicative: '+57',
     whatsapp: '',
     email: '',
     dob: ''
@@ -16,7 +17,7 @@ export const useCheckout = () => {
 
   const cart = useStore(cartStore);
 
-  const handleMainUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMainUserChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setMainUser({ ...mainUser, [e.target.name]: e.target.value });
   };
 

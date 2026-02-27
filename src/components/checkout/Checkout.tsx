@@ -42,7 +42,7 @@ export default function Checkout() {
         fullName: mainUser.fullName,
         identificationNumber: mainUser.cedula,
         email: mainUser.email,
-        phone: mainUser.whatsapp,
+        phone: `${mainUser.indicative}${mainUser.whatsapp}`,
         birthDate: mainUser.dob
       },
       items: cart.map(item => ({
@@ -100,7 +100,7 @@ export default function Checkout() {
         email: mainUser.email,
         fullName: mainUser.fullName,
         phone: mainUser.whatsapp,
-        dialCode: '+57',
+        dialCode: mainUser.indicative,
         documentNumber: mainUser.cedula,
         documentType: 'CC'
       };

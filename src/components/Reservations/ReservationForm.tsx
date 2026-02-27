@@ -184,13 +184,13 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         if (sameDay(selectedDate, now)) {
             // Block same-day reservations if the current time is already at or past 2pm (14:00)
             if (now.getHours() >= 14) {
-                toast.error("Solo puedes hacer reservas hasta las 2pm, para el día de hoy", { position: 'top-right' });
+                toast.error("Solo puedes hacer reservas hasta las 2pm, para el día de hoy.", { position: 'top-right' });
                 return false;
             }
 
             const oneHourLater = addHour(now, 2);
             if (selectedDate < oneHourLater) {
-                toast.error("Para reservas el día de hoy, la hora debe ser al menos 2 hora antes de la hora de reserva.", { position: 'top-right' });
+                toast.error("Ten presente que solo se puede reservar con 2 horas de anticipación.", { position: 'top-right' });
                 return false;
             }
         }

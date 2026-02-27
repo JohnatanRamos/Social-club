@@ -37,6 +37,16 @@ export default function Checkout() {
   }, []);
 
   const sendBookingData = async () => {
+    // --- Discount calculations ---
+    // Bundle: 15% for 3+ individual courses, 5% for 2 individual courses
+    const individualItems = cart.filter(item => item.mode === 'individual');
+    const bundleRate = individualItems.length >= 3 ? 0.15
+      : individualItems.length === 2 ? 0.05
+        : 0;
+
+    // Prompt-payment: 5% off the post-bundle total
+    const promptRate = isPromptPayment ? 0.05 : 0;
+
     const payload = {
       bookingInfo: {
         fullName: mainUser.fullName,
@@ -45,19 +55,37 @@ export default function Checkout() {
         phone: `${mainUser.indicative}${mainUser.whatsapp}`,
         birthDate: mainUser.dob
       },
-      items: cart.map(item => ({
-        classId: item.id,
-        persons: item.mode === 'pareja' ? 2 : 1,
-        companions: item.mode === 'pareja' ? [{
-          fullName: item.partner.fullName,
-          identificationNumber: item.partner.cedula,
-          phone: item.partner.whatsapp,
-          email: item.partner.email
-        }] : []
-      })),
+      items: cart.map(item => {
+        const itemDiscounts = [];
+        // Apply bundle discount only to individual-mode courses
+        if (item.mode === 'individual' && bundleRate > 0) {
+          itemDiscounts.push({
+            description: 'Bono por compra de cursos',
+            percentage: Math.round(bundleRate * 100),
+            value: Math.round(item.price * bundleRate),
+          });
+        }
+        return {
+          classId: item.id,
+          persons: item.mode === 'pareja' ? 2 : 1,
+          companions: item.mode === 'pareja' ? [{
+            fullName: item.partner.fullName,
+            identificationNumber: item.partner.cedula,
+            phone: item.partner.whatsapp,
+            email: item.partner.email
+          }] : [],
+          discounts: itemDiscounts,
+        };
+      }),
       isCashPayment: !isPromptPayment,
       location: cart[0].location,
-      amount: Math.round(total)
+      amount: Math.round(total),
+      // Invoice-level discounts (prompt-payment applied after bundle)
+      discounts: promptRate > 0 ? [{
+        description: 'Pronto pago',
+        percentage: Math.round(promptRate * 100),
+        value: Math.round(promptPaymentDiscount),
+      }] : [],
     };
 
     try {
@@ -108,7 +136,7 @@ export default function Checkout() {
       // @ts-ignore
       const checkout = new window.BoldCheckout({
         currency: 'COP',
-        amount: total,
+        amount: Math.round(total),
         orderId: reference,
         apiKey: PUBLIC_KEY,
         integritySignature: signature,
@@ -135,9 +163,6 @@ export default function Checkout() {
     }
     try {
       const { payment: bookingData } = await sendBookingData();
-
-      console.log(bookingData);
-
 
       if (isPromptPayment) {
         await handleBoldWidget(bookingData.reference, bookingData.identityKey, bookingData.signature);

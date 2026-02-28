@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { CheckCircle, Home, Calendar, XCircle, Clock } from 'lucide-react';
-import { clearCart, cartStore } from '../../stores/cartStore';
 
-interface EnrollmentSuccessProps {
+
+interface ReservationSuccessProps {
     orderId?: string | null;
     txStatus?: string | null;
 }
 
-export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: initialOrderId, txStatus: initialTxStatus }) => {
+export const ReservationSuccess: React.FC<ReservationSuccessProps> = ({ orderId: initialOrderId, txStatus: initialTxStatus }) => {
 
-    const [isValid, setIsValid] = React.useState(false);
     const [orderId, setOrderId] = React.useState<string | null>(initialOrderId || null);
     const [txStatus, setTxStatus] = React.useState<string | null>(initialTxStatus || null);
 
@@ -26,40 +25,16 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
         const urlParams = new URLSearchParams(window.location.search);
         const urlOrderId = urlParams.get('bold-order-id');
         const urlTxStatus = urlParams.get('bold-tx-status');
-        const internalStatus = urlParams.get('internal-status');
-        const internalId = urlParams.get('internal-id');
 
         if (urlOrderId || urlTxStatus) {
             setOrderId(urlOrderId);
             setTxStatus(urlTxStatus);
         }
 
-        if (internalStatus || internalId) {
-            setOrderId(internalId);
-            setTxStatus(internalStatus);
-        }
-
         return () => {
             window.removeEventListener('urlParamsReady', handleUrlParams as EventListener);
         };
     }, []);
-
-    useEffect(() => {
-        const cartItems = cartStore.get();
-
-        if (cartItems.length === 0 && !orderId) {
-            window.location.href = '/horarios';
-            return;
-        }
-
-        setIsValid(true);
-        // Clear cart on mount only if we have items
-        if (cartItems.length > 0) {
-            clearCart();
-        }
-    }, [orderId, txStatus]);
-
-    if (!isValid) return null;
 
     // Determine status - default to 'approved' if no txStatus is provided
     const status = txStatus?.toLowerCase() || 'approved';
@@ -70,12 +45,12 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
             icon: CheckCircle,
             iconBg: 'bg-green-100',
             iconColor: 'text-green-600',
-            title: '¡Inscripción Exitosa!',
-            message: 'Hemos recibido tu solicitud correctamente. Te enviaremos un correo con los detalles de tu inscripción.',
+            title: '¡Reserva Confirmada!',
+            message: 'Hemos recibido tu solicitud de reserva correctamente. Te esperamos para disfrutar de una gran experiencia.',
             steps: [
-                'Revisa tu correo electrónico para ver tu comprobante.',
-                'Preséntate en la sede 15 minutos antes de tu primera clase.',
-                '¡Disfruta aprendiendo a bailar!'
+                'Recibirás un mensaje de confirmación a tu WhatsApp/Correo.',
+                'Te recomendamos llegar 15 minutos antes de tu reserva.',
+                '¡Prepárate para vivir el mejor ambiente!'
             ]
         },
         rejected: {
@@ -110,7 +85,7 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
     return (
         <div className="min-h-[80vh] flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 max-w-lg w-full text-center space-y-6 border border-slate-100">
-                <div className={`w-24 h-24 ${config.iconBg} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                     <Icon className={`w-12 h-12 ${config.iconColor}`} />
                 </div>
 
@@ -121,13 +96,6 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
                 <p className="text-slate-600 text-lg">
                     {config.message}
                 </p>
-
-                {orderId && (
-                    <div className="bg-slate-50 rounded-xl p-4">
-                        <p className="text-sm text-slate-500">Número de orden</p>
-                        <p className="text-lg font-mono font-semibold text-slate-900">{orderId}</p>
-                    </div>
-                )}
 
                 <div className="bg-slate-50 rounded-xl p-6 text-left space-y-3">
                     <h3 className="font-semibold text-slate-900 mb-2">
@@ -152,11 +120,11 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
                         Inicio
                     </a>
                     <a
-                        href="/horarios"
+                        href="/reservas"
                         className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-orange-600 text-white font-semibold hover:bg-orange-700 shadow-lg shadow-orange-500/20 transition-all"
                     >
                         <Calendar className="w-5 h-5" />
-                        Ver Horarios
+                        Nueva Reserva
                     </a>
                 </div>
             </div>

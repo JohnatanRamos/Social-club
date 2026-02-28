@@ -9,6 +9,7 @@ export const useCheckout = () => {
   const [mainUser, setMainUser] = useState<User>({
     fullName: '',
     cedula: '',
+    indicative: '+57',
     whatsapp: '',
     email: '',
     dob: ''
@@ -16,7 +17,7 @@ export const useCheckout = () => {
 
   const cart = useStore(cartStore);
 
-  const handleMainUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMainUserChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setMainUser({ ...mainUser, [e.target.name]: e.target.value });
   };
 
@@ -61,8 +62,7 @@ export const useCheckout = () => {
   };
 
   const subtotal = cart.reduce((acc, item) => {
-    const isCouplePromo = item.mode === 'pareja';
-    const itemPrice = (item.mode === 'pareja' && !isCouplePromo) ? item.price * 2 : item.price;
+    const itemPrice = (item.mode === 'pareja' && !item.promotion) ? item.price * 2 : item.price;
     return acc + itemPrice;
   }, 0);
 

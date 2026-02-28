@@ -14,7 +14,7 @@ export const fetchClasses = async () => {
   errorStore.set(null);
 
   try {
-    const API_URL = "https://api.ritmovivosocialclub.com/classes";
+    const API_URL = import.meta.env.PUBLIC_API + "classes";
     const response = await fetch(API_URL);
 
     if (!response.ok) {

@@ -6,6 +6,8 @@ import { InputField } from '../UI/InputField';
 import { parse, sameDay, addHour, addMonth } from '@formkit/tempo';
 import { toast } from 'sonner';
 
+const DEFAULT_PRICE = 30000;
+
 const COUNTRY_CODES = [
     { label: '🇨🇴 +57', value: '+57' },
     { label: '🇺🇸 +1', value: '+1' },
@@ -49,7 +51,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
 
     const calculateTotalAmount = () => {
         const selectedSede = sedes.find(s => s.id === formData.sede);
-        const pricePerPerson = selectedSede?.price || 25000;
+        const pricePerPerson = selectedSede?.price || DEFAULT_PRICE;
         return Math.round(Number(formData.numPersonas) * pricePerPerson);
     };
 
@@ -274,7 +276,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                     return {
                         id: sede.value,
                         name: sede.name,
-                        price: priceItem ? parseInt(priceItem.value) : 25000
+                        price: priceItem ? parseInt(priceItem.value) : DEFAULT_PRICE
                     };
                 });
                 setSedes(mergedSedes);

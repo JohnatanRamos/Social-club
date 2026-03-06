@@ -108,20 +108,20 @@ export const ReservationsPage: React.FC = () => {
                                         <div className="bg-gray-50 rounded-xl p-4">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="font-semibold text-gray-800">SOCIAL</span>
-                                                <span className="text-2xl font-bold text-orange-600">$25.000</span>
+                                                <span className="text-2xl font-bold text-orange-600">$30.000</span>
                                             </div>
                                             <div className="text-sm text-gray-600">
-                                                Consumo mínimo 25.000 por persona
+                                                Consumo mínimo 30.000 por persona
                                             </div>
                                         </div>
 
                                         <div className="bg-gray-50 rounded-xl p-4">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="font-semibold text-gray-800">RITMO</span>
-                                                <span className="text-2xl font-bold text-orange-600">$40.000</span>
+                                                <span className="text-2xl font-bold text-orange-600">$30.000</span>
                                             </div>
                                             <div className="text-sm text-gray-600">
-                                                Consumo mínimo 40.000 por persona
+                                                Consumo mínimo 30.000 por persona
                                             </div>
                                         </div>
 

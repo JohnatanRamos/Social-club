@@ -3,12 +3,13 @@ import type { CourseCardProps } from "./Course";
 export interface User {
   fullName: string;
   cedula: string;
+  indicative: string;
   whatsapp: string;
   email: string;
   dob: string;
 }
 
-export interface Partner extends Omit<User, 'dob'> {}
+export interface Partner extends Omit<User, 'dob'> { }
 
 export type CourseMode = 'individual' | 'pareja';
 

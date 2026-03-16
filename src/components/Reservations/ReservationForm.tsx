@@ -6,6 +6,21 @@ import { InputField } from '../UI/InputField';
 import { parse, sameDay, addHour, addMonth } from '@formkit/tempo';
 import { toast } from 'sonner';
 
+const DEFAULT_PRICE = 30000;
+
+const COUNTRY_CODES = [
+    { label: '🇨🇴 +57', value: '+57' },
+    { label: '🇺🇸 +1', value: '+1' },
+    { label: '🇲🇽 +52', value: '+52' },
+    { label: '🇦🇷 +54', value: '+54' },
+    { label: '🇨🇱 +56', value: '+56' },
+    { label: '🇪🇨 +593', value: '+593' },
+    { label: '🇵🇪 +51', value: '+51' },
+    { label: '🇻🇪 +58', value: '+58' },
+    { label: '🇧🇷 +55', value: '+55' },
+    { label: '🇪🇸 +34', value: '+34' },
+];
+
 export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSuccess?: () => void }> = ({ variant = 'white', onSuccess }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dateInputRef = useRef<HTMLInputElement>(null);
@@ -15,6 +30,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         fecha: '',
         hora: '',
         numPersonas: 0,
+        indicative: '+57',
         celular: '',
         tipoCelebracion: 'Ninguna',
         nombreFestejado: '',
@@ -27,6 +43,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
     const [maxMonths, setMaxMonths] = useState<number>(3);
     const [isFetchingData, setIsFetchingData] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [acceptedPolicies, setAcceptedPolicies] = useState(false);
 
     const buttonClass = variant === 'white'
         ? "inline-block bg-white text-sc-orange px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl cursor-pointer"
@@ -34,7 +51,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
 
     const calculateTotalAmount = () => {
         const selectedSede = sedes.find(s => s.id === formData.sede);
-        const pricePerPerson = selectedSede?.price || 25000;
+        const pricePerPerson = selectedSede?.price || DEFAULT_PRICE;
         return Math.round(Number(formData.numPersonas) * pricePerPerson);
     };
 
@@ -51,9 +68,9 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
     const handleFinalizeReservation = async () => {
         setIsLoading(true);
         try {
-            const { wompiData: bookingData } = await sendData();
+            const { boldData: bookingData } = await sendData();
 
-            await handleWompiWidget(bookingData.reference, bookingData.publicKey, bookingData.signature.integrity);
+            await handleBoldWidget(bookingData.reference, bookingData.identityKey, bookingData.signature);
 
         } catch (error: any) {
             setIsLoading(false);
@@ -63,54 +80,41 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
         }
     };
 
-    const handleWompiWidget = async (reference: string, PUBLIC_KEY: string, signature: string) => {
+    const handleBoldWidget = async (reference: string, PUBLIC_KEY: string, signature: string) => {
         try {
-            // Check if the Wompi script is loaded
+            // Check if the Bold script is loaded
             // @ts-ignore
-            if (typeof window.WidgetCheckout === 'undefined') {
+            if (typeof window.BoldCheckout === 'undefined') {
                 toast.error("Error: El sistema de pagos no se cargó correctamente. Por favor recarga la página.", {
                     position: 'top-right',
                 });
                 return;
             }
 
+            const customerData = { // Opcional
+                email: formData.email,
+                fullName: formData.nombreCompleto,
+                phone: formData.celular,
+                dialCode: formData.indicative,
+                documentNumber: formData.documento,
+                documentType: 'CC'
+            };
+
             // Configure the checkout
             // @ts-ignore
-            const checkout = new window.WidgetCheckout({
+            const checkout = new window.BoldCheckout({
                 currency: 'COP',
-                amountInCents: Number(`${calculateTotalAmount()}00`),
-                reference: reference,
-                publicKey: PUBLIC_KEY,
-                signature: { integrity: signature },
-                redirectUrl: 'https://socialclubritmovivo.com/success', // Opcional
-                customerData: { // Opcional
-                    email: formData.email,
-                    fullName: formData.nombreCompleto,
-                    phoneNumber: formData.celular,
-                    phoneNumberPrefix: '+57',
-                    legalId: formData.documento,
-                    legalIdType: 'CC'
-                },
+                amount: calculateTotalAmount(),
+                orderId: reference,
+                apiKey: PUBLIC_KEY,
+                integritySignature: signature,
+                description: 'Reserva',
+                customerData: JSON.stringify(customerData),
+                redirectionUrl: import.meta.env.PUBLIC_DOMAIN + '/success-reservation'
             });
 
             // Open the widget
-            checkout.open(function (result: any) {
-                const transaction = result.transaction;
-
-                // Handle the result without redirecting
-                if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
-                    setIsLoading(false);
-                    setIsOpen(false);
-                    if (onSuccess) {
-                        onSuccess();
-                    }
-                } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
-                    setIsLoading(false);
-                    toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
-                        position: 'top-right',
-                    });
-                }
-            });
+            checkout.open()
 
         } catch (error) {
             console.error("Error initializing Wompi widget:", error);
@@ -130,7 +134,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
             personName: formData.nombreCompleto,
             personIdentification: formData.documento,
             personEmail: formData.email,
-            personPhone: formData.celular,
+            personPhone: `${formData.indicative}${formData.celular}`,
             additionalPerson: formData.nombreFestejado ? {
                 name: formData.nombreFestejado,
             } : null,
@@ -156,7 +160,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                 body: JSON.stringify(payload)
             });
 
-            if (response.status === 400) {
+            if (response.status === 400 || response.status === 409) {
                 const errorData = await response.json();
                 throw new Error(errorData.message);
             }
@@ -176,18 +180,33 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
 
         const now = new Date();
         const selectedDate = parse(`${formData.fecha} ${formData.hora}`, "YYYY-MM-DD HH:mm");
+        const [selectedHour, selectedMinute] = formData.hora.split(':').map(Number);
+        const selectedTotalMinutes = selectedHour * 60 + selectedMinute;
+        const selectedSedeName = sedes.find(s => s.id === formData.sede)?.name;
+
+        // Validate time range based on sede
+        if (selectedSedeName === 'Social Club') {
+            if (selectedTotalMinutes < 17 * 60 || selectedTotalMinutes > 21 * 60) {
+                toast.error("Para Social Club, el horario de reservas es entre las 5:00pm y las 9:00pm.", { position: 'top-right' });
+                return false;
+            }
+        } else if (selectedSedeName === 'Ritmo Vivo') {
+            if (selectedTotalMinutes < 8 * 60 || selectedTotalMinutes > 21 * 60) {
+                toast.error("Para Ritmo Vivo, el horario de reservas es entre las 8:00am y las 9:00pm.", { position: 'top-right' });
+                return false;
+            }
+        }
 
         if (sameDay(selectedDate, now)) {
-            // Check if the selected time is after 2pm (14:00)
-            const [hours] = formData.hora.split(':').map(Number);
-            if (hours >= 14) {
-                toast.error("Solo puedes hacer reservas hasta las 2pm, para el día de hoy", { position: 'top-right' });
+            // Block same-day reservations if the current time is already at or past 2pm (14:00)
+            if (now.getHours() >= 16) {
+                toast.error("Solo puedes hacer reservas hasta las 4pm, para el día de hoy.", { position: 'top-right' });
                 return false;
             }
 
             const oneHourLater = addHour(now, 2);
             if (selectedDate < oneHourLater) {
-                toast.error("Para reservas el día de hoy, la hora debe ser al menos 2 hora antes de la hora de reserva.", { position: 'top-right' });
+                toast.error("Ten presente que solo se puede reservar con 2 horas de anticipación.", { position: 'top-right' });
                 return false;
             }
         }
@@ -257,7 +276,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                     return {
                         id: sede.value,
                         name: sede.name,
-                        price: priceItem ? parseInt(priceItem.value) : 25000
+                        price: priceItem ? parseInt(priceItem.value) : DEFAULT_PRICE
                     };
                 });
                 setSedes(mergedSedes);
@@ -370,14 +389,6 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                                     placeholder="Ej. Juan Pérez"
                                 />
                                 <InputField
-                                    label="N° Documento"
-                                    name="documento"
-                                    required
-                                    value={formData.documento}
-                                    onChange={handleChange}
-                                    placeholder="Ej. 1234567890"
-                                />
-                                <InputField
                                     label="Correo electrónico"
                                     name="email"
                                     type="email"
@@ -431,6 +442,15 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <InputField
+                                        label="N° Documento"
+                                        name="documento"
+                                        required
+                                        value={formData.documento}
+                                        onChange={handleChange}
+                                        placeholder="Ej. 1234567890"
+                                    />
+
+                                    <InputField
                                         label="N° Personas"
                                         name="numPersonas"
                                         type="number"
@@ -440,15 +460,36 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                                         onChange={handleChange}
                                         placeholder="Ej. 4"
                                     />
-                                    <InputField
-                                        label="Celular"
-                                        name="celular"
-                                        type="tel"
-                                        required
-                                        value={formData.celular}
-                                        onChange={handleChange}
-                                        placeholder="Ej. 300 123 4567"
-                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-4">
+                                    {/* Celular with indicative */}
+                                    <div className="flex flex-col space-y-1">
+                                        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                            Celular
+                                        </label>
+                                        <div className="flex gap-2">
+                                            <select
+                                                name="indicative"
+                                                value={formData.indicative}
+                                                onChange={handleChange}
+                                                className="border border-slate-200 rounded-lg px-2 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm shrink-0"
+                                            >
+                                                {COUNTRY_CODES.map(c => (
+                                                    <option key={c.value} value={c.value}>{c.label}</option>
+                                                ))}
+                                            </select>
+                                            <input
+                                                name="celular"
+                                                type="tel"
+                                                required
+                                                value={formData.celular}
+                                                onChange={handleChange}
+                                                placeholder="300 123 4567"
+                                                className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
@@ -480,11 +521,34 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                                     />
                                 )}
 
-                                <div className="pt-4 text-center">
+                                {/* Accept policies checkbox */}
+                                <label className="flex items-start gap-3 cursor-pointer group">
+                                    <input
+                                        id="acceptedPolicies"
+                                        type="checkbox"
+                                        checked={acceptedPolicies}
+                                        onChange={(e) => setAcceptedPolicies(e.target.checked)}
+                                        className="mt-0.5 h-4 w-4 rounded border-slate-300 accent-orange-500 cursor-pointer shrink-0"
+                                    />
+                                    <span className="text-xs text-slate-600 group-hover:text-slate-800 transition-colors">
+                                        He leído y acepto los{' '}
+                                        <a
+                                            href="/terminos-y-condiciones"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-sc-orange underline font-semibold hover:text-orange-600"
+                                        >
+                                            Términos y Condiciones
+                                        </a>
+                                        {' '}de Social Club y Ritmo Vivo.
+                                    </span>
+                                </label>
+
+                                <div className="pt-2 text-center">
                                     <button
-                                        disabled={isLoading ? true : false}
+                                        disabled={isLoading || !acceptedPolicies}
                                         type="submit"
-                                        className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2"
+                                        className="cursor-pointer w-full bg-sc-orange text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sc-orange"
                                     >
                                         {isLoading ? (
                                             <>

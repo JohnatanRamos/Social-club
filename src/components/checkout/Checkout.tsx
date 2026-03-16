@@ -19,10 +19,9 @@ export default function Checkout() {
     removeCourse,
     subtotal,
     bundleDiscount,
-    promptPaymentDiscount,
     total,
-    isPromptPayment,
-    togglePromptPayment,
+    isElectronicInvoice,
+    toggleElectronicInvoice,
     isValid,
     userErrors,
     partnerErrors
@@ -37,31 +36,56 @@ export default function Checkout() {
   }, []);
 
   const sendBookingData = async () => {
+    // --- Discount calculations ---
+    // Bundle: 15% for 3+ individual courses, 5% for 2 individual courses
+    const individualItems = cart.filter(item => item.mode === 'individual');
+    const bundleRate = individualItems.length >= 3 ? 0.15
+      : individualItems.length === 2 ? 0.05
+        : 0;
+
     const payload = {
       bookingInfo: {
         fullName: mainUser.fullName,
         identificationNumber: mainUser.cedula,
         email: mainUser.email,
-        phone: mainUser.whatsapp,
+        phone: `${mainUser.indicative}${mainUser.whatsapp}`,
         birthDate: mainUser.dob
       },
-      items: cart.map(item => ({
-        classId: item.id,
-        persons: item.mode === 'pareja' ? 2 : 1,
-        companions: item.mode === 'pareja' ? [{
-          fullName: item.partner.fullName,
-          identificationNumber: item.partner.cedula,
-          phone: item.partner.whatsapp,
-          email: item.partner.email
-        }] : []
-      })),
-      isCashPayment: !isPromptPayment,
+      items: cart.map(item => {
+        const itemDiscounts = [];
+        // Apply bundle discount only to individual-mode courses
+        if (item.mode === 'individual' && bundleRate > 0) {
+          itemDiscounts.push({
+            description: 'Bono por compra de cursos',
+            percentage: Math.round(bundleRate * 100),
+            value: Math.round(item.price * bundleRate),
+          });
+        }
+        return {
+          classId: item.id,
+          persons: item.mode === 'pareja' ? 2 : 1,
+          companions: item.mode === 'pareja' ? [{
+            fullName: item.partner.fullName,
+            identificationNumber: item.partner.cedula,
+            phone: item.partner.whatsapp,
+            email: item.partner.email
+          }] : [],
+          discounts: itemDiscounts,
+          fullValue: Math.round(item.mode === 'pareja' && !item.promotion ? item.price * 2 : item.price),
+          value: Math.round(item.mode === 'pareja' && !item.promotion ? item.price * 2 - (itemDiscounts[0]?.value || 0) : item.price - (itemDiscounts[0]?.value || 0)),
+        };
+      }),
+      isCashPayment: false,
+      hasElectronicInvoice: isElectronicInvoice,
+      subtotal: Math.round(subtotal),
       location: cart[0].location,
-      amount: Math.round(total * 100)
+      amount: Math.round(total),
+      // Invoice-level discounts (prompt-payment applied after bundle)
+      discounts: [],
     };
 
     try {
-      const API_URL = import.meta.env.PUBLIC_API + "reservations";
+      const API_URL = import.meta.env.PUBLIC_API + 'reservations';
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -85,53 +109,42 @@ export default function Checkout() {
     }
   };
 
-  const handleWompiWidget = async (reference: string, PUBLIC_KEY: string, signature: string) => {
+  const handleBoldWidget = async (reference?: string, PUBLIC_KEY?: string, signature?: string) => {
     try {
-      // Check if the Wompi script is loaded
+      // Check if the Bold script is loaded
       // @ts-ignore
-      if (typeof window.WidgetCheckout === 'undefined') {
+      if (typeof window.BoldCheckout === 'undefined') {
         toast.error("Error: El sistema de pagos no se cargó correctamente. Por favor recarga la página.", {
           position: 'top-right',
         });
         return;
       }
 
-      // Configure the checkout
+      const customerData = { // Opcional
+        email: mainUser.email,
+        fullName: mainUser.fullName,
+        phone: mainUser.whatsapp,
+        dialCode: mainUser.indicative,
+        documentNumber: mainUser.cedula,
+        documentType: 'CC'
+      };
+
       // @ts-ignore
-      const checkout = new window.WidgetCheckout({
+      const checkout = new window.BoldCheckout({
         currency: 'COP',
-        amountInCents: Math.round(total * 100),
-        reference: reference,
-        publicKey: PUBLIC_KEY,
-        signature: { integrity: signature },
-        redirectUrl: 'https://socialclubritmovivo.com/success', // Opcional
-        customerData: { // Opcional
-          email: mainUser.email,
-          fullName: mainUser.fullName,
-          phoneNumber: mainUser.whatsapp,
-          phoneNumberPrefix: '+57',
-          legalId: mainUser.cedula,
-          legalIdType: 'CC'
-        },
+        amount: Math.round(total),
+        orderId: reference,
+        apiKey: PUBLIC_KEY,
+        integritySignature: signature,
+        description: 'Curso(s)',
+        customerData: JSON.stringify(customerData),
+        redirectionUrl: import.meta.env.PUBLIC_DOMAIN + '/success'
       });
 
-      // Open the widget
-      checkout.open(function (result: any) {
-        const transaction = result.transaction;
-
-        // You can handle the result here without redirecting if you prefer,
-        // but typically for a successful payment you might want to show the success page.
-        if (transaction.status === 'APPROVED' || transaction.status === 'PENDING') {
-          window.location.href = '/success';
-        } else if (transaction.status === 'DECLINED' || transaction.status === 'ERROR' || transaction.status === 'VOIDED') {
-          toast.error(`La transacción fue rechazada o falló. Estado: ${transaction.status}`, {
-            position: 'top-right',
-          });
-        }
-      });
+      checkout.open();
 
     } catch (error) {
-      console.error("Error initializing Wompi widget:", error);
+      console.error("Error initializing Bold widget:", error);
       toast.error("Hubo un error iniciando el pago. Por favor intenta nuevamente.", {
         position: 'top-right',
       });
@@ -145,14 +158,10 @@ export default function Checkout() {
       return;
     }
     try {
-      const bookingData = await sendBookingData();
+      const { payment: bookingData } = await sendBookingData();
 
-      if (isPromptPayment) {
-        await handleWompiWidget(bookingData.reservationId, bookingData.payment.publicKey, bookingData.payment.signature);
-      } else {
-        // If not paying immediately (not prompt payment), redirect to success page
-        window.location.href = '/success';
-      }
+      await handleBoldWidget(bookingData.reference, bookingData.identityKey, bookingData.signature);
+
     } catch (error: any) {
       setIsSubmitting(false);
       toast.error(error.message, {
@@ -241,9 +250,8 @@ export default function Checkout() {
                 subtotal={subtotal}
                 total={total}
                 bundleDiscount={bundleDiscount}
-                promptPaymentDiscount={promptPaymentDiscount}
-                isPromptPayment={isPromptPayment}
-                onTogglePromptPayment={togglePromptPayment}
+                isElectronicInvoice={isElectronicInvoice}
+                onToggleElectronicInvoice={toggleElectronicInvoice}
                 onRemoveCourse={removeCourse}
                 onCheckout={handleCheckoutClick}
                 isValid={isValid}

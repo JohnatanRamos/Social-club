@@ -1,5 +1,7 @@
 export const formatDate = (date: Date): string => {
-    return new Date(date).toLocaleDateString('es-ES', {
+    const transformDate = new Date(date).setHours(24, 0, 0, 0);
+
+    return new Date(transformDate).toLocaleDateString('es-ES', {
         day: '2-digit',
         month: 'short',
     });

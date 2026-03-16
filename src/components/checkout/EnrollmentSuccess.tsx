@@ -1,56 +1,145 @@
 import React, { useEffect } from 'react';
-import { CheckCircle, Home, Calendar } from 'lucide-react';
+import { CheckCircle, Home, Calendar, XCircle, Clock } from 'lucide-react';
 import { clearCart, cartStore } from '../../stores/cartStore';
 
-export const EnrollmentSuccess: React.FC = () => {
+interface EnrollmentSuccessProps {
+    orderId?: string | null;
+    txStatus?: string | null;
+}
+
+export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: initialOrderId, txStatus: initialTxStatus }) => {
 
     const [isValid, setIsValid] = React.useState(false);
+    const [orderId, setOrderId] = React.useState<string | null>(initialOrderId || null);
+    const [txStatus, setTxStatus] = React.useState<string | null>(initialTxStatus || null);
+
+    useEffect(() => {
+        // Listen for URL parameters from the client-side script
+        const handleUrlParams = (event: CustomEvent) => {
+            setOrderId(event.detail.orderId);
+            setTxStatus(event.detail.txStatus);
+        };
+
+        window.addEventListener('urlParamsReady', handleUrlParams as EventListener);
+
+        // Also try to get params directly from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlOrderId = urlParams.get('bold-order-id');
+        const urlTxStatus = urlParams.get('bold-tx-status');
+        const internalStatus = urlParams.get('internal-status');
+        const internalId = urlParams.get('internal-id');
+
+        if (urlOrderId || urlTxStatus) {
+            setOrderId(urlOrderId);
+            setTxStatus(urlTxStatus);
+        }
+
+        if (internalStatus || internalId) {
+            setOrderId(internalId);
+            setTxStatus(internalStatus);
+        }
+
+        return () => {
+            window.removeEventListener('urlParamsReady', handleUrlParams as EventListener);
+        };
+    }, []);
 
     useEffect(() => {
         const cartItems = cartStore.get();
 
-        if (cartItems.length === 0) {
+        if (cartItems.length === 0 && !orderId) {
             window.location.href = '/horarios';
             return;
         }
 
         setIsValid(true);
-        // Clear cart on mount
-        clearCart();
-    }, []);
+        // Clear cart on mount only if we have items
+        if (cartItems.length > 0) {
+            clearCart();
+        }
+    }, [orderId, txStatus]);
 
     if (!isValid) return null;
+
+    // Determine status - default to 'approved' if no txStatus is provided
+    const status = txStatus?.toLowerCase() || 'approved';
+
+    // Status configurations
+    const statusConfig = {
+        approved: {
+            icon: CheckCircle,
+            iconBg: 'bg-green-100',
+            iconColor: 'text-green-600',
+            title: '¡Inscripción Exitosa!',
+            message: 'Hemos recibido tu solicitud correctamente. Te enviaremos un correo con los detalles de tu inscripción.',
+            steps: [
+                'Revisa tu correo electrónico para ver tu comprobante.',
+                'Preséntate en la sede 15 minutos antes de tu primera clase.',
+                '¡Disfruta aprendiendo a bailar!'
+            ]
+        },
+        rejected: {
+            icon: XCircle,
+            iconBg: 'bg-red-100',
+            iconColor: 'text-red-600',
+            title: 'Pago Rechazado',
+            message: 'Lo sentimos, tu pago no pudo ser procesado. Por favor, verifica tus datos e intenta nuevamente.',
+            steps: [
+                'Verifica que los datos de tu tarjeta sean correctos.',
+                'Asegúrate de tener fondos suficientes.',
+                'Intenta con otro método de pago si el problema persiste.'
+            ]
+        },
+        pending: {
+            icon: Clock,
+            iconBg: 'bg-yellow-100',
+            iconColor: 'text-yellow-600',
+            title: 'Pago Pendiente',
+            message: 'Tu pago está siendo procesado. Te notificaremos por correo cuando se confirme.',
+            steps: [
+                'Recibirás un correo de confirmación una vez procesado el pago.',
+                'El proceso puede tomar algunos minutos.',
+                'Si tienes dudas, contáctanos con tu número de orden.'
+            ]
+        }
+    };
+
+    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.approved;
+    const Icon = config.icon;
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center p-4">
             <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 max-w-lg w-full text-center space-y-6 border border-slate-100">
-                <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-12 h-12 text-green-600" />
+                <div className={`w-24 h-24 ${config.iconBg} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                    <Icon className={`w-12 h-12 ${config.iconColor}`} />
                 </div>
 
                 <h1 className="text-3xl font-bold text-slate-900">
-                    ¡Inscripción Exitosa!
+                    {config.title}
                 </h1>
 
                 <p className="text-slate-600 text-lg">
-                    Hemos recibido tu solicitud correctamente. Te enviaremos un correo con los detalles de tu inscripción.
+                    {config.message}
                 </p>
 
+                {orderId && (
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="text-sm text-slate-500">Número de orden</p>
+                        <p className="text-lg font-mono font-semibold text-slate-900">{orderId}</p>
+                    </div>
+                )}
+
                 <div className="bg-slate-50 rounded-xl p-6 text-left space-y-3">
-                    <h3 className="font-semibold text-slate-900 mb-2">Próximos pasos:</h3>
+                    <h3 className="font-semibold text-slate-900 mb-2">
+                        {status === 'rejected' ? 'Qué puedes hacer:' : 'Próximos pasos:'}
+                    </h3>
                     <ul className="space-y-2 text-sm text-slate-600">
-                        <li className="flex items-start gap-2">
-                            <span className="mt-1 block w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0"></span>
-                            Revisa tu correo electrónico para ver tu comprobante.
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="mt-1 block w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0"></span>
-                            Preséntate en la sede 15 minutos antes de tu primera clase.
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="mt-1 block w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0"></span>
-                            ¡Disfruta aprendiendo a bailar!
-                        </li>
+                        {config.steps.map((step, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                                <span className="mt-1 block w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0"></span>
+                                {step}
+                            </li>
+                        ))}
                     </ul>
                 </div>
 

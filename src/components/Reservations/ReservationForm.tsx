@@ -199,8 +199,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
 
         if (sameDay(selectedDate, now)) {
             // Block same-day reservations if the current time is already at or past 2pm (14:00)
-            if (now.getHours() >= 14) {
-                toast.error("Solo puedes hacer reservas hasta las 2pm, para el día de hoy.", { position: 'top-right' });
+            if (now.getHours() >= 16) {
+                toast.error("Solo puedes hacer reservas hasta las 4pm, para el día de hoy.", { position: 'top-right' });
                 return false;
             }
 

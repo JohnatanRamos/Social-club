@@ -8,9 +8,8 @@ interface OrderSummaryProps {
     subtotal: number;
     total: number;
     bundleDiscount: number;
-    promptPaymentDiscount: number;
-    isPromptPayment: boolean;
-    onTogglePromptPayment: () => void;
+    isElectronicInvoice: boolean;
+    onToggleElectronicInvoice: () => void;
     onRemoveCourse: (index: number) => void;
     onCheckout?: () => void;
     isValid?: boolean;
@@ -22,9 +21,8 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
     subtotal,
     total,
     bundleDiscount,
-    promptPaymentDiscount,
-    isPromptPayment,
-    onTogglePromptPayment,
+    isElectronicInvoice,
+    onToggleElectronicInvoice,
     onRemoveCourse,
     onCheckout,
     isValid = false,
@@ -81,20 +79,11 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                             <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
                                 <input
                                     type="checkbox"
-                                    checked={!isPromptPayment}
-                                    onChange={onTogglePromptPayment}
+                                    checked={isElectronicInvoice}
+                                    onChange={onToggleElectronicInvoice}
                                     className="w-4 h-4 text-orange-600 rounded border-slate-300 focus:ring-orange-500"
                                 />
-                                <span>Pagar en academia (0%)</span>
-                            </label>
-                            <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
-                                <input
-                                    type="checkbox"
-                                    checked={isPromptPayment}
-                                    onChange={onTogglePromptPayment}
-                                    className="w-4 h-4 text-orange-600 rounded border-slate-300 focus:ring-orange-500"
-                                />
-                                <span>Pagar en línea (-5%)</span>
+                                <span>Factura Electrónica</span>
                             </label>
                         </div>
 
@@ -109,13 +98,6 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                                 <div className="flex justify-between text-green-600">
                                     <span>Descuento por paquete</span>
                                     <span>-{formatCurrency(bundleDiscount)}</span>
-                                </div>
-                            )}
-
-                            {promptPaymentDiscount > 0 && (
-                                <div className="flex justify-between text-green-600">
-                                    <span>Descuento pronto pago</span>
-                                    <span>-{formatCurrency(promptPaymentDiscount)}</span>
                                 </div>
                             )}
 

@@ -50,10 +50,10 @@ export const useCheckout = () => {
     }
   };
 
-  const [isPromptPayment, setIsPromptPayment] = useState(false);
+  const [isElectronicInvoice, setIsElectronicInvoice] = useState(false);
 
-  const togglePromptPayment = () => {
-    setIsPromptPayment(!isPromptPayment);
+  const toggleElectronicInvoice = () => {
+    setIsElectronicInvoice(!isElectronicInvoice);
   };
 
   const removeCourse = (index: number) => {
@@ -82,12 +82,8 @@ export const useCheckout = () => {
   // Calculate Prompt Payment Discount
   // Applied to the total after bundle discount
   const intermediateTotal = subtotal - bundleDiscount;
-  const promptPaymentDiscount = isPromptPayment ? intermediateTotal * 0.05 : 0;
 
-  // Round to 2 decimals
-  const finalPromptPaymentDiscount = Math.round(promptPaymentDiscount * 100) / 100;
-
-  const total = Math.round((intermediateTotal - finalPromptPaymentDiscount) * 100) / 100;
+  const total = Math.round(intermediateTotal * 100) / 100;
 
   // Validation Logic
   const validationState = useMemo(() => {
@@ -119,10 +115,9 @@ export const useCheckout = () => {
     removeCourse,
     subtotal,
     bundleDiscount,
-    promptPaymentDiscount: finalPromptPaymentDiscount,
     total,
-    isPromptPayment,
-    togglePromptPayment,
+    isElectronicInvoice,
+    toggleElectronicInvoice,
     isValid: validationState.isValid,
     userErrors: validationState.userErrors,
     partnerErrors: validationState.partnerErrors

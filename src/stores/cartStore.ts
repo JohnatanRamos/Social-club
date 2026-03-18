@@ -35,7 +35,7 @@ export const addToCart = (course: CourseCardProps) => {
     ...course,
     uniqueId: Date.now(),
     mode: 'individual',
-    partner: { fullName: '', cedula: '', whatsapp: '', email: '' }
+    partner: { fullName: '', cedula: '', whatsapp: '', email: '', indicative: '' }
   };
   cartStore.set([...currentCart, newItem]);
 };

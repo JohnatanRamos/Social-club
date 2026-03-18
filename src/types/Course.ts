@@ -16,4 +16,5 @@ export interface CourseCardProps {
     capacity: number;
     availableSlots: number;
     startDate: string;
+    isActive?: boolean;
 }

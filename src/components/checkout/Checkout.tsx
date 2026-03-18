@@ -71,8 +71,8 @@ export default function Checkout() {
             email: item.partner.email
           }] : [],
           discounts: itemDiscounts,
-          fullValue: Math.round(item.mode === 'pareja' && !item.promotion ? item.price * 2 : item.price),
-          value: Math.round(item.mode === 'pareja' && !item.promotion ? item.price * 2 - (itemDiscounts[0]?.value || 0) : item.price - (itemDiscounts[0]?.value || 0)),
+          fullValue: Math.round(item.mode === 'pareja' && !item.promotion ? 190000 : item.price),
+          value: Math.round(item.mode === 'pareja' && !item.promotion ? 190000 - (itemDiscounts[0]?.value || 0) : item.price - (itemDiscounts[0]?.value || 0)),
         };
       }),
       isCashPayment: false,

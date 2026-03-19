@@ -58,7 +58,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                                     </div>
                                     <div className="text-right">
                                         <p className="font-medium text-slate-900">
-                                            {formatCurrency((item.mode === 'pareja' && !item.promotion) ? item.price * 2 : item.price)}
+                                            {formatCurrency((item.mode === 'pareja' && !item.promotion) ? 190000 : item.price)}
                                         </p>
                                         <button
                                             onClick={() => onRemoveCourse(idx)}

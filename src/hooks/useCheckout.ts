@@ -62,7 +62,7 @@ export const useCheckout = () => {
   };
 
   const subtotal = cart.reduce((acc, item) => {
-    const itemPrice = (item.mode === 'pareja' && !item.promotion) ? item.price * 2 : item.price;
+    const itemPrice = (item.mode === 'pareja' && !item.promotion) ? 190000 : item.price;
     return acc + itemPrice;
   }, 0);
 

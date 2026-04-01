@@ -19,10 +19,9 @@ export default function Checkout() {
     removeCourse,
     subtotal,
     bundleDiscount,
-    promptPaymentDiscount,
     total,
-    isPromptPayment,
-    togglePromptPayment,
+    isElectronicInvoice,
+    toggleElectronicInvoice,
     isValid,
     userErrors,
     partnerErrors
@@ -43,9 +42,6 @@ export default function Checkout() {
     const bundleRate = individualItems.length >= 3 ? 0.15
       : individualItems.length === 2 ? 0.05
         : 0;
-
-    // Prompt-payment: 5% off the post-bundle total
-    const promptRate = isPromptPayment ? 0.05 : 0;
 
     const payload = {
       bookingInfo: {
@@ -75,17 +71,17 @@ export default function Checkout() {
             email: item.partner.email
           }] : [],
           discounts: itemDiscounts,
+          fullValue: Math.round(item.mode === 'pareja' && !item.promotion ? 190000 : item.price),
+          value: Math.round(item.mode === 'pareja' && !item.promotion ? 190000 - (itemDiscounts[0]?.value || 0) : item.price - (itemDiscounts[0]?.value || 0)),
         };
       }),
-      isCashPayment: !isPromptPayment,
+      isCashPayment: false,
+      hasElectronicInvoice: isElectronicInvoice,
+      subtotal: Math.round(subtotal),
       location: cart[0].location,
       amount: Math.round(total),
       // Invoice-level discounts (prompt-payment applied after bundle)
-      discounts: promptRate > 0 ? [{
-        description: 'Pronto pago',
-        percentage: Math.round(promptRate * 100),
-        value: Math.round(promptPaymentDiscount),
-      }] : [],
+      discounts: [],
     };
 
     try {
@@ -164,11 +160,8 @@ export default function Checkout() {
     try {
       const { payment: bookingData } = await sendBookingData();
 
-      if (isPromptPayment) {
-        await handleBoldWidget(bookingData.reference, bookingData.identityKey, bookingData.signature);
-      } else {
-        window.location.href = `/success/?internal-status=approved&internal-id=${new Date().getTime()}`;
-      }
+      await handleBoldWidget(bookingData.reference, bookingData.identityKey, bookingData.signature);
+
     } catch (error: any) {
       setIsSubmitting(false);
       toast.error(error.message, {
@@ -257,9 +250,8 @@ export default function Checkout() {
                 subtotal={subtotal}
                 total={total}
                 bundleDiscount={bundleDiscount}
-                promptPaymentDiscount={promptPaymentDiscount}
-                isPromptPayment={isPromptPayment}
-                onTogglePromptPayment={togglePromptPayment}
+                isElectronicInvoice={isElectronicInvoice}
+                onToggleElectronicInvoice={toggleElectronicInvoice}
                 onRemoveCourse={removeCourse}
                 onCheckout={handleCheckoutClick}
                 isValid={isValid}

@@ -128,8 +128,8 @@ export const Schedule: React.FC = () => {
                         let isPastDate = false;
                         if (classSession.startDate) {
                             // Parse the date string format "DD-MM-YYYY"
-                            const [day, month, year] = classSession.startDate.split('-').map(Number);
-                            const courseStartDate = new Date(year, month - 1, day); // month is 0-indexed
+                            const [month, day, year] = classSession.startDate.split('-').map(Number);
+                            const courseStartDate = new Date(year, month - 1, day + 7); // month is 0-indexed
 
                             // Get current date at midnight for accurate comparison
                             const today = new Date();

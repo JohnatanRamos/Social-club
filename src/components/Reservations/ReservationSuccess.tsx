@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CheckCircle, Home, Calendar, XCircle, Clock } from 'lucide-react';
+import { CheckCircle, Home, Calendar, XCircle, Clock, MessageCircle } from 'lucide-react';
 
 
 interface ReservationSuccessProps {
@@ -48,7 +48,6 @@ export const ReservationSuccess: React.FC<ReservationSuccessProps> = ({ orderId:
             title: '¡Reserva Confirmada!',
             message: 'Hemos recibido tu solicitud de reserva correctamente. Te esperamos para disfrutar de una gran experiencia.',
             steps: [
-                'Recibirás un mensaje de confirmación a tu WhatsApp/Correo.',
                 'Te recomendamos llegar 15 minutos antes de tu reserva.',
                 '¡Prepárate para vivir el mejor ambiente!'
             ]
@@ -96,6 +95,22 @@ export const ReservationSuccess: React.FC<ReservationSuccessProps> = ({ orderId:
                 <p className="text-slate-600 text-lg">
                     {config.message}
                 </p>
+
+                {status === 'approved' && (
+                    <div className="bg-blue-50 border border-blue-500 p-3 rounded-xl text-left shadow-sm mb-4 mt-2">
+                        <div className="flex items-center gap-3">
+                            <div className="shrink-0 bg-blue-500 rounded-full p-2">
+                                <MessageCircle className="h-5 w-5 text-white animate-pulse" />
+                            </div>
+                            <div className="text-sm">
+                                <span className="font-bold text-blue-900">¡IMPORTANTE! Revisa tu WhatsApp: </span>
+                                <span className="text-blue-800">
+                                    Te debe llegar un mensaje de confirmación. Si no lo recibes en 10 min, comunícate al <span className="font-bold whitespace-nowrap">300 985 3900</span>.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <div className="bg-slate-50 rounded-xl p-6 text-left space-y-3">
                     <h3 className="font-semibold text-slate-900 mb-2">

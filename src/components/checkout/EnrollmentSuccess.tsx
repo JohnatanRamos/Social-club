@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CheckCircle, Home, Calendar, XCircle, Clock } from 'lucide-react';
+import { CheckCircle, Home, Calendar, XCircle, Clock, MessageCircle } from 'lucide-react';
 import { clearCart, cartStore } from '../../stores/cartStore';
 
 interface EnrollmentSuccessProps {
@@ -73,7 +73,6 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
             title: '¡Inscripción Exitosa!',
             message: 'Hemos recibido tu solicitud correctamente. Te enviaremos un correo con los detalles de tu inscripción.',
             steps: [
-                'Revisa tu correo electrónico para ver tu comprobante.',
                 'Preséntate en la sede 15 minutos antes de tu primera clase.',
                 '¡Disfruta aprendiendo a bailar!'
             ]
@@ -126,6 +125,22 @@ export const EnrollmentSuccess: React.FC<EnrollmentSuccessProps> = ({ orderId: i
                     <div className="bg-slate-50 rounded-xl p-4">
                         <p className="text-sm text-slate-500">Número de orden</p>
                         <p className="text-lg font-mono font-semibold text-slate-900">{orderId}</p>
+                    </div>
+                )}
+
+                {status === 'approved' && (
+                    <div className="bg-blue-50 border border-blue-500 p-3 rounded-xl text-left shadow-sm mb-4">
+                        <div className="flex items-center gap-3">
+                            <div className="shrink-0 bg-blue-500 rounded-full p-2">
+                                <MessageCircle className="h-5 w-5 text-white animate-pulse" />
+                            </div>
+                            <div className="text-sm">
+                                <span className="font-bold text-blue-900">¡IMPORTANTE! Revisa tu WhatsApp: </span>
+                                <span className="text-blue-800">
+                                    Te debe llegar un mensaje de confirmación. Si no lo recibes en 10 min, comunícate al <span className="font-bold whitespace-nowrap">314 842 0187</span>.
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 )}
 

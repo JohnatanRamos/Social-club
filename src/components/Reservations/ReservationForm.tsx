@@ -328,7 +328,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
     return (
         <>
             <button
-                onClick={() => window.location.href = "https://wa.me/573009853900"}
+                onClick={() => setIsOpen(true)}
                 className={buttonClass}
             >
                 🎉 Reservar Mesa Ahora
@@ -343,7 +343,7 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                         {/* Header */}
                         <div className="bg-linear-to-r from-sc-orange to-red-500 p-6 text-white relative">
                             <button
-                                onClick={() => window.location.href = "https://wa.me/573009853900"}
+                                onClick={() => setIsOpen(false)}
                                 className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
                             >
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

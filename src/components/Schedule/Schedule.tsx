@@ -8,6 +8,15 @@ import { FloatingCartButton } from '../UI/FloatingCartButton';
 
 const ALL_DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
+const convertirHora = (hora24: string): string => {
+  const [h, m] = hora24.split(':');
+  let hora = +h;
+  const ampm = hora >= 12 ? 'PM' : 'AM';
+  hora = hora % 12 || 12;
+
+  return `${hora}:${m} ${ampm}`;
+};
+
 export const Schedule: React.FC = () => {
     const classes = useStore(classesStore);
     const loading = useStore(isLoading);
@@ -85,7 +94,7 @@ export const Schedule: React.FC = () => {
                                         <div className="absolute -left-2 top-4 w-1 h-12 bg-sc-orange rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                                         <div className="mb-1 flex items-center gap-2">
                                             <span className="text-xs font-bold text-sc-orange bg-orange-50 px-2 py-0.5 rounded-full">
-                                                {classSession.time?.toUpperCase()}
+                                                {classSession.time ? convertirHora(classSession.time) : ''}
                                             </span>
                                         </div>
                                         <CourseCard
@@ -149,7 +158,7 @@ export const Schedule: React.FC = () => {
                                 <div className="space-y-2 mb-4">
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
                                         <span>📅</span>
-                                        <span>{classSession.day} {classSession.time?.toUpperCase()}</span>
+                                        <span>{classSession.day} {classSession.time ? convertirHora(classSession.time) : ''}</span>
                                     </div>
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
                                         <span>👨‍🏫</span>

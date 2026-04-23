@@ -9,12 +9,12 @@ import { FloatingCartButton } from '../UI/FloatingCartButton';
 const ALL_DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
 const convertirHora = (hora24: string): string => {
-  const [h, m] = hora24.split(':');
-  let hora = +h;
-  const ampm = hora >= 12 ? 'PM' : 'AM';
-  hora = hora % 12 || 12;
+    const [h, m] = hora24.split(':');
+    let hora = +h;
+    const ampm = hora >= 12 ? 'PM' : 'AM';
+    hora = hora % 12 || 12;
 
-  return `${hora}:${m} ${ampm}`;
+    return `${hora}:${m} ${ampm}`;
 };
 
 export const Schedule: React.FC = () => {
@@ -116,7 +116,7 @@ export const Schedule: React.FC = () => {
                                 ))}
 
                             {/* Private Class CTA */}
-                            <div className="mt-auto pt-4 border-t border-dashed border-gray-200 cursor-pointer" onClick={() => window.location.href = "https://api.whatsapp.com/send/?phone=573213498937&text=Quiero+agendar+una+clase+privada&type=phone_number&app_absent=0"}>
+                            <div className="mt-auto pt-4 border-t border-dashed border-gray-200 cursor-pointer" onClick={() => window.location.href = "https://api.whatsapp.com/send/?phone=573148420187&text=Quiero+agendar+una+clase+privada&type=phone_number&app_absent=0"}>
                                 <div className="bg-white/60 border border-dashed border-gray-300 rounded-xl p-4 text-center group hover:border-sc-orange transition-colors">
                                     <p className="text-sm font-medium text-gray-500 group-hover:text-sc-orange transition-colors">
                                         ✨ Clase privada disponible

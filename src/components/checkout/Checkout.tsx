@@ -138,7 +138,8 @@ export default function Checkout() {
         integritySignature: signature,
         description: 'Curso(s)',
         customerData: JSON.stringify(customerData),
-        redirectionUrl: import.meta.env.PUBLIC_DOMAIN + '/success'
+        redirectionUrl: import.meta.env.PUBLIC_DOMAIN + '/success',
+        expirationDate: ((Date.now() + 8 * 60 * 1000) * 1000000).toString()
       });
 
       checkout.open();

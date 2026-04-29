@@ -110,7 +110,8 @@ export const ReservationForm: React.FC<{ variant?: 'white' | 'gradient'; onSucce
                 integritySignature: signature,
                 description: 'Reserva',
                 customerData: JSON.stringify(customerData),
-                redirectionUrl: import.meta.env.PUBLIC_DOMAIN + '/success-reservation'
+                redirectionUrl: import.meta.env.PUBLIC_DOMAIN + '/success-reservation',
+                expirationDate: ((Date.now() + 8 * 60 * 1000) * 1000000).toString()
             });
 
             // Open the widget

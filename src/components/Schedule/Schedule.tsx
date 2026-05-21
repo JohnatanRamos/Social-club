@@ -191,7 +191,7 @@ export const Schedule: React.FC = () => {
                                         : "gradient-bg text-white hover:shadow-lg"
                                         }`}
                                 >
-                                    {isDisabled ? "Cupo lleno" : (classSession.buttonText || "Reservar Clase")}
+                                    {isDisabled ? "Cupo lleno" : (classSession.buttonText || "Inscribirme")}
                                 </button>
                             </div>
                         );
